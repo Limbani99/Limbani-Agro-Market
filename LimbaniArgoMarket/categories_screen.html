@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Limbani Agro Market - Categories</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                primary: "#1F7A3D",
+                secondary: "#F4B400",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed-variant": "#484743",
+                "inverse-on-surface": "#f0f0f3",
+                "on-primary-fixed": "#00210a",
+                "on-surface-variant": "#3f493f",
+                "surface-container": "#eeeef0",
+                "outline-variant": "#bfcabc",
+                "primary-fixed-dim": "#87d995",
+                "primary-fixed": "#a2f5af",
+                "on-surface": "#1a1c1e",
+                "tertiary": "#53524e",
+                "inverse-surface": "#2f3133",
+                "background": "#f9f9fc",
+                "on-secondary-fixed": "#261900",
+                "on-primary": "#ffffff",
+                "on-background": "#1a1c1e",
+                "surface-bright": "#f9f9fc",
+                "on-secondary-container": "#6b4d00",
+                "on-tertiary": "#ffffff",
+                "surface-dim": "#dadadc",
+                "on-secondary-fixed-variant": "#5d4200",
+                "on-primary-container": "#adffb9",
+                "on-tertiary-container": "#eeebe6",
+                "secondary-fixed": "#ffdea3",
+                "on-primary-fixed-variant": "#005323",
+                "surface-variant": "#e2e2e5",
+                "surface": "#f9f9fc",
+                "secondary-fixed-dim": "#fdbc12",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "primary-container": "#287940",
+                "inverse-primary": "#87d995",
+                "on-tertiary-fixed": "#1c1c19",
+                "tertiary-fixed-dim": "#c9c6c1",
+                "outline": "#6f7a6e",
+                "surface-container-high": "#e8e8ea",
+                "on-error": "#ffffff",
+                "whatsapp-green": "#25D366",
+                "tertiary-fixed": "#e5e2dd",
+                "whatsapp-dark": "#128C7E",
+                "surface-container-low": "#f3f3f6",
+                "tertiary-container": "#6c6a66",
+                "surface-container-highest": "#e2e2e5",
+                "surface-tint": "#176c35",
+                "secondary-container": "#fdbc12"
+              },
+              borderRadius: {
+                DEFAULT: "0.25rem",
+                lg: "0.5rem",
+                xl: "0.75rem",
+                "2xl": "1rem", // 16px rounded corners
+                full: "9999px"
+              },
+              fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                poppins: ['Poppins', 'sans-serif'],
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .soft-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-sans antialiased pt-20">
+<!-- TopNavBar -->
+<header class="bg-white/90 dark:bg-surface-container/90 backdrop-blur-md fixed top-0 left-0 w-full z-50 border-b border-outline-variant/30 shadow-sm hidden md:flex">
+<div class="flex justify-between items-center px-10 h-20 max-w-7xl mx-auto w-full">
+<div class="flex items-center gap-12">
+<a class="font-poppins text-3xl font-bold text-primary tracking-tight" href="#">Limbani Agro</a>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Categories</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Dealers</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Custom Work</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Blog</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Contact</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden xl:flex items-center gap-3 text-outline hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div class="hidden xl:flex items-center gap-3 text-outline hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">search</span>
+</div>
+<button class="bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors duration-200 px-5 py-2.5 rounded-lg font-medium active:scale-95">Login / Register</button>
+<button class="bg-primary text-white hover:bg-primary/90 transition-colors duration-200 px-5 py-2.5 rounded-lg font-medium active:scale-95 shadow-md">Sell Equipment</button>
+</div>
+</div>
+</header>
+<main class="w-full">
+<!-- Hero Banner -->
+<section class="relative w-full min-h-[500px] flex items-center justify-center overflow-hidden mb-16">
+<div class="absolute inset-0 z-0">
+<img alt="Cinematic farming landscape with modern equipment" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAopxn5Zb3qW4oFfQDyGrdfmw6GTuWdsp-ycKBkw68SnL_CZrUncAkJetQHMmpOzNvFjWfGhnJMxfDWM0HuSPB5xRdTd2EhRXBQkGhJ3VFSP8Nhx627PZe3SMmLtEM2f1_g1RGd4fZ7dZa35Cgr-_4Ek4U9y759CDUP9Dj5M9p1JS8rj7g4dhb8lrCrB_n4PF2OYyqYj32qGprjTyryHIu4AFU66rK20cdvqsC5JzZ9FS20S6ca195UTA"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+</div>
+<div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 py-20 flex flex-col items-start text-white">
+<nav class="flex items-center gap-2 text-sm text-white/80 mb-6">
+<a class="hover:text-white transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-medium text-secondary">Categories</span>
+</nav>
+<h1 class="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold mb-4 max-w-3xl leading-tight">Browse Farming Equipment Categories</h1>
+<p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl font-light">Explore a wide range of tractors, implements, and machinery from top brands and trusted dealers across India.</p>
+<!-- Advanced Search Bar -->
+<div class="glass-panel p-3 rounded-2xl flex flex-col md:flex-row gap-3 w-full max-w-5xl soft-shadow">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/70">search</span>
+<input class="w-full bg-white/20 border border-white/30 text-white placeholder:text-white/70 rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all" placeholder="Search equipment (e.g. Mahindra 575 DI)" type="text"/>
+</div>
+<div class="flex-1 relative md:border-l border-white/20 md:pl-3">
+<span class="material-symbols-outlined absolute left-7 top-1/2 -translate-y-1/2 text-white/70 md:left-7">category</span>
+<select class="w-full bg-white/20 md:bg-transparent border border-white/30 md:border-none text-white rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none appearance-none cursor-pointer">
+<option class="text-gray-900" value="">All Categories</option>
+<option class="text-gray-900" value="tractors">Tractors</option>
+<option class="text-gray-900" value="implements">Implements</option>
+<option class="text-gray-900" value="harvesters">Harvesters</option>
+</select>
+</div>
+<div class="flex-1 relative md:border-l border-white/20 md:pl-3">
+<span class="material-symbols-outlined absolute left-7 top-1/2 -translate-y-1/2 text-white/70 md:left-7">location_on</span>
+<select class="w-full bg-white/20 md:bg-transparent border border-white/30 md:border-none text-white rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none appearance-none cursor-pointer">
+<option class="text-gray-900" value="">All States</option>
+<option class="text-gray-900" value="gujarat">Gujarat</option>
+<option class="text-gray-900" value="punjab">Punjab</option>
+<option class="text-gray-900" value="maharashtra">Maharashtra</option>
+</select>
+</div>
+<button class="bg-secondary text-on-secondary-fixed px-8 py-3.5 rounded-xl font-medium hover:bg-secondary/90 transition-colors active:scale-95 text-lg shadow-lg">Search</button>
+</div>
+</div>
+</section>
+<div class="max-w-7xl mx-auto px-6 md:px-10 space-y-20">
+<!-- Premium Category Grid -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-poppins text-3xl font-bold text-gray-900 mb-2">Explore All Categories</h2>
+<p class="text-gray-600">Find exactly what you need for your farm</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Tractor -->
+<a class="group bg-white rounded-2xl overflow-hidden soft-shadow border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
+<div class="h-40 overflow-hidden relative">
+<img alt="Tractor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo57NPp63tAu5Ukzyr7td4V_xcH7-3oiEHnG_k-rhYmCQx_OYvwTcQPv6YEqwT7ohBq-l9Douqnx4t8EzMu-_B3VbSjQkuMr2z88THzfT43H5eQvxqkcikZ4M9feakYSg8dK7jT8mlxFSVBZjuFwjzPh5cilU_w2M3zenKYqE6fllW3PSAYPMyFKbRjZhEAFLcU8af6KvyE_9AOCCE6mreyUcoa2nGH5HTphzTO1e-vRxwuoVTH7INag"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-bold px-2 py-1 rounded-lg">12,450 listings</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">agriculture</span>
+<h3 class="font-poppins text-lg font-bold text-gray-900">Tractor</h3>
+</div>
+<p class="text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100 flex justify-between">
+<span>Starting from</span>
+<span class="font-bold text-gray-900">₹2.5 Lakhs</span>
+</p>
+</div>
+</a>
+<!-- Mini Tractor -->
+<a class="group bg-white rounded-2xl overflow-hidden soft-shadow border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
+<div class="h-40 overflow-hidden relative">
+<div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined text-6xl">directions_car</span>
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-bold px-2 py-1 rounded-lg">3,200 listings</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">directions_car</span>
+<h3 class="font-poppins text-lg font-bold text-gray-900">Mini Tractor</h3>
+</div>
+<p class="text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100 flex justify-between">
+<span>Starting from</span>
+<span class="font-bold text-gray-900">₹1.8 Lakhs</span>
+</p>
+</div>
+</a>
+<!-- Add more categories as per prompt... keeping it brief for the diff -->
+<a class="group bg-white rounded-2xl overflow-hidden soft-shadow border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
+<div class="h-40 overflow-hidden relative">
+<div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined text-6xl">settings</span>
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-bold px-2 py-1 rounded-lg">8,560 listings</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">settings</span>
+<h3 class="font-poppins text-lg font-bold text-gray-900">Implements</h3>
+</div>
+<p class="text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100 flex justify-between">
+<span>Starting from</span>
+<span class="font-bold text-gray-900">₹20,000</span>
+</p>
+</div>
+</a>
+<a class="group bg-white rounded-2xl overflow-hidden soft-shadow border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
+<div class="h-40 overflow-hidden relative">
+<div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined text-6xl">eco</span>
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-bold px-2 py-1 rounded-lg">1,200 listings</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">eco</span>
+<h3 class="font-poppins text-lg font-bold text-gray-900">Harvester</h3>
+</div>
+<p class="text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100 flex justify-between">
+<span>Starting from</span>
+<span class="font-bold text-gray-900">₹15 Lakhs</span>
+</p>
+</div>
+</a>
+</div>
+<div class="text-center mt-8">
+<button class="text-primary font-medium hover:underline inline-flex items-center gap-1">View All Categories <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white w-full pt-16 pb-8 mt-24">
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 px-10 max-w-7xl mx-auto">
+<div class="col-span-1 lg:col-span-2">
+<a class="font-poppins text-2xl font-bold text-primary mb-4 block" href="#">Limbani Agro Market</a>
+<p class="text-gray-400 font-sans mt-2 mb-4 max-w-sm">Connecting farmers with reliable agricultural equipment across the nation.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-poppins text-lg text-white mb-2">Platform</h4>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">About Us</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Equipment Categories</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Authorized Dealers</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-poppins text-lg text-white mb-2">Support</h4>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Contact Support</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Farming Resources</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Terms of Service</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Privacy Policy</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-poppins text-lg text-white mb-2">Stay Updated</h4>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="#">Newsletter Sign-up</a>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-12 pt-8 text-center">
+<p class="text-gray-500 font-sans">© 2024 Limbani Agro Market. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

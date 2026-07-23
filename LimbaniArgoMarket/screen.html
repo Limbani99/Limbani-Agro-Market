@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Limbani Agro Market</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "surface-bright": "#f9f9fc",
+                        "outline-variant": "#bfcabc",
+                        "on-secondary-container": "#6b4d00",
+                        "on-secondary-fixed-variant": "#5d4200",
+                        "surface-container": "#eeeef0",
+                        "secondary-container": "#fdbc13",
+                        "on-primary-fixed": "#00210a",
+                        "on-surface": "#1a1c1e",
+                        "primary-fixed-dim": "#81da91",
+                        "surface": "#f9f9fc",
+                        "primary-fixed": "#9df6ab",
+                        "surface-container-low": "#f3f3f6",
+                        "tertiary-fixed": "#e5e2dd",
+                        "on-secondary-fixed": "#261900",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#005323",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e2e5",
+                        "primary": "#00602a",
+                        "inverse-primary": "#81da91",
+                        "tertiary-container": "#6c6b67",
+                        "on-surface-variant": "#3f493f",
+                        "tertiary-fixed-dim": "#c9c6c2",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1a1c1e",
+                        "inverse-surface": "#2f3133",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9fc",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "on-tertiary-container": "#efece8",
+                        "secondary-fixed": "#ffdea3",
+                        "outline": "#6f7a6e",
+                        "secondary": "#7a5900",
+                        "secondary-fixed-dim": "#fdbc13",
+                        "on-primary-container": "#adffb8",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "surface-tint": "#096d32",
+                        "primary-container": "#1f7a3d",
+                        "tertiary": "#54534f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "16px"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-lg": "48px",
+                        "stack-md": "24px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased pt-[72px]">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-lg fixed top-0 w-full z-50 border-b border-outline-variant/30 dark:border-outline/20 shadow-sm transition-all">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-display-lg text-title-md font-bold text-primary dark:text-primary-fixed-dim">
+                Limbani Agro Market
+            </div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary pb-1 active:scale-95 duration-200 cursor-pointer" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded px-2 py-1 active:scale-95 duration-200 cursor-pointer" href="#">Categories</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded px-2 py-1 active:scale-95 duration-200 cursor-pointer" href="#">Dealers</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded px-2 py-1 active:scale-95 duration-200 cursor-pointer" href="#">Custom Work</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded px-2 py-1 active:scale-95 duration-200 cursor-pointer" href="#">Blog</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded px-2 py-1 active:scale-95 duration-200 cursor-pointer" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined hover:text-primary cursor-pointer active:scale-95 duration-200 transition-all">language</span>
+<span class="material-symbols-outlined hover:text-primary cursor-pointer active:scale-95 duration-200 transition-all">search</span>
+</div>
+<button class="hidden md:block font-label-md text-label-md bg-surface-container text-primary px-4 py-2 rounded-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer">Login</button>
+<button class="font-label-md text-label-md bg-primary-container text-on-primary px-4 py-2 rounded-lg hover:opacity-90 transition-opacity active:scale-95 duration-200 cursor-pointer">Sell Equipment</button>
+<span class="material-symbols-outlined md:hidden cursor-pointer">menu</span>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center w-full h-full z-0" data-alt="A sweeping, breathtaking sunrise over a vast, lush agricultural landscape in India. The early morning light casts a warm, golden glow across the fields, emphasizing the scale and fertility of the land. In the foreground, slightly offset, stands a massive, pristine, modern red agricultural tractor, detailed and powerful, representing top-tier farm equipment. The overall aesthetic is cinematic, expansive, and highly professional, utilizing the 'Modern Minimalist' and 'SaaS-Agricultural Hybrid' style with clean lighting and high resolution." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkRktGkxqZeIEYHqiPHJYQtjg9Mm3G4m2ZvOvL92ouRndOTxVqIs76XZprAgczYOhIoUj2h5iE-Re8uwI0aZkTjSNiF9QU_8wAysRV4AwVSRW3fHM9m66nJyrcIiR5tf3EDNO-1RQMYoslK2XNQvCd_n7oCQxvaE_-E3hUnUJOVTyMgQIGdzvtyVg1eVE07Ho625Ork2T2dkFSlQXjxAiqUQbzRQmU4gGBU4Md6pd6mm4APa6dzEdjZw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-surface/60 to-transparent z-10"></div>
+<div class="relative z-20 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center text-center mt-12">
+<h1 class="font-display-lg text-display-lg text-on-surface max-w-4xl mb-6">Buy &amp; Sell Used Farming Equipment Across India</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">The most trusted marketplace for modern agricultural machinery.</p>
+<div class="w-full max-w-3xl glass-panel rounded-2xl p-4 flex flex-col md:flex-row gap-4 mb-8">
+<div class="flex-1 bg-surface rounded-lg flex items-center px-4 border border-outline-variant focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface ml-2 py-3" placeholder="What are you looking for?" type="text"/>
+</div>
+<div class="w-full md:w-1/4 bg-surface rounded-lg flex items-center px-4 border border-outline-variant">
+<span class="material-symbols-outlined text-outline">category</span>
+<select class="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface ml-2 py-3 appearance-none">
+<option>All Categories</option>
+<option>Tractors</option>
+<option>Harvesters</option>
+</select>
+</div>
+<div class="w-full md:w-1/4 bg-surface rounded-lg flex items-center px-4 border border-outline-variant">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<select class="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface ml-2 py-3 appearance-none">
+<option>All India</option>
+<option>Punjab</option>
+<option>Gujarat</option>
+</select>
+</div>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md px-8 py-3 rounded-lg hover:opacity-90 transition-opacity">Search</button>
+</div>
+<div class="flex flex-wrap justify-center gap-3">
+<span class="bg-surface/80 backdrop-blur-sm border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface hover:bg-primary-container hover:text-on-primary cursor-pointer transition-colors">Tractor</span>
+<span class="bg-surface/80 backdrop-blur-sm border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface hover:bg-primary-container hover:text-on-primary cursor-pointer transition-colors">Rotavator</span>
+<span class="bg-surface/80 backdrop-blur-sm border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface hover:bg-primary-container hover:text-on-primary cursor-pointer transition-colors">Cultivator</span>
+<span class="bg-surface/80 backdrop-blur-sm border border-outline-variant rounded-full px-4 py-2 font-label-md text-label-md text-on-surface hover:bg-primary-container hover:text-on-primary cursor-pointer transition-colors">Harvester</span>
+</div>
+</div>
+</section>
+<!-- Categories Section -->
+<section class="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Browse by Category</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Find the exact equipment you need for your farm.</p>
+</div>
+<a class="font-label-md text-label-md text-primary hover:underline hidden md:block" href="#">View All Categories</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-gutter">
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden cursor-pointer group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1">
+<div class="h-32 bg-surface-container relative">
+<img class="w-full h-full object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300" data-alt="A clean, studio-lit, high-resolution photograph of a modern green agricultural tractor on a pristine white background. The image is crisp, detailed, and professional, suitable for a premium marketplace category thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkCU4wzOwIgJGePnIVCE7oS1JVLfqBQZelpjmcr_qoWw2X9w9szKQIuekUTRm0mNAXMIyAEdCyaCRC7_4PVgdPkoKjsHI3ar9IfGmocaOKMPQq1PcbeeCm3KvMRyEBSeHqFXeiBJjGCGnq1gYzfk7CE33HBQz-m0nHCwObeXtIfcR7voCi0EVlqNqtyHE1Z-QuCea61TeqT5ZP-RV3cQazkR3Zzv5ZtB35EM6MbzF7CBye0RNA4jgbtQ"/>
+</div>
+<div class="p-4 text-center">
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Tractors</h3>
+</div>
+</div>
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden cursor-pointer group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1">
+<div class="h-32 bg-surface-container relative">
+<img class="w-full h-full object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300" data-alt="A clean, studio-lit, high-resolution photograph of a heavy-duty agricultural rotavator implement on a pristine white background. The metal details are sharp and well-lit. The image is professional, suitable for a premium marketplace category thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv_w5beeF2WOzJBihQxE-XhWpFNkshBRmg9StWWc0toa7upE0pF0tygEG7yFeIRPS0YJfxWWX9cz2j9w2SNANE0vb1bl3zt_IiYEu2vulYwC5M3zeXSTMg-FKGbuz3edXvvF1dY89ZrjImIZbw9J7Kn2UPqHqZwAz4j67ipMdry_aRysYf4jXREgxLTAZwBjTA2Pc1JwiENkMa1tO0f-PWHMuroUDhhSGH1PyaYQbX8gm5-1zvi5i6cg"/>
+</div>
+<div class="p-4 text-center">
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Rotavator</h3>
+</div>
+</div>
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden cursor-pointer group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1">
+<div class="h-32 bg-surface-container relative">
+<img class="w-full h-full object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300" data-alt="A clean, studio-lit, high-resolution photograph of an agricultural cultivator implement on a pristine white background. The tines and structural steel are clearly visible. The image is professional, suitable for a premium marketplace category thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG-x2Iva2_JROLsbQD1Adn0uuEDLpnJzlBu_mPYwiN0pP56VYLK3K5vrDmDhEJt9nghJue-0XQvDpyUqRVyUifO7YHJAYPji3aEDUT1NJDGk0pusCHc3KOYJ9z55YJ_tIFIo-02t2k2InxxpINiKaGNK5vATMnNn6E6zRgHBX-x0jHEnzwR_gWsURRLUomOK8lbWh0FnstFpH61yZXWEy_rSCvDtmf0mS110i0yMS_mf6nbgA_HoS7Ug"/>
+</div>
+<div class="p-4 text-center">
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Cultivator</h3>
+</div>
+</div>
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden cursor-pointer group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1">
+<div class="h-32 bg-surface-container relative">
+<img class="w-full h-full object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300" data-alt="A clean, studio-lit, high-resolution photograph of a heavy steel agricultural plough implement on a pristine white background. The image is crisp, detailed, and professional, suitable for a premium marketplace category thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzhvZGLIn5hxPR0Civ_P894fw6UURj5JiVnxkxWsx55EEvi1m-4DzDtUxWS67cW7cFw4Pr2nqa3gCu9yrmQGPOyZpCrO9e44qqV7iaoWa5oWptlADJNKuCzi6z6Qv8DydDiVFhCU74mY-9jGYo4O-NXgV0oW6f_m3_-ULnJNdPDSCvuasbbjpHjBkmCVBne-CgHwt52Yr_Cd07teNfFuIlvCRLYk_6Asyd45cT424HDTIz4r5P-6GyYQ"/>
+</div>
+<div class="p-4 text-center">
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Plough</h3>
+</div>
+</div>
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden cursor-pointer group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1">
+<div class="h-32 bg-surface-container relative">
+<img class="w-full h-full object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300" data-alt="A clean, studio-lit, high-resolution photograph of a massive, modern combine harvester machine on a pristine white background. The image is highly detailed, showcasing the header and cab clearly. Professional marketplace style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA93teIHrSA3iIqq77X2nHOFQF8bDxQwD2y904cQZDwuEHCkGib-mI6T-tEAbh8151SyTXkGOFQUBGmyQKMfauUEET1np2kKgNX-nE_avYQSWO-QbbJCLU14B1PtyDDcWOyt0eNQ2DqkDDZoVSsG6bdN-mGOpkzbm94cbqZmY7YCH94Uope-T-t9VW9Dlii0sBxgvtjQsCpEvb_ma-kezYTeVZpW586nj7pGphZYujoyti5fhJ6obiAw"/>
+</div>
+<div class="p-4 text-center">
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Harvester</h3>
+</div>
+</div>
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden cursor-pointer group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1">
+<div class="h-32 bg-surface-container relative">
+<img class="w-full h-full object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300" data-alt="A clean, studio-lit, high-resolution photograph of an agricultural tractor trailer (trolley) on a pristine white background. It is sturdy and painted in bright colors. The image is professional, suitable for a premium marketplace category thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8WhAcBIS71SV4hKXoeBwqJNB5DqqTvnZCW-GBbs8vmRHROFCuwEGNa8IzutyDDEVGRD6SZ5u1ebM3qtSgIjlNu4Ig4ew_INxCC4I39WFanzjF_ekrjS-58AG9iAJv1QEzV7fVTzRGyE-OGI4t4EGFKuZcY0L0J0RU51V4V6JReZLb5bek7x5XS6FydFGiIo9PMDPcdUxpgh0UNBsdCtv1Y9ckB5nhcRrC2nkdvrtcJQy2D9szBy2X3A"/>
+</div>
+<div class="p-4 text-center">
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Trailer</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest Equipment Listings -->
+<section class="py-stack-lg bg-surface-bright border-y border-outline-variant/20">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Latest Equipment</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Recently added machinery from verified sellers.</p>
+</div>
+<button class="font-label-md text-label-md bg-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors hidden md:block">View All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden group flex flex-col h-full border border-outline-variant/30">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality, 4:3 aspect ratio photograph of a well-maintained, slightly used John Deere tractor parked in an open field under clear daylight. The green paint is shiny, and the tires show deep treads. The shot is well-composed to show the full machine scale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWZdxf5cvj3b_9VwOd3Dbza4PsAK0fJJXyR-UCUq_eJ-BLoH4mmeHeDors6hfB1JEJa1vycR9ICZpadTl84sBzrPUAchTCJeakj_D2ooZeOh3u4EbNn8t0-_uvathQlyJHs4FoG5la9itO2dG1cU1pJ39kjZdFPB0uHUb5Wdjlo6eDyFQ55Nnw3vFiFhDULsXVebuNYh5PQJqbs0k3XwnlcDw_IRSTjK9pNkr0MRU5atzLChtUuDdQtQ"/>
+<div class="absolute top-2 left-2 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">star</span> Featured
+                        </div>
+<div class="absolute top-2 right-2 glass-panel rounded-full p-1.5 cursor-pointer hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-white">favorite</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">John Deere 5310 2WD</h3>
+<span class="glass-panel text-primary-container font-label-sm px-2 py-0.5 rounded text-xs ml-2 whitespace-nowrap border-primary/20">Verified</span>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container mb-4">₹ 7,50,000</p>
+<div class="flex gap-4 mb-4 border-b border-outline-variant/20 pb-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Year</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">2021</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hours</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">1200 h</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Condition</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Excellent</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Ludhiana, Punjab</span>
+</div>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-primary-container text-on-primary font-label-md text-label-md py-2 rounded-lg hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span> Call
+                            </button>
+<button class="bg-[#25D366]/10 text-[#128C7E] font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-[#25D366]/20 transition-colors flex justify-center items-center border border-[#25D366]/30">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden group flex flex-col h-full border border-outline-variant/30">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality, 4:3 aspect ratio photograph of a rugged Mahindra tractor parked near a barn. The lighting is warm and natural. The tractor appears reliable and heavily built, typical of the brand, ready for heavy agricultural work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5XPRPvkVkohXEVxl_ItBTDQQJYEZi4g543jqkFumzyTS2LtnKaK2-8mJkc-Eyp5JpcPyIKwfsR8VC_VcRY7KFfsAUrojHUdeM4gslsfX3i8O8PFA7itvQQW8SlvZmowdxALLwTzsV2Qi1lwEBrIflwyRE8fEuVDaAFI_EB39Rx85_jc3vU7epTE3ZsOYWa8IHzv6KXPY6Znn3ANAhw2fCrUXCOX1ph5Dp1g_sI7A-Gy_C4zKoaY8KkA"/>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Mahindra Arjun Novo 605 DI-i</h3>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container mb-4">₹ 6,80,000</p>
+<div class="flex gap-4 mb-4 border-b border-outline-variant/20 pb-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Year</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">2019</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hours</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">2500 h</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Condition</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Good</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Rajkot, Gujarat</span>
+</div>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-primary-container text-on-primary font-label-md text-label-md py-2 rounded-lg hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span> Call
+                            </button>
+<button class="bg-[#25D366]/10 text-[#128C7E] font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-[#25D366]/20 transition-colors flex justify-center items-center border border-[#25D366]/30">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden group flex flex-col h-full border border-outline-variant/30 hidden md:flex">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality photograph of a robust agricultural rotavator implement attached to the back of a tractor (tractor partially visible). The scene is set in a freshly tilled field. The implement looks sturdy with sharp blades, indicating heavy-duty capability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrlfPS9tK3o4_1WLmzz_bZdYmcbVGnRL3_4ZG7h6gj03ozZdCJ3GtVbrPwuoSG1TmUiGOKaM5Ni7htsjcpYEoM2IBOnGreNohRHolNN9z0W6xczrwY11CuqmCWsqAg002u5dHcX5lSsNIjZ25bUL9I54IJDbh9RsNYI48UDEfQ4TvEGqUVAnPZoyd2YYAMWupVpIZPdq4-OqwDHztYfDuRlbKfM3X3fZdyyXqhjiyASOV6fqh87B-12Q"/>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Shaktiman Regular Light Rotavator</h3>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container mb-4">₹ 95,000</p>
+<div class="flex gap-4 mb-4 border-b border-outline-variant/20 pb-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Year</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">2022</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Width</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">6 ft</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Condition</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Like New</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Pune, Maharashtra</span>
+</div>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-primary-container text-on-primary font-label-md text-label-md py-2 rounded-lg hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span> Call
+                            </button>
+<button class="bg-[#25D366]/10 text-[#128C7E] font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-[#25D366]/20 transition-colors flex justify-center items-center border border-[#25D366]/30">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-2xl card-shadow overflow-hidden group flex flex-col h-full border border-outline-variant/30 hidden lg:flex">
+<div class="relative h-48 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality photograph of a large, complex combine harvester working in a vast golden wheat field. Dust is slightly visible around the header, showing it in action. The machine is predominantly red and highly detailed. Professional agricultural imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtY9yDD4nf6bMGZosv0v_WTBSVvER9zP71sqxIGkk7LSIwrb5F9W24KqRFzVqRTCxXDLQiu_hsZdYmS-wZm-b3MhGig04LiQYEt7nDUhaufix6CABQzR3oRLGSk7Qj5k7mdsviET4_HF_U4jfTssOodUJ4NeNbc3U4JW-8LiR65OpodDVi1PaQUhD0IQ9AxPPZBahAuIDTQpm_zLjuti1vgaOIf2tsWZ_uHfiPx7E74ouxvsAgAG9emg"/>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Preet 987 Combine Harvester</h3>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container mb-4">₹ 18,50,000</p>
+<div class="flex gap-4 mb-4 border-b border-outline-variant/20 pb-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Year</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">2018</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hours</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">4200 h</span>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Condition</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Fair</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Karnal, Haryana</span>
+</div>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-primary-container text-on-primary font-label-md text-label-md py-2 rounded-lg hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span> Call
+                            </button>
+<button class="bg-[#25D366]/10 text-[#128C7E] font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-[#25D366]/20 transition-colors flex justify-center items-center border border-[#25D366]/30">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dealer Section & Premium Memberships -->
+<section class="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center max-w-2xl mx-auto mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Verified Dealer Network</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Connect with top-rated agricultural machinery dealers near you or upgrade your account to sell faster.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+<!-- Silver -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-6 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 rounded-full bg-outline-variant/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">workspace_premium</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Silver Dealer</h3>
+</div>
+<ul class="space-y-3 mb-8 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Up to 10 active listings</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Standard search visibility</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Basic seller profile</li>
+</ul>
+<button class="mt-auto w-full border border-primary text-primary font-label-md text-label-md py-3 rounded-lg hover:bg-primary/5 transition-colors">Become Silver</button>
+</div>
+<!-- Gold -->
+<div class="bg-surface-bright rounded-2xl border-2 border-secondary-container p-6 flex flex-col relative transform md:-translate-y-4 shadow-lg">
+<div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-secondary-container text-on-secondary-container font-label-sm px-4 py-1 rounded-full">Most Popular</div>
+<div class="flex items-center gap-3 mb-4 mt-2">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">workspace_premium</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Gold Dealer</h3>
+</div>
+<ul class="space-y-3 mb-8 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Up to 50 active listings</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Priority search visibility</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Verified Gold Badge</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Analytics dashboard</li>
+</ul>
+<button class="mt-auto w-full bg-primary-container text-on-primary font-label-md text-label-md py-3 rounded-lg hover:opacity-90 transition-opacity">Become Gold</button>
+</div>
+<!-- Platinum -->
+<div class="bg-surface rounded-2xl border border-outline-variant p-6 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-12 h-12 rounded-full bg-inverse-surface/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-inverse-surface">workspace_premium</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Platinum Dealer</h3>
+</div>
+<ul class="space-y-3 mb-8 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Unlimited listings</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Top search visibility</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span> Dedicated account manager</li>
+</ul>
+<button class="mt-auto w-full border border-primary text-primary font-label-md text-label-md py-3 rounded-lg hover:bg-primary/5 transition-colors">Become Platinum</button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim w-full py-stack-lg border-t border-outline-variant dark:border-outline flat no shadows mt-12">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-4 lg:col-span-2 mb-8 lg:mb-0">
+<div class="font-display-lg text-headline-lg text-primary dark:text-primary-fixed-dim mb-4">
+                    Limbani Agro Market
+                </div>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant mb-4 max-w-xs">
+                    Connecting farmers and dealers across India to buy and sell quality used agricultural equipment securely and efficiently.
+                </p>
+<div class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant">
+                    © 2024 Limbani Agro Market. All rights reserved.
+                </div>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-4">Quick Links</h4>
+<ul class="space-y-2 flex flex-col">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline hover:text-primary transition-all cursor-pointer w-fit" href="#">Company</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline hover:text-primary transition-all cursor-pointer w-fit" href="#">Categories</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline hover:text-primary transition-all cursor-pointer w-fit" href="#">Dealers</a>
+</ul>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-4">Services</h4>
+<ul class="space-y-2 flex flex-col">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline hover:text-primary transition-all cursor-pointer w-fit" href="#">Custom Work</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline hover:text-primary transition-all cursor-pointer w-fit" href="#">Resources</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:underline hover:text-primary transition-all cursor-pointer w-fit" href="#">Contact</a>
+</ul>
+</div>
+<div class="col-span-2 md:col-span-2">
+<h4 class="font-title-md text-title-md text-on-surface mb-4">Newsletter</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Subscribe for the latest equipment deals and farming tips.</p>
+<div class="flex gap-2">
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Your email" type="email"/>
+<button class="bg-primary-container text-on-primary font-label-md px-4 py-2 rounded-lg hover:opacity-90">Subscribe</button>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
