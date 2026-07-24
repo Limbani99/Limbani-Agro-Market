@@ -56,12 +56,12 @@ const LatestEquipment = () => {
     return (
         <section className="py-stack-lg bg-surface-bright border-y border-outline-variant/20">
             <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-                <div className="flex justify-between items-end mb-8">
+                <div className="flex flex-wrap justify-between items-start sm:items-end mb-6 md:mb-8 gap-3">
                     <div>
                         <h2 className="font-headline-lg text-headline-lg text-on-surface">Latest Equipment</h2>
-                        <p className="font-body-md text-body-md text-on-surface-variant mt-2">Recently added machinery from verified sellers.</p>
+                        <p className="font-body-md text-body-md text-on-surface-variant mt-1">Recently added machinery from verified sellers.</p>
                     </div>
-                    <a href="/equipments" className="font-label-md text-label-md bg-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors hidden md:block text-on-surface">
+                    <a href="/equipments" className="font-label-md text-label-md bg-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors text-on-surface">
                         View All
                     </a>
                 </div>

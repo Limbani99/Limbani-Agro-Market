@@ -14,30 +14,30 @@ const HomeCategories = () => {
     return (
         <section className="py-24 bg-surface-container-lowest">
             <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 md:mb-12 gap-4">
                     <div className="max-w-2xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm mb-4 border border-secondary/20 font-bold">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm mb-3 md:mb-4 border border-secondary/20 font-bold">
                             <span className="material-symbols-outlined text-[16px]">category</span>
                             Categories
                         </div>
-                        <h2 className="font-display-md text-3xl md:text-4xl font-bold text-on-surface mb-4">Browse by Equipment Type</h2>
-                        <p className="font-body-lg text-on-surface-variant">Find the exact machinery you need for your farm quickly and easily. Browse thousands of verified listings.</p>
+                        <h2 className="font-display-md text-2xl sm:text-3xl md:text-4xl font-bold text-on-surface mb-2 md:mb-4">Browse by Equipment Type</h2>
+                        <p className="font-body-lg text-sm sm:text-base text-on-surface-variant">Find the exact machinery you need for your farm quickly and easily. Browse thousands of verified listings.</p>
                     </div>
-                    <Link to="/categories" className="font-label-md text-label-md text-primary font-bold hover:bg-primary/10 px-6 py-3 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap">
-                        Explore All Categories <span className="material-symbols-outlined">arrow_forward</span>
+                    <Link to="/categories" className="font-label-md text-label-md text-primary font-bold hover:bg-primary/10 px-4 py-2 md:px-6 md:py-3 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap shrink-0">
+                        Explore All <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </Link>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
                     {categories.map((cat, idx) => (
-                        <Link to="/equipments" key={idx} className="bg-surface rounded-3xl card-shadow overflow-hidden group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-2 hover:shadow-xl flex flex-col">
-                            <div className="h-40 bg-gradient-to-br from-surface-container-low to-surface-container flex items-center justify-center p-4 relative overflow-hidden">
+                        <Link to="/equipments" key={idx} className="bg-surface rounded-2xl md:rounded-3xl card-shadow overflow-hidden group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1 md:hover:-translate-y-2 hover:shadow-xl flex flex-col">
+                            <div className="h-28 sm:h-32 md:h-40 bg-gradient-to-br from-surface-container-low to-surface-container flex items-center justify-center p-2 sm:p-4 relative overflow-hidden">
                                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                 <img className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500 drop-shadow-md" src={cat.img} alt={cat.name} />
                             </div>
-                            <div className="p-5 text-center bg-surface flex-1 flex flex-col justify-center">
-                                <h3 className="font-title-md font-bold text-on-surface group-hover:text-primary transition-colors">{cat.name}</h3>
-                                <p className="text-sm text-on-surface-variant font-medium mt-1">{cat.count} listings</p>
+                            <div className="p-3 sm:p-4 md:p-5 text-center bg-surface flex-1 flex flex-col justify-center">
+                                <h3 className="font-title-md text-sm sm:text-base font-bold text-on-surface group-hover:text-primary transition-colors">{cat.name}</h3>
+                                <p className="text-xs sm:text-sm text-on-surface-variant font-medium mt-1">{cat.count} listings</p>
                             </div>
                         </Link>
                     ))}

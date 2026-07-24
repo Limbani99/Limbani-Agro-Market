@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,10 +22,13 @@ const Navbar = () => {
 
     return (
         <nav className="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-lg fixed top-0 w-full z-50 border-b border-outline-variant/30 dark:border-outline/20 shadow-sm transition-all">
-            <div className="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
-                <div className="font-display-lg text-title-md font-bold text-primary dark:text-primary-fixed-dim">
-                    Limbani Agro Market
-                </div>
+            <div className="flex justify-between items-center px-3 sm:px-margin-mobile md:px-margin-desktop py-3 md:py-4 max-w-container-max mx-auto">
+                <Link to="/" className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0">
+                    <img src="/logo.png" alt="Limbani Agro Market Logo" className="w-8 h-8 sm:w-9 sm:h-9 md:w-12 md:h-12 object-contain rounded-lg shrink-0" />
+                    <span className="font-display-lg text-sm sm:text-base md:text-title-lg font-bold text-primary dark:text-primary-fixed-dim leading-tight truncate">
+                        Limbani Agro Market
+                    </span>
+                </Link>
                 <div className="hidden md:flex gap-8 items-center">
                     <NavLink to="/" className={desktopLinkClass}>Home</NavLink>
                     <NavLink to="/equipments" className={desktopLinkClass}>Equipments</NavLink>
@@ -49,8 +52,8 @@ const Navbar = () => {
 
             {/* Mobile Menu Dropdown */}
             {isMobileMenuOpen && (
-                <div className="md:hidden bg-surface dark:bg-surface-dim border-t border-outline-variant/30 px-margin-mobile py-4 shadow-xl absolute w-full left-0 top-full flex flex-col gap-4">
-                    <div className="flex flex-col gap-2">
+                <div className="md:hidden bg-surface dark:bg-surface-dim border-t border-outline-variant/30 px-3 sm:px-margin-mobile py-4 shadow-xl absolute w-full left-0 top-full flex flex-col gap-4 animate-[slideDown_0.2s_ease-out]">
+                    <div className="flex flex-col gap-1">
                         <NavLink to="/" className={mobileLinkClass} onClick={toggleMenu}>Home</NavLink>
                         <NavLink to="/equipments" className={mobileLinkClass} onClick={toggleMenu}>Equipments</NavLink>
                         <NavLink to="/categories" className={mobileLinkClass} onClick={toggleMenu}>Categories</NavLink>

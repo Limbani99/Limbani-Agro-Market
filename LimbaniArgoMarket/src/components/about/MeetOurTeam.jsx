@@ -45,7 +45,7 @@ const MeetOurTeam = () => {
                         </div>
 
                         {/* Right Side: Image */}
-                        <div className="relative h-[400px] lg:h-auto lg:min-h-[500px]">
+                        <div className="relative h-[280px] sm:h-[350px] lg:h-auto lg:min-h-[500px]">
                             <img
                                 src="/founder.jpg"
                                 alt="Patel Man Nareshbhai"
