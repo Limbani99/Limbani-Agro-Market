@@ -3,6 +3,8 @@ import Layout from './layout/Layout'
 import Home from './page/Home'
 import Categories from './page/Categories'
 import Dealers from './page/Dealers'
+import About from './page/About'
+import Equipments from './page/Equipments'
 
 function App() {
   return (
@@ -11,8 +13,11 @@ function App() {
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
           <Route path='/categories' element={<Categories />} />
+          <Route path='/equipments' element={<Equipments />} />
           <Route path='/dealers' element={<Dealers />} />
+          <Route path='/about' element={<About />} />
         </Route>
+        <Route path='*' element={<div className="text-center py-stack-lg text-headline-lg text-on-surface">404 Page Not Found</div>} />
       </Routes>
     </>
   )

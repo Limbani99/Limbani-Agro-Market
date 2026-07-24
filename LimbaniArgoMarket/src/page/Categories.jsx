@@ -6,7 +6,7 @@ const Categories = () => {
             {/* Hero Banner */}
             <section className="relative w-full min-h-[500px] flex items-center justify-center overflow-hidden mb-16">
                 <div className="absolute inset-0 z-0">
-                    <img alt="Cinematic farming landscape with modern equipment" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAopxn5Zb3qW4oFfQDyGrdfmw6GTuWdsp-ycKBkw68SnL_CZrUncAkJetQHMmpOzNvFjWfGhnJMxfDWM0HuSPB5xRdTd2EhRXBQkGhJ3VFSP8Nhx627PZe3SMmLtEM2f1_g1RGd4fZ7dZa35Cgr-_4Ek4U9y759CDUP9Dj5M9p1JS8rj7g4dhb8lrCrB_n4PF2OYyqYj32qGprjTyryHIu4AFU66rK20cdvqsC5JzZ9FS20S6ca195UTA"/>
+                    <img alt="Cinematic farming landscape with modern equipment" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAopxn5Zb3qW4oFfQDyGrdfmw6GTuWdsp-ycKBkw68SnL_CZrUncAkJetQHMmpOzNvFjWfGhnJMxfDWM0HuSPB5xRdTd2EhRXBQkGhJ3VFSP8Nhx627PZe3SMmLtEM2f1_g1RGd4fZ7dZa35Cgr-_4Ek4U9y759CDUP9Dj5M9p1JS8rj7g4dhb8lrCrB_n4PF2OYyqYj32qGprjTyryHIu4AFU66rK20cdvqsC5JzZ9FS20S6ca195UTA" />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
                 </div>
                 <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20 flex flex-col items-start text-white">
@@ -17,12 +17,12 @@ const Categories = () => {
                     </nav>
                     <h1 className="font-display-lg text-4xl md:text-5xl lg:text-6xl font-bold mb-4 max-w-3xl leading-tight text-white">Browse Farming Equipment Categories</h1>
                     <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl font-light">Explore a wide range of tractors, implements, and machinery from top brands and trusted dealers across India.</p>
-                    
+
                     {/* Advanced Search Bar */}
                     <div className="glass-panel p-3 rounded-2xl flex flex-col md:flex-row gap-3 w-full max-w-5xl card-shadow border-white/30 bg-white/10">
                         <div className="flex-1 relative">
                             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/70">search</span>
-                            <input className="w-full bg-white/20 border border-white/30 text-white placeholder:text-white/70 rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all" placeholder="Search equipment (e.g. Mahindra 575 DI)" type="text"/>
+                            <input className="w-full bg-white/20 border border-white/30 text-white placeholder:text-white/70 rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all" placeholder="Search equipment (e.g. Mahindra 575 DI)" type="text" />
                         </div>
                         <div className="flex-1 relative md:border-l border-white/20 md:pl-3">
                             <span className="material-symbols-outlined absolute left-7 top-1/2 -translate-y-1/2 text-white/70 md:left-7">category</span>
@@ -46,7 +46,7 @@ const Categories = () => {
                     </div>
                 </div>
             </section>
-            
+
             <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop space-y-20 pb-20">
                 {/* Premium Category Grid */}
                 <section>
@@ -60,7 +60,7 @@ const Categories = () => {
                         {/* Tractor */}
                         <a className="group bg-white rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
                             <div className="h-40 overflow-hidden relative bg-surface-container">
-                                <img alt="Tractor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo57NPp63tAu5Ukzyr7td4V_xcH7-3oiEHnG_k-rhYmCQx_OYvwTcQPv6YEqwT7ohBq-l9Douqnx4t8EzMu-_B3VbSjQkuMr2z88THzfT43H5eQvxqkcikZ4M9feakYSg8dK7jT8mlxFSVBZjuFwjzPh5cilU_w2M3zenKYqE6fllW3PSAYPMyFKbRjZhEAFLcU8af6KvyE_9AOCCE6mreyUcoa2nGH5HTphzTO1e-vRxwuoVTH7INag"/>
+                                <img alt="Tractor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo57NPp63tAu5Ukzyr7td4V_xcH7-3oiEHnG_k-rhYmCQx_OYvwTcQPv6YEqwT7ohBq-l9Douqnx4t8EzMu-_B3VbSjQkuMr2z88THzfT43H5eQvxqkcikZ4M9feakYSg8dK7jT8mlxFSVBZjuFwjzPh5cilU_w2M3zenKYqE6fllW3PSAYPMyFKbRjZhEAFLcU8af6KvyE_9AOCCE6mreyUcoa2nGH5HTphzTO1e-vRxwuoVTH7INag" />
                                 <div className="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-bold px-2 py-1 rounded-lg">12,450 listings</div>
                             </div>
                             <div className="p-5 flex flex-col flex-1">
@@ -74,7 +74,7 @@ const Categories = () => {
                                 </p>
                             </div>
                         </a>
-                        
+
                         {/* Mini Tractor */}
                         <a className="group bg-white rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
                             <div className="h-40 overflow-hidden relative bg-surface-container">
@@ -94,7 +94,7 @@ const Categories = () => {
                                 </p>
                             </div>
                         </a>
-                        
+
                         {/* Implements */}
                         <a className="group bg-white rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
                             <div className="h-40 overflow-hidden relative bg-surface-container">
@@ -114,7 +114,7 @@ const Categories = () => {
                                 </p>
                             </div>
                         </a>
-                        
+
                         {/* Harvester */}
                         <a className="group bg-white rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
                             <div className="h-40 overflow-hidden relative bg-surface-container">
@@ -134,10 +134,6 @@ const Categories = () => {
                                 </p>
                             </div>
                         </a>
-                    </div>
-                    
-                    <div className="text-center mt-8">
-                        <button className="text-primary font-medium hover:underline inline-flex items-center gap-1">View All Categories <span className="material-symbols-outlined text-sm">arrow_forward</span></button>
                     </div>
                 </section>
             </div>
