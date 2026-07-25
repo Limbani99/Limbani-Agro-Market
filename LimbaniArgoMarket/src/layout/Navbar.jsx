@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ onOpenSellModal }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -15,9 +15,9 @@ const Navbar = () => {
             : 'text-on-surface-variant dark:text-on-tertiary-container border-transparent hover:text-primary font-semibold');
 
     const mobileLinkClass = ({ isActive }) =>
-        `font-title-sm text-base rounded-lg px-4 py-3 transition-colors active:scale-95 duration-200 flex items-center ` +
+        `font-title-sm text-base rounded-xl px-4 py-3 transition-all active:scale-98 duration-200 flex items-center gap-3 ` +
         (isActive
-            ? 'text-primary font-bold bg-primary/10'
+            ? 'text-primary font-bold bg-primary/10 border-l-4 border-primary'
             : 'text-on-surface-variant hover:bg-surface-container-low hover:text-primary font-medium');
 
     return (
@@ -40,7 +40,10 @@ const Navbar = () => {
                     <button className="hidden md:block font-label-md text-label-md bg-surface-container text-primary px-5 py-2.5 rounded-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer font-semibold">
                         Login
                     </button>
-                    <button className=" hidden md:block font-label-md text-label-md bg-primary-container text-on-primary px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity active:scale-95 duration-200 cursor-pointer font-semibold">
+                    <button 
+                        onClick={onOpenSellModal}
+                        className="hidden md:block font-label-md text-label-md bg-primary-container text-on-primary px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity active:scale-95 duration-200 cursor-pointer font-semibold"
+                    >
                         Sell Equipment
                     </button>
                     <button className="md:hidden cursor-pointer p-2 rounded-lg hover:bg-surface-container transition-colors flex items-center justify-center" onClick={toggleMenu} aria-label="Toggle menu">
@@ -54,19 +57,35 @@ const Navbar = () => {
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-surface dark:bg-surface-dim border-t border-outline-variant/30 px-3 sm:px-margin-mobile py-4 shadow-xl absolute w-full left-0 top-full flex flex-col gap-4 animate-[slideDown_0.2s_ease-out]">
                     <div className="flex flex-col gap-1">
-                        <NavLink to="/" className={mobileLinkClass} onClick={toggleMenu}>Home</NavLink>
-                        <NavLink to="/equipments" className={mobileLinkClass} onClick={toggleMenu}>Equipments</NavLink>
-                        <NavLink to="/categories" className={mobileLinkClass} onClick={toggleMenu}>Categories</NavLink>
-                        <NavLink to="/dealers" className={mobileLinkClass} onClick={toggleMenu}>Dealers</NavLink>
-                        <NavLink to="/about" className={mobileLinkClass} onClick={toggleMenu}>About</NavLink>
+                        <NavLink to="/" className={mobileLinkClass} onClick={toggleMenu}>
+                            <span className="material-symbols-outlined text-[20px]">home</span> Home
+                        </NavLink>
+                        <NavLink to="/equipments" className={mobileLinkClass} onClick={toggleMenu}>
+                            <span className="material-symbols-outlined text-[20px]">agriculture</span> Equipments
+                        </NavLink>
+                        <NavLink to="/categories" className={mobileLinkClass} onClick={toggleMenu}>
+                            <span className="material-symbols-outlined text-[20px]">category</span> Categories
+                        </NavLink>
+                        <NavLink to="/dealers" className={mobileLinkClass} onClick={toggleMenu}>
+                            <span className="material-symbols-outlined text-[20px]">storefront</span> Dealers
+                        </NavLink>
+                        <NavLink to="/about" className={mobileLinkClass} onClick={toggleMenu}>
+                            <span className="material-symbols-outlined text-[20px]">info</span> About
+                        </NavLink>
                     </div>
 
-                    <div className="flex flex-col gap-3 mt-2 border-t border-outline-variant/30 pt-4">
-                        <button className="w-full font-label-md text-label-md bg-surface-container text-primary px-4 py-3.5 rounded-lg hover:bg-surface-container-high transition-colors font-bold">
-                            Login
+                    <div className="flex flex-col gap-2.5 mt-1 border-t border-outline-variant/30 pt-3">
+                        <button className="w-full font-label-md text-label-md bg-surface-container text-primary px-4 py-3 rounded-xl hover:bg-surface-container-high active:scale-98 transition-all font-bold flex items-center justify-center gap-2">
+                            <span className="material-symbols-outlined text-[18px]">login</span> Login
                         </button>
-                        <button className="w-full font-label-md text-label-md bg-primary-container text-on-primary px-4 py-3.5 rounded-lg hover:opacity-90 transition-opacity font-bold">
-                            Sell Equipment
+                        <button 
+                            onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                if (onOpenSellModal) onOpenSellModal();
+                            }}
+                            className="w-full font-label-md text-label-md bg-primary text-on-primary px-4 py-3 rounded-xl hover:bg-primary/90 active:scale-98 transition-all font-bold flex items-center justify-center gap-2 shadow-sm"
+                        >
+                            <span className="material-symbols-outlined text-[18px]">add_circle</span> Sell Equipment
                         </button>
                     </div>
                 </div>

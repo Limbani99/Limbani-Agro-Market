@@ -20,14 +20,14 @@ const OurServices = () => {
                     <p className="text-on-surface-variant text-lg">A complete ecosystem designed to support every aspect of the agricultural supply chain.</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                     {services.map((service, idx) => (
-                        <div key={idx} className="bg-surface p-6 rounded-2xl border border-outline-variant/30 card-shadow hover:border-primary/50 hover:shadow-lg transition-all group cursor-pointer">
-                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${service.color}`}>
-                                <span className="material-symbols-outlined text-3xl">{service.icon}</span>
+                        <div key={idx} className="bg-surface p-3.5 sm:p-6 rounded-2xl border border-outline-variant/30 card-shadow hover:border-primary/50 hover:shadow-lg active:scale-95 transition-all group cursor-pointer flex flex-col justify-between">
+                            <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-3 sm:mb-6 transition-transform group-hover:scale-110 ${service.color}`}>
+                                <span className="material-symbols-outlined text-xl sm:text-3xl">{service.icon}</span>
                             </div>
-                            <h3 className="font-title-md text-lg font-bold text-on-surface mb-2">{service.title}</h3>
-                            <div className="w-8 h-1 bg-outline-variant/50 rounded-full group-hover:bg-primary transition-colors mt-4"></div>
+                            <h3 className="font-title-md text-xs sm:text-lg font-bold text-on-surface mb-1 sm:mb-2">{service.title}</h3>
+                            <div className="w-6 sm:w-8 h-1 bg-outline-variant/50 rounded-full group-hover:bg-primary transition-colors mt-2 sm:mt-4"></div>
                         </div>
                     ))}
                 </div>

@@ -25,8 +25,16 @@ const HomeHero = () => {
                     The most trusted, transparent, and direct marketplace to find modern agricultural machinery without any hidden commissions.
                 </p>
 
-                {/* Glassmorphism Quick Search */}
-
+                {/* Glassmorphism Quick Search Bar */}
+                <div className="w-full max-w-2xl bg-surface/20 backdrop-blur-xl border border-white/30 p-2 rounded-2xl md:rounded-full shadow-2xl flex flex-col md:flex-row gap-2 mb-8 md:mb-10">
+                    <div className="flex-1 flex items-center px-3 sm:px-4 py-2">
+                        <span className="material-symbols-outlined text-white/80 mr-2 sm:mr-3 text-xl">search</span>
+                        <input type="text" placeholder="Search Tractors, Rotavator, Harvester..." className="w-full bg-transparent border-none text-white placeholder:text-white/70 focus:outline-none text-sm sm:text-base font-body-md" />
+                    </div>
+                    <Link to="/equipments" className="bg-primary text-on-primary font-bold px-6 py-3 rounded-xl md:rounded-full hover:bg-primary/90 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2 text-sm sm:text-base">
+                        Search <span className="material-symbols-outlined text-lg">search</span>
+                    </Link>
+                </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                     <Link to="/equipments" className="bg-white text-primary font-bold px-6 py-3 rounded-xl hover:bg-surface-container-lowest transition-colors shadow-lg active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base">

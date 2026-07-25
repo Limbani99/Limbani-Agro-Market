@@ -5,6 +5,7 @@ import Categories from './page/Categories'
 import Dealers from './page/Dealers'
 import About from './page/About'
 import Equipments from './page/Equipments'
+import EquipmentDetails from './page/EquipmentDetails'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/categories' element={<Categories />} />
           <Route path='/equipments' element={<Equipments />} />
+          <Route path='/equipment/:id' element={<EquipmentDetails />} />
           <Route path='/dealers' element={<Dealers />} />
           <Route path='/about' element={<About />} />
         </Route>
