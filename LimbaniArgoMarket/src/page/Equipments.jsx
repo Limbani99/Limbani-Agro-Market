@@ -91,13 +91,13 @@ const Equipments = () => {
                     <p className="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
                         Browse our complete inventory of tractors, harvesters, and implements from verified sellers across India.
                     </p>
-                    
+
                     <div className="max-w-3xl mx-auto flex gap-4">
                         <div className="flex-1 bg-surface-container rounded-lg flex items-center px-4 border border-outline-variant focus-within:border-primary transition-colors">
                             <span className="material-symbols-outlined text-outline">search</span>
-                            <input 
-                                className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface ml-2 py-3 outline-none" 
-                                placeholder="Search by name, brand or model..." 
+                            <input
+                                className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface ml-2 py-3 outline-none"
+                                placeholder="Search by name, brand or model..."
                                 type="text"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -123,7 +123,7 @@ const Equipments = () => {
                 </div>
 
                 {filteredEquipments.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
                         {filteredEquipments.map(eq => (
                             <EquipmentCard key={eq.id} equipment={eq} />
                         ))}

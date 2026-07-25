@@ -3,7 +3,7 @@ import React from 'react';
 const DealerCard = ({ dealer }) => {
     return (
         <article className="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow border border-surface-variant flex flex-col hover:border-primary-container transition-colors group">
-            <div className="h-48 relative overflow-hidden bg-surface-container">
+            <div className="h-28 sm:h-40 md:h-48 relative overflow-hidden bg-surface-container">
                 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Dealership" src={dealer.image}/>
                 {dealer.isPremium && (
                     <div className="absolute top-4 left-4 bg-secondary-container text-on-secondary-container font-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm font-bold text-xs">
@@ -11,20 +11,20 @@ const DealerCard = ({ dealer }) => {
                     </div>
                 )}
             </div>
-            <div className="p-6 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-title-md text-xl font-bold text-on-surface">{dealer.name}</h3>
+            <div className="p-3 sm:p-5 md:p-6 flex-1 flex flex-col">
+                <div className="flex justify-between items-start mb-1 sm:mb-2">
+                    <h3 className="font-title-md text-sm sm:text-xl font-bold text-on-surface line-clamp-2">{dealer.name}</h3>
                     <div className="flex items-center gap-1 bg-surface-container px-2 py-1 rounded text-xs font-bold text-on-surface">
                         <span className="material-symbols-outlined text-[14px] text-secondary-container" style={{ fontVariationSettings: "'FILL' 1" }}>star</span> {dealer.rating}
                     </div>
                 </div>
-                <p className="text-on-surface-variant text-sm mb-4 flex items-center gap-1 font-medium">
+                <p className="hidden sm:flex text-on-surface-variant text-sm mb-3 items-center gap-1 font-medium">
                     {dealer.isVerified && (
                         <span className="material-symbols-outlined text-[16px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
                     )} 
-                    {dealer.isVerified ? 'Verified Dealer • ' : ''}{dealer.yearsInBusiness} Years in Business
+                    {dealer.isVerified ? 'Verified • ' : ''}{dealer.yearsInBusiness} Yrs
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-6">
+                <div className="hidden sm:grid grid-cols-2 gap-2 mb-4">
                     <div className="flex items-center gap-2 text-sm text-on-surface-variant font-medium">
                         <span className="material-symbols-outlined text-[18px] text-outline">location_on</span>
                         {dealer.location}
@@ -34,8 +34,8 @@ const DealerCard = ({ dealer }) => {
                         {dealer.listingsCount} Listings
                     </div>
                 </div>
-                <div className="mt-auto grid grid-cols-2 gap-2">
-                    <button className="w-full bg-surface-container border border-outline-variant text-on-surface font-semibold text-sm py-2 rounded-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+                <div className="mt-auto grid grid-cols-2 gap-1.5 sm:gap-2">
+                    <button className="w-full bg-surface-container border border-outline-variant text-on-surface font-semibold text-xs sm:text-sm py-2 rounded-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-1">
                         <span className="material-symbols-outlined text-[18px]">call</span> Call
                     </button>
                     <button className="w-full bg-[#128C7E]/10 border border-[#128C7E] text-[#128C7E] font-semibold text-sm py-2 rounded-lg hover:bg-[#128C7E]/20 transition-colors flex items-center justify-center gap-2">
