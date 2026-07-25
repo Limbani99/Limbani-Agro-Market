@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-const Navbar = ({ onOpenSellModal }) => {
+const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -37,15 +37,15 @@ const Navbar = ({ onOpenSellModal }) => {
                     <NavLink to="/about" className={desktopLinkClass}>About</NavLink>
                 </div>
                 <div className="flex items-center gap-4">
-                    <button className="hidden md:block font-label-md text-label-md bg-surface-container text-primary px-5 py-2.5 rounded-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer font-semibold">
+                    <Link to="/login" className="hidden md:block font-label-md text-label-md bg-surface-container text-primary px-5 py-2.5 rounded-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer font-semibold">
                         Login
-                    </button>
-                    <button 
-                        onClick={onOpenSellModal}
+                    </Link>
+                    <Link 
+                        to="/equipments"
                         className="hidden md:block font-label-md text-label-md bg-primary-container text-on-primary px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity active:scale-95 duration-200 cursor-pointer font-semibold"
                     >
                         Sell Equipment
-                    </button>
+                    </Link>
                     <button className="md:hidden cursor-pointer p-2 rounded-lg hover:bg-surface-container transition-colors flex items-center justify-center" onClick={toggleMenu} aria-label="Toggle menu">
                         <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
                     </button>
@@ -75,18 +75,16 @@ const Navbar = ({ onOpenSellModal }) => {
                     </div>
 
                     <div className="flex flex-col gap-2.5 mt-1 border-t border-outline-variant/30 pt-3">
-                        <button className="w-full font-label-md text-label-md bg-surface-container text-primary px-4 py-3 rounded-xl hover:bg-surface-container-high active:scale-98 transition-all font-bold flex items-center justify-center gap-2">
+                        <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full font-label-md text-label-md bg-surface-container text-primary px-4 py-3 rounded-xl hover:bg-surface-container-high active:scale-98 transition-all font-bold flex items-center justify-center gap-2">
                             <span className="material-symbols-outlined text-[18px]">login</span> Login
-                        </button>
-                        <button 
-                            onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                if (onOpenSellModal) onOpenSellModal();
-                            }}
-                            className="w-full font-label-md text-label-md bg-primary text-on-primary px-4 py-3 rounded-xl hover:bg-primary/90 active:scale-98 transition-all font-bold flex items-center justify-center gap-2 shadow-sm"
+                        </Link>
+                        <Link 
+                            to="/equipments"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="w-full font-label-md text-label-md bg-primary text-on-primary px-4 py-3 rounded-xl hover:bg-primary/90 active:scale-98 transition-all font-bold flex items-center justify-center gap-2 shadow-sm text-center"
                         >
                             <span className="material-symbols-outlined text-[18px]">add_circle</span> Sell Equipment
-                        </button>
+                        </Link>
                     </div>
                 </div>
             )}
