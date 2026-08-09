@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd LimbaniArgoMarket && npm install && npm run build",
+  "outputDirectory": "LimbaniArgoMarket/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
