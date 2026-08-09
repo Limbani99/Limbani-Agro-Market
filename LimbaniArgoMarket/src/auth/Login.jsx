@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useData } from '../context/DataProvider';
 
 const Login = () => {
-    const [loginMethod, setLoginMethod] = useState('phone'); // 'phone' or 'email'
+    const navigate = useNavigate();
+    const { login } = useData();
+    const [loginMethod, setLoginMethod] = useState('phone');
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         phoneOrEmail: '',
         password: '',
         rememberMe: false
     });
+
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -18,9 +24,29 @@ const Login = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert(`Login submitted for ${formData.phoneOrEmail}`);
+        try {
+            const payload = {
+                email: formData.phoneOrEmail,
+                password: formData.password
+            };
+
+            const response = await axios.post(`${API_BASE_URL}/api/user/login`, payload);
+            if (response.status === 200) {
+                if (login) {
+                    login(response.data.user, response.data.token);
+                } else {
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    localStorage.setItem('token', response.data.token);
+                }
+                alert('Login successful!');
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            alert(error.response?.data?.message || 'Login failed. Please check your credentials.');
+        }
     };
 
     return (
@@ -73,8 +99,8 @@ const Login = () => {
                                 <img src="/logo.png" alt="Limbani Agro Market Logo" className="w-12 h-12 object-contain rounded-xl shadow-md group-hover:scale-105 transition-transform" />
                                 <span className="font-display-lg text-xl font-bold text-primary">Limbani Agro</span>
                             </Link>
-                            <h1 className="font-display-lg text-2xl sm:text-3xl font-bold text-on-surface">Welcome Back</h1>
-                            <p className="font-body-md text-sm text-on-surface-variant mt-1">Sign in to manage your listings & equipment</p>
+                            <h1 className="font-display-lg text-2xl sm:text-3xl font-bold text-on-surface">Seller Sign In</h1>
+                            <p className="font-body-md text-sm text-on-surface-variant mt-1">Sign in to manage your equipment listings & sales</p>
                         </div>
 
                         {/* Method Toggle: Phone or Email */}

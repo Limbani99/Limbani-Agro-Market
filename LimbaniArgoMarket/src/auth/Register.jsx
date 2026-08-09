@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
-    const [userRole, setUserRole] = useState('farmer'); // 'farmer' or 'dealer'
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
@@ -23,13 +26,35 @@ const Register = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
-        alert(`Account registration submitted for ${formData.fullName} (${userRole})`);
+        try {
+            const payload = {
+                name: formData.fullName,
+                phone: formData.phone,
+                email: formData.email,
+                password: formData.password,
+                role: "user", // Seller role
+                address: {
+                    city: formData.location
+                }
+            };
+
+            const res = await axios.post(`${API_BASE_URL}/api/user/register`, payload);
+            if (res.status === 200 || res.status === 201) {
+                alert("Seller account created successfully!");
+                navigate('/login');
+            } else {
+                alert(res.data?.message || "Registration failed");
+            }
+        } catch (err) {
+            console.error("Registration error:", err);
+            alert(err.response?.data?.message || "Account registration failed.");
+        }
     };
 
     return (
@@ -47,28 +72,28 @@ const Register = () => {
             {/* Register Card Container */}
             <div className="relative z-10 w-full max-w-4xl mx-4 sm:mx-auto">
                 <div className="bg-surface/95 dark:bg-surface-dim/95 backdrop-blur-xl rounded-3xl card-shadow border border-white/20 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
-                    
+
                     {/* Left Side: Farmer Image Banner */}
                     <div className="hidden lg:relative lg:flex flex-col justify-between p-10 overflow-hidden bg-surface-container">
-                        <img 
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo57NPp63tAu5Ukzyr7td4V_xcH7-3oiEHnG_k-rhYmCQx_OYvwTcQPv6YEqwT7ohBq-l9Douqnx4t8EzMu-_B3VbSjQkuMr2z88THzfT43H5eQvxqkcikZ4M9feakYSg8dK7jT8mlxFSVBZjuFwjzPh5cilU_w2M3zenKYqE6fllW3PSAYPMyFKbRjZhEAFLcU8af6KvyE_9AOCCE6mreyUcoa2nGH5HTphzTO1e-vRxwuoVTH7INag" 
-                            alt="Indian Farmer in Field" 
+                        <img
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo57NPp63tAu5Ukzyr7td4V_xcH7-3oiEHnG_k-rhYmCQx_OYvwTcQPv6YEqwT7ohBq-l9Douqnx4t8EzMu-_B3VbSjQkuMr2z88THzfT43H5eQvxqkcikZ4M9feakYSg8dK7jT8mlxFSVBZjuFwjzPh5cilU_w2M3zenKYqE6fllW3PSAYPMyFKbRjZhEAFLcU8af6KvyE_9AOCCE6mreyUcoa2nGH5HTphzTO1e-vRxwuoVTH7INag"
+                            alt="Indian Farmer in Field"
                             className="absolute inset-0 w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20"></div>
-                        
+
                         <div className="relative z-10">
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-primary/30 text-white border border-white/20 font-bold text-xs backdrop-blur-md">
-                                <span className="material-symbols-outlined text-sm">agriculture</span> Join Limbani Agro Market
+                                <span className="material-symbols-outlined text-sm">storefront</span> Seller Portal
                             </span>
                         </div>
 
                         <div className="relative z-10 text-white space-y-2">
                             <h2 className="font-display-lg text-2xl font-bold leading-tight">
-                                Start Buying & Selling Machinery Today
+                                Sell Your Agricultural Equipment & Machinery
                             </h2>
                             <p className="text-white/80 text-xs sm:text-sm leading-relaxed font-light">
-                                Create a free account to connect with verified equipment owners and trusted dealers across India.
+                                Create your seller account to list tractors, harvesters, and tools for buyers across India.
                             </p>
                         </div>
                     </div>
@@ -82,49 +107,49 @@ const Register = () => {
                                 <img src="/logo.png" alt="Limbani Agro Market Logo" className="w-10 h-10 object-contain rounded-xl shadow-md group-hover:scale-105 transition-transform" />
                                 <span className="font-display-lg text-lg font-bold text-primary">Limbani Agro</span>
                             </Link>
-                            <h1 className="font-display-lg text-2xl font-bold text-on-surface">Create Your Account</h1>
-                            <p className="font-body-md text-xs text-on-surface-variant mt-1">Join thousands of farmers & dealers in India</p>
-                        </div>
-
-                        {/* Account Type Selector: Farmer or Dealer */}
-                        <div className="flex bg-surface-container p-1 rounded-2xl mb-5 border border-outline-variant/30">
-                            <button
-                                type="button"
-                                onClick={() => setUserRole('farmer')}
-                                className={`flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${userRole === 'farmer' ? 'bg-surface text-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
-                            >
-                                <span className="material-symbols-outlined text-[18px]">agriculture</span> Farmer / Individual
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setUserRole('dealer')}
-                                className={`flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${userRole === 'dealer' ? 'bg-surface text-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
-                            >
-                                <span className="material-symbols-outlined text-[18px]">storefront</span> Equipment Dealer
-                            </button>
+                            <h1 className="font-display-lg text-2xl font-bold text-on-surface">Seller Registration</h1>
+                            <p className="font-body-md text-xs text-on-surface-variant mt-1">Register to sell your farming equipment</p>
                         </div>
 
                         {/* Registration Form */}
                         <form onSubmit={handleSubmit} className="space-y-3.5">
-                            
-                            {/* Full Name */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1">Full Name *</label>
-                                <div className="relative">
-                                    <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">person</span>
-                                    <input
-                                        type="text"
-                                        name="fullName"
-                                        required
-                                        placeholder="e.g. Ramesh Patel"
-                                        value={formData.fullName}
-                                        onChange={handleChange}
-                                        className="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-primary rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-on-surface placeholder:text-on-surface-variant/60 outline-none transition-all"
-                                    />
+
+                            {/* Full Name & Email Grid */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-on-surface mb-1">Full Name *</label>
+                                    <div className="relative">
+                                        <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">person</span>
+                                        <input
+                                            type="text"
+                                            name="fullName"
+                                            required
+                                            placeholder="e.g. Ramesh Patel"
+                                            value={formData.fullName}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-primary rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-on-surface placeholder:text-on-surface-variant/60 outline-none transition-all"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-on-surface mb-1">Email Address *</label>
+                                    <div className="relative">
+                                        <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">mail</span>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            required
+                                            placeholder="e.g. ramesh@gmail.com"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-primary rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-on-surface placeholder:text-on-surface-variant/60 outline-none transition-all"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Mobile Number & Email Grid */}
+                            {/* Mobile Number & Location Grid */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                     <label className="block text-xs font-bold text-on-surface mb-1">Mobile Number *</label>
@@ -230,16 +255,16 @@ const Register = () => {
                                 type="submit"
                                 className="w-full bg-primary text-on-primary font-bold text-sm sm:text-base py-3 rounded-xl hover:bg-primary/90 active:scale-98 transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer mt-3"
                             >
-                                <span className="material-symbols-outlined text-[20px]">how_to_reg</span> Create Account
+                                <span className="material-symbols-outlined text-[20px]">storefront</span> Register as Seller
                             </button>
 
                         </form>
 
                         {/* Sign In Link */}
                         <p className="text-center text-xs sm:text-sm text-on-surface-variant font-medium mt-5">
-                            Already have an account?{' '}
+                            Already have a seller account?{' '}
                             <Link to="/login" className="font-bold text-primary hover:underline">
-                                Sign In
+                                Seller Sign In
                             </Link>
                         </p>
 

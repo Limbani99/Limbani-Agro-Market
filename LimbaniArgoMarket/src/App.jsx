@@ -6,9 +6,13 @@ import Dealers from './page/Dealers'
 import About from './page/About'
 import Equipments from './page/Equipments'
 import EquipmentDetails from './page/EquipmentDetails'
+import Profile from './page/Profile'
 import Login from './auth/Login'
 import Register from './auth/Register'
 import DealerDetails from './page/DealerDetails'
+import AddProduct from './page/AddProduct'
+import AddDrivable from './page/AddDrivable'
+import AddNonDrivable from './page/AddNonDrivable'
 
 function App() {
   return (
@@ -22,8 +26,12 @@ function App() {
           <Route path='/dealers' element={<Dealers />} />
           <Route path='/dealer/:id' element={<DealerDetails />} />
           <Route path='/about' element={<About />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/add-product' element={<AddProduct />} />
+          <Route path='/add-drivable' element={<AddDrivable />} />
+          <Route path='/add-nondrivable' element={<AddNonDrivable />} />
         </Route>
         <Route path='*' element={<div className="text-center py-stack-lg text-headline-lg text-on-surface">404 Page Not Found</div>} />
       </Routes>
