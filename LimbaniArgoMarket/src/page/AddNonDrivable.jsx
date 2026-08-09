@@ -5,7 +5,7 @@ import { useData } from '../context/DataProvider';
 const AddNonDrivable = () => {
     const navigate = useNavigate();
     const { userData } = useData();
-    const API_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
     const storedUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     const sellerId = userData?._id || userData?.id || storedUser?._id || storedUser?.id || null;
     const [submitting, setSubmitting] = useState(false);

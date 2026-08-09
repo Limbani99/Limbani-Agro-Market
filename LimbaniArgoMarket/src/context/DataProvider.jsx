@@ -6,7 +6,7 @@ export const Data = createContext();
 
 export const DataProvider = ({ children }) => {
     const navigate = useNavigate();
-    const API_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
     const [token, setToken] = useState(null);
     const [userData, setUserData] = useState(null);
     const [role, setRole] = useState(null);

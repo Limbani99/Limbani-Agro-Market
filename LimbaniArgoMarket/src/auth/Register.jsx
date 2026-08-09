@@ -6,7 +6,7 @@ const Register = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -44,7 +44,7 @@ const Register = () => {
                 }
             };
 
-            const res = await axios.post(`${API_BASE_URL}/api/user/register`, payload);
+            const res = await axios.post(`${API_URL}/api/user/register`, payload);
             if (res.status === 200 || res.status === 201) {
                 alert("Seller account created successfully!");
                 navigate('/login');

@@ -9,7 +9,7 @@ const AddDrivable = () => {
     const { userData } = useData();
     const Id = userData?._id;
 
-    const API_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
     // Form fields based on handwritten Image 1
     const [formData, setFormData] = useState({
         sellerName: '',

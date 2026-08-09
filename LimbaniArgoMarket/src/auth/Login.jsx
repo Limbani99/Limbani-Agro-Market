@@ -14,7 +14,7 @@ const Login = () => {
         rememberMe: false
     });
 
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
+    const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -32,7 +32,7 @@ const Login = () => {
                 password: formData.password
             };
 
-            const response = await axios.post(`${API_BASE_URL}/api/user/login`, payload);
+            const response = await axios.post(`${API_URL}/api/user/login`, payload);
             if (response.status === 200) {
                 if (login) {
                     login(response.data.user, response.data.token);
