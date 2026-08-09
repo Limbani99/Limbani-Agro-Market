@@ -51,7 +51,7 @@ const UserRegister = async (req, res) => {
         });
     } catch (error) {
         console.error("Register Error:", error);
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
