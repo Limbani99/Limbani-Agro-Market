@@ -6,6 +6,7 @@ export const Data = createContext();
 
 export const DataProvider = ({ children }) => {
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
     const [token, setToken] = useState(null);
     const [userData, setUserData] = useState(null);
     const [role, setRole] = useState(null);
@@ -29,7 +30,33 @@ export const DataProvider = ({ children }) => {
         setIsLoggedIn(false);
         navigate("/");
     };
-
+    //all equipment data
+    const getAllEquipment = async () => {
+        try {
+            const res = await axios.get(`${API_URL}/api/product/get-all-product`);
+            return res.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    //all dealer data
+    const getAllDealer = async () => {
+        try {
+            const res = await axios.get(`${API_URL}/api/dealer`);
+            return res.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    //all category data
+    const allCategory = async () => {
+        try {
+            const res = await axios.get(`${API_URL}/api/category`);
+            return res.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         const storedUser = localStorage.getItem("user");
@@ -71,6 +98,9 @@ export const DataProvider = ({ children }) => {
         token,
         login,
         logout,
+        getAllEquipment,
+        getAllDealer,
+        allCategory,
     };
 
     return (

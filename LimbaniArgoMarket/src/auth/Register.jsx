@@ -6,7 +6,7 @@ const Register = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+    const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
 
     const [formData, setFormData] = useState({
         fullName: '',

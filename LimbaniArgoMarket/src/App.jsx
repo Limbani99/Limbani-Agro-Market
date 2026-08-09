@@ -13,6 +13,7 @@ import DealerDetails from './page/DealerDetails'
 import AddProduct from './page/AddProduct'
 import AddDrivable from './page/AddDrivable'
 import AddNonDrivable from './page/AddNonDrivable'
+import NotFound from './page/NotFound'
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Route path='/add-drivable' element={<AddDrivable />} />
           <Route path='/add-nondrivable' element={<AddNonDrivable />} />
         </Route>
-        <Route path='*' element={<div className="text-center py-stack-lg text-headline-lg text-on-surface">404 Page Not Found</div>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   )
