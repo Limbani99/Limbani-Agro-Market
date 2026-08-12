@@ -43,6 +43,8 @@ const DealerDetails = () => {
         ...item,
         id: item._id || item.id || id,
         name: item.name || item.contactPerson || "Verified Dealer",
+        coverimg: item.coverimg || "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+        profileimg: item.profileimg || item.image || "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80",
         image: item.profileimg || item.image || "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80",
         phone: item.phone || "+91 90233 41592",
         whatsapp: item.whatsapp || item.phone || "919023341592",
@@ -131,10 +133,10 @@ const DealerDetails = () => {
                     {/* Cover Background */}
                     <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden bg-surface-container">
                         <img
-                            src={dealer.image}
+                            src={dealer.coverimg}
                             alt={dealer.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80"; }}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80"; }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"></div>
 
@@ -153,7 +155,7 @@ const DealerDetails = () => {
                             {/* Logo & Info */}
                             <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 relative z-10">
                                 <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-surface p-2 shadow-xl border-2 border-primary/30 shrink-0 overflow-hidden">
-                                    <img src={dealer.image} alt={dealer.name} className="w-full h-full object-cover rounded-xl" onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80"; }} />
+                                    <img src={dealer.profileimg} alt={dealer.name} className="w-full h-full object-cover rounded-xl" onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80"; }} />
                                 </div>
                                 <div className="space-y-1 sm:mb-2">
                                     <div className="flex items-center gap-2 flex-wrap">
