@@ -1,12 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataProvider';
+import EquipmentCard from '../components/EquipmentCard';
 
 const Profile = () => {
-    const { userData, logout } = useData();
+    const { userData, logout, getAllProduct } = useData();
     const [copiedContact, setCopiedContact] = useState(false);
+    const [userProducts, setUserProducts] = useState([]);
+    const [loadingProducts, setLoadingProducts] = useState(true);
 
     const storedUser = userData || JSON.parse(localStorage.getItem('user') || 'null');
+
+    useEffect(() => {
+        const fetchUserProducts = async () => {
+            if (!storedUser) {
+                setLoadingProducts(false);
+                return;
+            }
+            const userId = storedUser._id || storedUser.id;
+            try {
+                if (getAllProduct) {
+                    const data = await getAllProduct();
+                    if (data && Array.isArray(data)) {
+                        const filtered = data.filter(item => {
+                            const sId = item.sellerId?._id || item.sellerId || item.user?._id || item.user || item.userId;
+                            const sName = item.sellerName || item.seller;
+                            
+                            const matchesId = sId && userId && String(sId) === String(userId);
+                            const matchesName = sName && storedUser.name && String(sName).trim().toLowerCase() === String(storedUser.name).trim().toLowerCase();
+
+                            return matchesId || matchesName;
+                        });
+
+                        const normalized = filtered.map((item, index) => ({
+                            id: item._id || item.id || index + 1,
+                            name: item.title || item.productName || item.name || "Agricultural Machinery",
+                            price: typeof item.price === 'number' ? `₹${item.price.toLocaleString('en-IN')}` : (item.price || 'Contact for Price'),
+                            location: [item.district, item.state].filter(Boolean).join(', ') || item.address || item.location || "Gujarat, India",
+                            year: item.manufactureYear || item.year || 2022,
+                            hours: item.horsePower ? `${item.horsePower} HP` : (item.hours || item.width || 'Standard'),
+                            condition: item.condition || 'Used',
+                            image: item.images?.[0] || item.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80",
+                            isVerified: true
+                        }));
+
+                        setUserProducts(normalized);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching user products:", err);
+            } finally {
+                setLoadingProducts(false);
+            }
+        };
+
+        fetchUserProducts();
+    }, [storedUser?.name, storedUser?._id, storedUser?.id]);
 
     const handleCopyContact = () => {
         if (!storedUser) return;
@@ -135,7 +184,7 @@ const Profile = () => {
             </section>
 
             {/* USER DETAILS GRID */}
-            <section className="max-w-container-max mx-auto px-3 sm:px-6 lg:px-8 mb-10">
+            <section className="max-w-container-max mx-auto px-3 sm:px-6 lg:px-8 mb-8 sm:mb-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
 
                     {/* Left Column: Bio & Skills */}
@@ -235,6 +284,52 @@ const Profile = () => {
                     </div>
 
                 </div>
+            </section>
+
+            {/* MY LISTED PRODUCTS / EQUIPMENT SECTION */}
+            <section className="max-w-container-max mx-auto px-3 sm:px-6 lg:px-8 mb-10">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 className="font-display-md text-xl sm:text-2xl font-bold text-on-surface flex items-center gap-2">
+                            <span className="material-symbols-outlined text-primary text-2xl">inventory_2</span>
+                            My Listed Equipment ({userProducts.length})
+                        </h2>
+                        <p className="text-on-surface-variant text-xs sm:text-sm mt-0.5">Agricultural machinery listed under your account</p>
+                    </div>
+                    <Link
+                        to="/add-product"
+                        className="bg-primary text-on-primary font-bold text-xs sm:text-sm px-4 py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+                    >
+                        <span className="material-symbols-outlined text-base">add</span>
+                        <span>List Equipment</span>
+                    </Link>
+                </div>
+
+                {loadingProducts ? (
+                    <div className="text-center py-12 bg-surface-container-lowest rounded-2xl border border-outline-variant/30">
+                        <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent mb-3"></div>
+                        <p className="text-on-surface-variant font-medium text-sm">Loading your equipment listings...</p>
+                    </div>
+                ) : userProducts.length > 0 ? (
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+                        {userProducts.map(item => (
+                            <EquipmentCard key={item.id} equipment={item} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-12 px-4 bg-surface-container-lowest rounded-2xl border border-outline-variant/30">
+                        <span className="material-symbols-outlined text-5xl text-outline mb-2">agriculture</span>
+                        <h3 className="font-title-md text-base font-bold text-on-surface mb-1">No Listed Machinery Found</h3>
+                        <p className="text-on-surface-variant text-xs sm:text-sm mb-5 max-w-sm mx-auto">You haven't posted any equipment for sale or rent yet.</p>
+                        <Link
+                            to="/add-product"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary font-bold text-xs sm:text-sm rounded-xl hover:bg-primary/90 transition-all shadow-md"
+                        >
+                            <span className="material-symbols-outlined text-lg">add_circle</span>
+                            Post Your First Equipment
+                        </Link>
+                    </div>
+                )}
             </section>
 
         </main>
