@@ -97,4 +97,15 @@ const userlogin = async (req, res) => {
     }
 };
 
-module.exports = { UserRegister, userlogin };
+// get all dealers
+const GetAllDealers = async (req, res) => {
+    try {
+        const dealers = await User.find({ role: { $in: ["dealer", "user", "seller"] } }).select("-password");
+        res.status(200).json(dealers);
+    } catch (error) {
+        console.error("Get Dealers Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { UserRegister, userlogin, GetAllDealers };

@@ -92,4 +92,41 @@ const GetAllProduct = async (req, res) => {
     }
 }
 
-module.exports = { AddProduct, UpdateProduct, DeleteProduct, GetProduct, GetAllProduct }
+//get product by category
+const GetProductByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+        const products = await Product.find({ category });
+        res.status(200).json({ message: "Products fetched successfully", products });
+    } catch (error) {
+        console.error("Get Product By Category Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+//get product by category and state
+const GetProductByCategoryAndState = async (req, res) => {
+    try {
+        const { category, state } = req.params;
+        const products = await Product.find({ category, state });
+        res.status(200).json({ message: "Products fetched successfully", products });
+    } catch (error) {
+        console.error("Get Product By Category And State Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+//get product by category, state and district
+const GetProductByCategoryStateAndDistrict = async (req, res) => {
+    try {
+        const { category, state, district } = req.params;
+        const products = await Product.find({ category, state, district });
+        res.status(200).json({ message: "Products fetched successfully", products });
+    } catch (error) {
+        console.error("Get Product By Category State And District Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+module.exports = { AddProduct, UpdateProduct, DeleteProduct, GetProduct, GetAllProduct, GetProductByCategory, GetProductByCategoryAndState, GetProductByCategoryStateAndDistrict }
