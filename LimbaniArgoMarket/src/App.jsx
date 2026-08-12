@@ -14,6 +14,7 @@ import DealerDetails from './page/DealerDetails'
 import AddProduct from './page/AddProduct'
 import AddDrivable from './page/AddDrivable'
 import AddNonDrivable from './page/AddNonDrivable'
+import EditProduct from './page/EditProduct'
 import NotFound from './page/NotFound'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/add-product' element={<AddProduct />} />
           <Route path='/add-drivable' element={<AddDrivable />} />
           <Route path='/add-nondrivable' element={<AddNonDrivable />} />
+          <Route path='/edit-product/:id' element={<EditProduct />} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataProvider';
 import EquipmentCard from '../components/EquipmentCard';
+import axios from 'axios';
 
 const Profile = () => {
     const { userData, logout, getAllProduct } = useData();
@@ -10,6 +11,7 @@ const Profile = () => {
     const [loadingProducts, setLoadingProducts] = useState(true);
 
     const storedUser = userData || JSON.parse(localStorage.getItem('user') || 'null');
+    const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
 
     useEffect(() => {
         const fetchUserProducts = async () => {
@@ -62,6 +64,17 @@ const Profile = () => {
         navigator.clipboard.writeText(`Name: ${storedUser.name || 'N/A'}\nPhone: ${storedUser.phone || 'N/A'}\nEmail: ${storedUser.email || 'N/A'}\nAddress: ${storedUser.address || 'N/A'}`);
         setCopiedContact(true);
         setTimeout(() => setCopiedContact(false), 2000);
+    };
+
+    const handleDeleteProduct = async (productId) => {
+        if (!window.confirm("Are you sure you want to delete this equipment listing?")) return;
+        try {
+            await axios.delete(`${API_URL}/api/product/delete-product/${productId}`);
+            setUserProducts(prev => prev.filter(p => p.id !== productId));
+        } catch (err) {
+            console.error("Delete product error:", err);
+            alert("Failed to delete product. Please try again.");
+        }
     };
 
     if (!storedUser) {
@@ -313,7 +326,23 @@ const Profile = () => {
                 ) : userProducts.length > 0 ? (
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                         {userProducts.map(item => (
-                            <EquipmentCard key={item.id} equipment={item} />
+                            <div key={item.id} className="flex flex-col h-full bg-surface rounded-2xl overflow-hidden card-shadow border border-outline-variant/30">
+                                <EquipmentCard equipment={item} />
+                                <div className="p-2 sm:p-3 bg-surface-container/40 border-t border-outline-variant/20 flex gap-2">
+                                    <Link
+                                        to={`/edit-product/${item.id}`}
+                                        className="flex-1 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-on-primary text-primary font-bold text-xs py-2 rounded-xl text-center transition-all flex items-center justify-center gap-1"
+                                    >
+                                        <span className="material-symbols-outlined text-[15px]">edit</span> Edit
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDeleteProduct(item.id)}
+                                        className="bg-error/10 border border-error/20 hover:bg-error hover:text-white text-error font-bold text-xs px-3 py-2 rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer"
+                                    >
+                                        <span className="material-symbols-outlined text-[15px]">delete</span> Delete
+                                    </button>
+                                </div>
+                            </div>
                         ))}
                     </div>
                 ) : (
