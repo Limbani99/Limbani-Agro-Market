@@ -34,24 +34,36 @@ export const DataProvider = ({ children }) => {
     const getAllEquipment = async () => {
         try {
             const res = await axios.get(`${API_URL}/api/product/get-all-product`);
-            return res.data;
+            return res.data?.products || (Array.isArray(res.data) ? res.data : []);
         } catch (error) {
             console.log(error);
+            return [];
         }
     };
     //all dealer data
     const getAllDealer = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/dealer`);
+            const res = await axios.get(`${API_URL}/api/user/get-all-dealer`);
             return res.data;
         } catch (error) {
-            console.log(error);
+            console.log("Error fetching dealers:", error);
+            return [];
         }
     };
-    //all category data
-    const allCategory = async () => {
+    //all product data
+    const getAllProduct = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/category`);
+            const res = await axios.get(`${API_URL}/api/product/get-all-product`);
+            return res.data?.products || (Array.isArray(res.data) ? res.data : []);
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    };
+    //get product by category data
+    const getProductByCategory = async (category) => {
+        try {
+            const res = await axios.get(`${API_URL}/api/product/get-product-by-category/${category}`);
             return res.data;
         } catch (error) {
             console.log(error);
@@ -100,7 +112,8 @@ export const DataProvider = ({ children }) => {
         logout,
         getAllEquipment,
         getAllDealer,
-        allCategory,
+        getAllProduct,
+        getProductByCategory,
     };
 
     return (

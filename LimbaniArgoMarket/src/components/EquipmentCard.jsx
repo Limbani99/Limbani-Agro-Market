@@ -1,11 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const getValidImageUrl = (img) => {
+    if (!img || typeof img !== 'string') return "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80";
+    if (img.startsWith('blob:')) return "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80";
+    return img;
+};
+
 const EquipmentCard = ({ equipment }) => {
+    const cardImage = getValidImageUrl(equipment?.image || equipment?.images?.[0]);
+
     return (
         <div className="bg-surface rounded-2xl card-shadow overflow-hidden group flex flex-col h-full border border-outline-variant/30 transition-all hover:border-primary/40">
             <Link to={`/equipment/${equipment.id}`} className="relative h-32 sm:h-44 md:h-48 bg-surface-container overflow-hidden block">
-                <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={equipment.image} alt={equipment.name} />
+                <img 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    src={cardImage} 
+                    alt={equipment.name} 
+                    onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80"; }}
+                />
                 {equipment.isFeatured && (
                     <div className="absolute top-2 left-2 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                         <span className="material-symbols-outlined text-[14px]">star</span> Featured

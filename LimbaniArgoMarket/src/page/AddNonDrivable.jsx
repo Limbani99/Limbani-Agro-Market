@@ -34,7 +34,44 @@ const AddNonDrivable = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleImageChange = (e) => {
+    const compressImage = (file) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800;
+                    const MAX_HEIGHT = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL('image/jpeg', 0.7));
+                };
+                img.onerror = () => resolve(event.target.result);
+            };
+        });
+    };
+
+    const handleImageChange = async (e) => {
         const files = Array.from(e.target.files);
         if (images.length + files.length > 4) {
             alert("Maximum 4 images allowed!");
@@ -44,8 +81,10 @@ const AddNonDrivable = () => {
         const newImages = [...images, ...files];
         setImages(newImages);
 
-        const newPreviews = files.map(file => URL.createObjectURL(file));
-        setImagePreviews(prev => [...prev, ...newPreviews]);
+        for (const file of files) {
+            const compressedBase64 = await compressImage(file);
+            setImagePreviews(prev => [...prev, compressedBase64]);
+        }
     };
 
     const handleRemoveImage = (index) => {

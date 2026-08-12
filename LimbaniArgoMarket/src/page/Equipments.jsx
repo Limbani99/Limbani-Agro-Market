@@ -1,86 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EquipmentCard from '../components/EquipmentCard';
+import { useData } from '../context/DataProvider';
 
-const equipmentsData = [
+const defaultEquipmentsData = [
     {
         id: 1,
-        name: "John Deere 5310 2WD",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAWZdxf5cvj3b_9VwOd3Dbza4PsAK0fJJXyR-UCUq_eJ-BLoH4mmeHeDors6hfB1JEJa1vycR9ICZpadTl84sBzrPUAchTCJeakj_D2ooZeOh3u4EbNn8t0-_uvathQlyJHs4FoG5la9itO2dG1cU1pJ39kjZdFPB0uHUb5Wdjlo6eDyFQ55Nnw3vFiFhDULsXVebuNYh5PQJqbs0k3XwnlcDw_IRSTjK9pNkr0MRU5atzLChtUuDdQtQ",
-        price: "₹ 7,50,000",
+        name: "Mahindra 575 DI Power Plus",
+        price: "₹4,85,000",
+        location: "Rajkot, Gujarat",
         year: 2021,
-        hours: "1200 h",
+        hours: "1,200 hrs",
         condition: "Excellent",
-        location: "Ludhiana, Punjab",
+        isVerified: true,
         isFeatured: true,
-        isVerified: true
+        image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80"
     },
     {
         id: 2,
-        name: "Mahindra Arjun Novo 605 DI-i",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5XPRPvkVkohXEVxl_ItBTDQQJYEZi4g543jqkFumzyTS2LtnKaK2-8mJkc-Eyp5JpcPyIKwfsR8VC_VcRY7KFfsAUrojHUdeM4gslsfX3i8O8PFA7itvQQW8SlvZmowdxALLwTzsV2Qi1lwEBrIflwyRE8fEuVDaAFI_EB39Rx85_jc3vU7epTE3ZsOYWa8IHzv6KXPY6Znn3ANAhw2fCrUXCOX1ph5Dp1g_sI7A-Gy_C4zKoaY8KkA",
-        price: "₹ 6,80,000",
+        name: "Swaraj 744 FE Tractor",
+        price: "₹3,90,000",
+        location: "Pune, Maharashtra",
         year: 2019,
-        hours: "2500 h",
+        hours: "2,400 hrs",
         condition: "Good",
-        location: "Rajkot, Gujarat",
+        isVerified: true,
         isFeatured: false,
-        isVerified: false
+        image: "https://images.unsplash.com/photo-1530267981608-bc70a27096ac?auto=format&fit=crop&w=600&q=80"
     },
     {
         id: 3,
-        name: "Shaktiman Regular Light Rotavator",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBrlfPS9tK3o4_1WLmzz_bZdYmcbVGnRL3_4ZG7h6gj03ozZdCJ3GtVbrPwuoSG1TmUiGOKaM5Ni7htsjcpYEoM2IBOnGreNohRHolNN9z0W6xczrwY11CuqmCWsqAg002u5dHcX5lSsNIjZ25bUL9I54IJDbh9RsNYI48UDEfQ4TvEGqUVAnPZoyd2YYAMWupVpIZPdq4-OqwDHztYfDuRlbKfM3X3fZdyyXqhjiyASOV6fqh87B-12Q",
-        price: "₹ 95,000",
+        name: "Shaktiman Heavy Duty Rotavator 7 Feet",
+        price: "₹85,000",
+        location: "Ludhiana, Punjab",
         year: 2022,
-        width: "6 ft",
+        width: "7 Feet",
         condition: "Like New",
-        location: "Pune, Maharashtra",
+        isVerified: true,
         isFeatured: false,
-        isVerified: false
+        image: "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80"
     },
     {
         id: 4,
-        name: "Preet 987 Combine Harvester",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCtY9yDD4nf6bMGZosv0v_WTBSVvER9zP71sqxIGkk7LSIwrb5F9W24KqRFzVqRTCxXDLQiu_hsZdYmS-wZm-b3MhGig04LiQYEt7nDUhaufix6CABQzR3oRLGSk7Qj5k7mdsviET4_HF_U4jfTssOodUJ4NeNbc3U4JW-8LiR65OpodDVi1PaQUhD0IQ9AxPPZBahAuIDTQpm_zLjuti1vgaOIf2tsWZ_uHfiPx7E74ouxvsAgAG9emg",
-        price: "₹ 18,50,000",
-        year: 2018,
-        hours: "4200 h",
-        condition: "Fair",
+        name: "John Deere 5050 D 4WD",
+        price: "₹6,20,000",
         location: "Karnal, Haryana",
-        isFeatured: false,
-        isVerified: false
-    },
-    {
-        id: 5,
-        name: "Swaraj 744 FE",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAopxn5Zb3qW4oFfQDyGrdfmw6GTuWdsp-ycKBkw68SnL_CZrUncAkJetQHMmpOzNvFjWfGhnJMxfDWM0HuSPB5xRdTd2EhRXBQkGhJ3VFSP8Nhx627PZe3SMmLtEM2f1_g1RGd4fZ7dZa35Cgr-_4Ek4U9y759CDUP9Dj5M9p1JS8rj7g4dhb8lrCrB_n4PF2OYyqYj32qGprjTyryHIu4AFU66rK20cdvqsC5JzZ9FS20S6ca195UTA",
-        price: "₹ 5,20,000",
-        year: 2020,
-        hours: "1800 h",
-        condition: "Good",
-        location: "Amritsar, Punjab",
+        year: 2022,
+        hours: "850 hrs",
+        condition: "Excellent",
+        isVerified: true,
         isFeatured: true,
-        isVerified: true
-    },
-    {
-        id: 6,
-        name: "Massey Ferguson 241 DI",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAkCU4wzOwIgJGePnIVCE7oS1JVLfqBQZelpjmcr_qoWw2X9w9szKQIuekUTRm0mNAXMIyAEdCyaCRC7_4PVgdPkoKjsHI3ar9IfGmocaOKMPQq1PcbeeCm3KvMRyEBSeHqFXeiBJjGCGnq1gYzfk7CE33HBQz-m0nHCwObeXtIfcR7voCi0EVlqNqtyHE1Z-QuCea61TeqT5ZP-RV3cQazkR3Zzv5ZtB35EM6MbzF7CBye0RNA4jgbtQ",
-        price: "₹ 4,80,000",
-        year: 2017,
-        hours: "3100 h",
-        condition: "Good",
-        location: "Nashik, Maharashtra",
-        isFeatured: false,
-        isVerified: true
+        image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80"
     }
 ];
 
 const Equipments = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const { getAllProduct } = useData();
+    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
 
-    const filteredEquipments = equipmentsData.filter(equipment =>
-        equipment.name.toLowerCase().includes(searchTerm.toLowerCase())
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                if (getAllProduct) {
+                    const data = await getAllProduct();
+                    if (data && Array.isArray(data) && data.length > 0) {
+                        const normalized = data.map((item, index) => ({
+                            id: item._id || item.id || index + 1,
+                            name: item.title || item.productName || item.name || "Agricultural Machinery",
+                            price: typeof item.price === 'number' ? `₹${item.price.toLocaleString('en-IN')}` : (item.price || 'Contact for Price'),
+                            location: [item.district, item.state].filter(Boolean).join(', ') || item.address || item.location || "Gujarat, India",
+                            year: item.manufactureYear || item.year || 2022,
+                            hours: item.horsePower ? `${item.horsePower} HP` : (item.hours || item.width || 'Standard'),
+                            condition: item.condition || "Used",
+                            isVerified: true,
+                            isFeatured: true,
+                            image: (item.images && item.images.length > 0) ? item.images[0] : (item.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80"),
+                            seller: {
+                                phone: item.phone || item.sellerPhone || '+919023341592',
+                                whatsapp: item.whatsapp || item.phone || '919023341592'
+                            }
+                        }));
+                        setProducts(normalized);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching products:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProduct();
+    }, []);
+
+    const displayList = products.length > 0 ? products : defaultEquipmentsData;
+
+    const filteredEquipments = displayList.filter(equipment =>
+        (equipment.name || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -122,7 +138,12 @@ const Equipments = () => {
                     </div>
                 </div>
 
-                {filteredEquipments.length > 0 ? (
+                {loading ? (
+                    <div className="text-center py-20">
+                        <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-primary border-t-transparent"></div>
+                        <p className="mt-4 text-on-surface-variant font-medium">Loading products...</p>
+                    </div>
+                ) : filteredEquipments.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
                         {filteredEquipments.map(eq => (
                             <EquipmentCard key={eq.id} equipment={eq} />
