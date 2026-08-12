@@ -60,7 +60,7 @@ const Profile = () => {
                     {/* Cover Background */}
                     <div className="relative h-40 sm:h-52 md:h-60 overflow-hidden bg-gradient-to-r from-primary/80 via-primary to-primary/90">
                         {storedUser.coverimg && (
-                            <img src={storedUser.coverimg} alt="Cover Banner" className="w-full h-full object-cover" />
+                            <img src={storedUser.coverimg} alt="Cover Banner" className="absolute inset-0 w-full h-full object-cover" />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 

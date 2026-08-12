@@ -144,7 +144,10 @@ const UpdateProfile = () => {
             };
 
             const res = await axios.put(`${API_URL}/api/user/update-profile`, payload);
-            const updatedUser = res.data;
+            const updatedUser = {
+                ...(res.data || {}),
+                coverimg: formData.coverimg || res.data?.coverimg
+            };
 
             // Preserve existing auth token and update local state
             const currentToken = localStorage.getItem('token') || '';
@@ -214,7 +217,7 @@ const UpdateProfile = () => {
                             <label className="block text-xs font-bold text-on-surface mb-1">Cover / Background Banner</label>
                             <div className="relative h-32 sm:h-40 rounded-xl overflow-hidden bg-surface border-2 border-primary/20 flex items-center justify-center">
                                 {formData.coverimg ? (
-                                    <img src={formData.coverimg} alt="Cover Banner" className="w-full h-full object-cover" />
+                                    <img src={formData.coverimg} alt="Cover Banner" className="absolute inset-0 w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full bg-gradient-to-r from-primary/80 via-primary to-primary/90 flex flex-col items-center justify-center text-white p-4">
                                         <span className="material-symbols-outlined text-3xl mb-1">wallpaper</span>
