@@ -55,6 +55,7 @@ const UserRegister = async (req, res) => {
     }
 };
 
+// user login
 const userlogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -108,4 +109,76 @@ const GetAllDealers = async (req, res) => {
     }
 };
 
-module.exports = { UserRegister, userlogin, GetAllDealers };
+// upload profile image
+const Uploadprofileimg = async (req, res) => {
+    try {
+        const { id, profileimg } = req.body;
+        const user = await User.findByIdAndUpdate(id, { profileimg }, { new: true });
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Upload Profile Image Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// get profile image
+const Getprofileimg = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const user = await User.findById(id).select("profileimg");
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Get Profile Image Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// update user profile
+const UpdateUserProfile = async (req, res) => {
+    try {
+        const { id, name, email, phone, address, description, skills, profileimg } = req.body;
+        const user = await User.findByIdAndUpdate(id, { name, email, phone, address, description, skills, profileimg }, { new: true });
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Update User Profile Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// get user profile
+const GetUserProfile = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const user = await User.findById(id).select("-password");
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Get User Profile Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// update user password
+const UpdateUserPassword = async (req, res) => {
+    try {
+        const { id, password } = req.body;
+        const user = await User.findByIdAndUpdate(id, { password }, { new: true });
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Update User Password Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// delete user
+const DeleteUser = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const user = await User.findByIdAndDelete(id);
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Delete User Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { UserRegister, userlogin, GetAllDealers, Uploadprofileimg, Getprofileimg, UpdateUserProfile, GetUserProfile, UpdateUserPassword, DeleteUser };

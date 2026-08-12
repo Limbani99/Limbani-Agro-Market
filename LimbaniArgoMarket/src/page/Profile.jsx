@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataProvider';
-import { equipmentsData } from '../data/equipmentsData';
-import EquipmentCard from '../components/EquipmentCard';
 
 const Profile = () => {
     const { userData, logout } = useData();
@@ -46,10 +44,8 @@ const Profile = () => {
     };
 
     // Inventory filtering
-    const inventory = equipmentsData;
-    const filteredInventory = selectedCategory === 'All'
-        ? inventory
-        : inventory.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase());
+    const inventory = [];
+    const filteredInventory = [];
 
     const handleCopyContact = () => {
         navigator.clipboard.writeText(`${profileDetails.name}\nPhone: ${profileDetails.phone}\nAddress: ${profileDetails.address}`);
@@ -59,7 +55,7 @@ const Profile = () => {
 
     return (
         <main className="w-full pt-[76px] pb-16 bg-surface dark:bg-surface-dim min-h-screen">
-            
+
             {/* Breadcrumb Bar */}
             <div className="bg-surface-container/50 border-b border-outline-variant/20 py-2.5 mb-6">
                 <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,16 +70,16 @@ const Profile = () => {
             {/* HERO BANNER SECTION */}
             <section className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8 mb-8">
                 <div className="relative rounded-3xl overflow-hidden card-shadow border border-outline-variant/30 bg-surface-container-lowest">
-                    
+
                     {/* Cover Background */}
                     <div className="relative h-48 sm:h-64 md:h-72 overflow-hidden bg-surface-container">
-                        <img 
-                            src={profileDetails.coverImage} 
-                            alt={profileDetails.name} 
-                            className="w-full h-full object-cover" 
+                        <img
+                            src={profileDetails.coverImage}
+                            alt={profileDetails.name}
+                            className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"></div>
-                        
+
                         {/* Top Verification Badges */}
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                             {profileDetails.isVerified && (
@@ -98,8 +94,14 @@ const Profile = () => {
                             )}
                         </div>
 
-                        {/* Top Right Logout Button */}
-                        <div className="absolute top-4 right-4">
+                        {/* Top Right Action Buttons */}
+                        <div className="absolute top-4 right-4 flex items-center gap-2">
+                            <Link
+                                to="/update-profile"
+                                className="bg-white/20 hover:bg-white/30 text-white font-bold text-xs px-3.5 py-1.5 rounded-full backdrop-blur-md border border-white/30 flex items-center gap-1.5 shadow-md transition-all active:scale-95"
+                            >
+                                <span className="material-symbols-outlined text-[16px]">edit</span> Edit Profile
+                            </Link>
                             <button
                                 onClick={logout}
                                 className="bg-error/80 hover:bg-error text-white font-bold text-xs px-3.5 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5 shadow-md cursor-pointer transition-all active:scale-95"
@@ -112,7 +114,7 @@ const Profile = () => {
                     {/* Profile Header Overlay */}
                     <div className="p-6 sm:p-8 relative">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 -mt-16 sm:-mt-20 md:-mt-22 mb-2">
-                            
+
                             {/* Logo & Basic Info */}
                             <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 relative z-10">
                                 <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-surface p-2 shadow-xl border-2 border-primary/30 shrink-0">
@@ -144,22 +146,22 @@ const Profile = () => {
 
                             {/* Contact Action Buttons */}
                             <div className="flex flex-wrap gap-2.5 w-full md:w-auto shrink-0">
-                                <a 
-                                    href={`tel:${profileDetails.phone}`} 
+                                <a
+                                    href={`tel:${profileDetails.phone}`}
                                     className="flex-1 sm:flex-initial bg-primary text-on-primary font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-primary/90 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2"
                                 >
                                     <span className="material-symbols-outlined text-[18px]">call</span> Call Dealer
                                 </a>
-                                <a 
-                                    href={`https://wa.me/${profileDetails.whatsapp}?text=Hi, I found your profile on Limbani Agro Market.`} 
-                                    target="_blank" 
+                                <a
+                                    href={`https://wa.me/${profileDetails.whatsapp}?text=Hi, I found your profile on Limbani Agro Market.`}
+                                    target="_blank"
                                     rel="noreferrer"
                                     className="flex-1 sm:flex-initial bg-[#25D366] text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#128C7E] active:scale-95 transition-all shadow-md flex items-center justify-center gap-2"
                                 >
                                     <span className="material-symbols-outlined text-[18px]">chat</span> WhatsApp
                                 </a>
-                                <button 
-                                    onClick={handleCopyContact} 
+                                <button
+                                    onClick={handleCopyContact}
                                     className="bg-surface-container border border-outline-variant text-on-surface font-bold text-sm px-4 py-2.5 rounded-xl hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                                 >
                                     <span className="material-symbols-outlined text-[18px]">share</span> {copiedContact ? 'Copied!' : 'Share'}
@@ -208,7 +210,7 @@ const Profile = () => {
             {/* NECESSARY DETAILS GRID (2 COLUMNS) */}
             <section className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8 mb-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    
+
                     {/* Left Column: Dealership Overview & Brands */}
                     <div className="lg:col-span-7 space-y-6">
                         {/* Overview Card */}
@@ -263,7 +265,7 @@ const Profile = () => {
                             <div className="flex items-center gap-2 text-secondary font-bold text-sm mb-4">
                                 <span className="material-symbols-outlined text-[20px]">contact_phone</span> Direct Contact Information
                             </div>
-                            
+
                             <div className="space-y-4 text-xs sm:text-sm">
                                 <div className="flex items-start gap-3">
                                     <span className="material-symbols-outlined text-primary text-xl shrink-0 mt-0.5">person</span>
@@ -301,15 +303,15 @@ const Profile = () => {
 
                         {/* Directions Button */}
                         <div className="pt-4 border-t border-outline-variant/20 flex gap-2">
-                            <a 
-                                href={`https://maps.google.com/?q=${encodeURIComponent(profileDetails.address)}`} 
-                                target="_blank" 
+                            <a
+                                href={`https://maps.google.com/?q=${encodeURIComponent(profileDetails.address)}`}
+                                target="_blank"
                                 rel="noreferrer"
                                 className="flex-1 bg-surface-container border border-outline-variant text-on-surface font-bold text-xs sm:text-sm py-2.5 rounded-xl hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-2"
                             >
                                 <span className="material-symbols-outlined text-[18px]">directions</span> Get Directions
                             </a>
-                            <button 
+                            <button
                                 onClick={handleCopyContact}
                                 className="bg-primary-container text-on-primary font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             >
@@ -332,8 +334,8 @@ const Profile = () => {
                     {/* Filter Tabs */}
                     <div className="flex flex-wrap gap-1.5 bg-surface-container p-1 rounded-2xl border border-outline-variant/30">
                         {['All', 'Tractors', 'Rotavator', 'Harvester'].map((cat, idx) => (
-                            <button 
-                                key={idx} 
+                            <button
+                                key={idx}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-3.5 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${selectedCategory === cat ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
                             >
@@ -343,11 +345,11 @@ const Profile = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+                {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
                     {filteredInventory.map(eq => (
                         <EquipmentCard key={eq.id} equipment={eq} />
                     ))}
-                </div>
+                </div> */}
             </section>
 
         </main>

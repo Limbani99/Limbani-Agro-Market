@@ -2,57 +2,6 @@ import React, { useState, useEffect } from 'react';
 import EquipmentCard from '../components/EquipmentCard';
 import { useData } from '../context/DataProvider';
 
-const defaultEquipmentsData = [
-    {
-        id: 1,
-        name: "Mahindra 575 DI Power Plus",
-        price: "₹4,85,000",
-        location: "Rajkot, Gujarat",
-        year: 2021,
-        hours: "1,200 hrs",
-        condition: "Excellent",
-        isVerified: true,
-        isFeatured: true,
-        image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 2,
-        name: "Swaraj 744 FE Tractor",
-        price: "₹3,90,000",
-        location: "Pune, Maharashtra",
-        year: 2019,
-        hours: "2,400 hrs",
-        condition: "Good",
-        isVerified: true,
-        isFeatured: false,
-        image: "https://images.unsplash.com/photo-1530267981608-bc70a27096ac?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 3,
-        name: "Shaktiman Heavy Duty Rotavator 7 Feet",
-        price: "₹85,000",
-        location: "Ludhiana, Punjab",
-        year: 2022,
-        width: "7 Feet",
-        condition: "Like New",
-        isVerified: true,
-        isFeatured: false,
-        image: "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 4,
-        name: "John Deere 5050 D 4WD",
-        price: "₹6,20,000",
-        location: "Karnal, Haryana",
-        year: 2022,
-        hours: "850 hrs",
-        condition: "Excellent",
-        isVerified: true,
-        isFeatured: true,
-        image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80"
-    }
-];
-
 const Equipments = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const { getAllProduct } = useData();
@@ -64,7 +13,7 @@ const Equipments = () => {
             try {
                 if (getAllProduct) {
                     const data = await getAllProduct();
-                    if (data && Array.isArray(data) && data.length > 0) {
+                    if (data && Array.isArray(data)) {
                         const normalized = data.map((item, index) => ({
                             id: item._id || item.id || index + 1,
                             name: item.title || item.productName || item.name || "Agricultural Machinery",
@@ -93,10 +42,8 @@ const Equipments = () => {
         fetchProduct();
     }, []);
 
-    const displayList = products.length > 0 ? products : defaultEquipmentsData;
-
-    const filteredEquipments = displayList.filter(equipment =>
-        (equipment.name || '').toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredEquipments = products.filter(equipment =>
+        (equipment.name || equipment.title || equipment.productName || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -153,7 +100,7 @@ const Equipments = () => {
                     <div className="text-center py-20 bg-surface-container-lowest rounded-xl border border-outline-variant/30">
                         <span className="material-symbols-outlined text-6xl text-outline mb-4">search_off</span>
                         <h3 className="font-title-md text-2xl text-on-surface font-bold mb-2">No equipment found</h3>
-                        <p className="text-on-surface-variant">Try adjusting your search term.</p>
+                        <p className="text-on-surface-variant">No products uploaded yet or match your search criteria.</p>
                     </div>
                 )}
             </div>

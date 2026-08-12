@@ -7,6 +7,7 @@ import About from './page/About'
 import Equipments from './page/Equipments'
 import EquipmentDetails from './page/EquipmentDetails'
 import Profile from './page/Profile'
+import UpdateProfile from './page/UpdateProfile'
 import Login from './auth/Login'
 import Register from './auth/Register'
 import DealerDetails from './page/DealerDetails'
@@ -28,6 +29,7 @@ function App() {
           <Route path='/dealer/:id' element={<DealerDetails />} />
           <Route path='/about' element={<About />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/add-product' element={<AddProduct />} />

@@ -66,10 +66,15 @@ const DeleteProduct = async (req, res) => {
     }
 }
 
+const mongoose = require("mongoose");
+
 //get product by id
-const GetProduct = async (req, res) => {
+const GetProductById = async (req, res) => {
     try {
         const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ message: "Invalid product ID format" });
+        }
         const product = await Product.findById(id);
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
@@ -129,4 +134,4 @@ const GetProductByCategoryStateAndDistrict = async (req, res) => {
 }
 
 
-module.exports = { AddProduct, UpdateProduct, DeleteProduct, GetProduct, GetAllProduct, GetProductByCategory, GetProductByCategoryAndState, GetProductByCategoryStateAndDistrict }
+module.exports = { AddProduct, UpdateProduct, DeleteProduct, GetProductById, GetAllProduct, GetProductByCategory, GetProductByCategoryAndState, GetProductByCategoryStateAndDistrict }
