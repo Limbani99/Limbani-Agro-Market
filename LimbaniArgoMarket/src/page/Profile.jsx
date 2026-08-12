@@ -327,7 +327,7 @@ const Profile = () => {
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                         {userProducts.map(item => (
                             <div key={item.id} className="flex flex-col h-full bg-surface rounded-2xl overflow-hidden card-shadow border border-outline-variant/30">
-                                <EquipmentCard equipment={item} />
+                                <EquipmentCard equipment={item} showContact={false} />
                                 <div className="p-2 sm:p-3 bg-surface-container/40 border-t border-outline-variant/20 flex gap-2">
                                     <Link
                                         to={`/edit-product/${item.id}`}

@@ -7,7 +7,7 @@ const getValidImageUrl = (img) => {
     return img;
 };
 
-const EquipmentCard = ({ equipment }) => {
+const EquipmentCard = ({ equipment, showContact = true }) => {
     const cardImage = getValidImageUrl(equipment?.image || equipment?.images?.[0]);
 
     return (
@@ -64,14 +64,16 @@ const EquipmentCard = ({ equipment }) => {
                     </div>
                 </div>
 
-                <div className="mt-auto flex gap-1.5 sm:gap-2 pt-1">
-                    <a href={`tel:${equipment.seller?.phone || '+919023341592'}`} className="flex-1 bg-primary text-on-primary font-bold text-xs sm:text-sm py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex justify-center items-center gap-1 sm:gap-2 shadow-sm">
-                        <span className="material-symbols-outlined text-[16px] sm:text-[18px]">call</span> Call
-                    </a>
-                    <a href={`https://wa.me/${equipment.seller?.whatsapp || '919023341592'}`} target="_blank" rel="noreferrer" className="bg-[#25D366]/10 text-[#128C7E] font-bold text-xs sm:text-sm px-2.5 sm:px-4 py-2 rounded-xl hover:bg-[#25D366]/20 active:scale-95 transition-all flex justify-center items-center border border-[#25D366]/30">
-                        <span className="material-symbols-outlined text-[16px] sm:text-[18px]">chat</span>
-                    </a>
-                </div>
+                {showContact && (
+                    <div className="mt-auto flex gap-1.5 sm:gap-2 pt-1">
+                        <a href={`tel:${equipment.seller?.phone || '+919023341592'}`} className="flex-1 bg-primary text-on-primary font-bold text-xs sm:text-sm py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex justify-center items-center gap-1 sm:gap-2 shadow-sm">
+                            <span className="material-symbols-outlined text-[16px] sm:text-[18px]">call</span> Call
+                        </a>
+                        <a href={`https://wa.me/${equipment.seller?.whatsapp || '919023341592'}`} target="_blank" rel="noreferrer" className="bg-[#25D366]/10 text-[#128C7E] font-bold text-xs sm:text-sm px-2.5 sm:px-4 py-2 rounded-xl hover:bg-[#25D366]/20 active:scale-95 transition-all flex justify-center items-center border border-[#25D366]/30">
+                            <span className="material-symbols-outlined text-[16px] sm:text-[18px]">chat</span>
+                        </a>
+                    </div>
+                )}
             </div>
         </div>
     );
