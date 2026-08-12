@@ -2,6 +2,21 @@ import React from 'react';
 import DealerCard from './DealerCard';
 
 const FeaturedDealers = ({ dealers: apiDealers }) => {
+    const rawList = apiDealers || [];
+
+    const normalizedDealers = rawList.map((dealer, idx) => ({
+        id: dealer._id || dealer.id || idx + 1,
+        name: dealer.name || dealer.contactPerson || "Verified Agro Dealer",
+        image: dealer.profileimg || dealer.image || "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80",
+        rating: dealer.rating || 4.9,
+        isVerified: dealer.isVerified !== undefined ? dealer.isVerified : true,
+        isPremium: dealer.isPremium !== undefined ? dealer.isPremium : true,
+        yearsInBusiness: dealer.yearsInBusiness || 5,
+        location: typeof dealer.address === 'string' ? dealer.address : (dealer.city ? `${dealer.city}, ${dealer.state}` : (dealer.location || "Gujarat, India")),
+        listingsCount: dealer.totalListed || dealer.listingsCount || 15,
+        phone: dealer.phone || "+919023341592",
+        whatsapp: dealer.whatsapp || dealer.phone || "919023341592"
+    }));
 
     return (
         <section className="py-10 md:py-16 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
@@ -15,11 +30,18 @@ const FeaturedDealers = ({ dealers: apiDealers }) => {
                 </a>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-                {apiDealers?.map(dealer => (
-                    <DealerCard key={dealer.id} dealer={dealer} />
-                ))}
-            </div>
+            {normalizedDealers.length > 0 ? (
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+                    {normalizedDealers.map(dealer => (
+                        <DealerCard key={dealer.id} dealer={dealer} />
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-12 bg-surface-container-lowest rounded-xl border border-outline-variant/30">
+                    <span className="material-symbols-outlined text-5xl text-outline mb-2">storefront</span>
+                    <p className="text-on-surface-variant font-medium">No dealers found.</p>
+                </div>
+            )}
         </section>
     );
 };

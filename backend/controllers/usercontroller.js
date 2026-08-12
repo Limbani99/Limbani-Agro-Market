@@ -136,8 +136,8 @@ const Getprofileimg = async (req, res) => {
 // update user profile
 const UpdateUserProfile = async (req, res) => {
     try {
-        const { id, name, email, phone, address, description, skills, profileimg } = req.body;
-        const user = await User.findByIdAndUpdate(id, { name, email, phone, address, description, skills, profileimg }, { new: true });
+        const { id, name, email, phone, address, description, skills, profileimg, coverimg } = req.body;
+        const user = await User.findByIdAndUpdate(id, { name, email, phone, address, description, skills, profileimg, coverimg }, { new: true });
         res.status(200).json(user);
     } catch (error) {
         console.error("Update User Profile Error:", error);

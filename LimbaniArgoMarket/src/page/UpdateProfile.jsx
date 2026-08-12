@@ -19,7 +19,8 @@ const UpdateProfile = () => {
         address: '',
         description: '',
         skills: '',
-        profileimg: ''
+        profileimg: '',
+        coverimg: ''
     });
 
     useEffect(() => {
@@ -33,7 +34,8 @@ const UpdateProfile = () => {
                 address: user.address || '',
                 description: user.description || '',
                 skills: Array.isArray(user.skills) ? user.skills.join(', ') : (user.skills || ''),
-                profileimg: user.profileimg || ''
+                profileimg: user.profileimg || '',
+                coverimg: user.coverimg || ''
             });
         }
     }, [userData]);
@@ -42,7 +44,7 @@ const UpdateProfile = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // Client-side compressed image upload
+    // Client-side compressed profile image upload
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -81,6 +83,38 @@ const UpdateProfile = () => {
         reader.readAsDataURL(file);
     };
 
+    // Client-side compressed cover banner image upload
+    const handleCoverChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 800;
+                const MAX_HEIGHT = 400;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                setFormData(prev => ({ ...prev, coverimg: compressedBase64 }));
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -105,7 +139,8 @@ const UpdateProfile = () => {
                 address: formData.address,
                 description: formData.description,
                 skills: formData.skills ? formData.skills.split(',').map(s => s.trim()) : [],
-                profileimg: formData.profileimg
+                profileimg: formData.profileimg,
+                coverimg: formData.coverimg
             };
 
             const res = await axios.put(`${API_URL}/api/user/update-profile`, payload);
@@ -154,7 +189,7 @@ const UpdateProfile = () => {
                         </div>
                         <div>
                             <h1 className="font-display-md text-2xl font-bold text-on-surface">Update Your Profile</h1>
-                            <p className="text-xs sm:text-sm text-on-surface-variant">Update your account details and business information</p>
+                            <p className="text-xs sm:text-sm text-on-surface-variant">Update your account details and profile images</p>
                         </div>
                     </div>
 
@@ -174,6 +209,37 @@ const UpdateProfile = () => {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
 
+                        {/* Cover Banner Image Section */}
+                        <div className="space-y-2 p-4 rounded-2xl bg-surface-container/50 border border-outline-variant/20">
+                            <label className="block text-xs font-bold text-on-surface mb-1">Cover / Background Banner</label>
+                            <div className="relative h-32 sm:h-40 rounded-xl overflow-hidden bg-surface border-2 border-primary/20 flex items-center justify-center">
+                                {formData.coverimg ? (
+                                    <img src={formData.coverimg} alt="Cover Banner" className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-r from-primary/80 via-primary to-primary/90 flex flex-col items-center justify-center text-white p-4">
+                                        <span className="material-symbols-outlined text-3xl mb-1">wallpaper</span>
+                                        <span className="text-xs font-semibold">No custom cover banner uploaded</span>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex justify-end pt-2">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    id="cover-img-upload"
+                                    className="hidden"
+                                    onChange={handleCoverChange}
+                                />
+                                <label
+                                    htmlFor="cover-img-upload"
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-surface-container border border-outline-variant text-on-surface text-xs font-bold rounded-xl cursor-pointer hover:bg-surface-container-high active:scale-95 transition-all"
+                                >
+                                    <span className="material-symbols-outlined text-base">wallpaper</span>
+                                    Upload Banner Photo
+                                </label>
+                            </div>
+                        </div>
+
                         {/* Profile Image Section */}
                         <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-2xl bg-surface-container/50 border border-outline-variant/20">
                             <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-surface border-2 border-primary/30 shrink-0">
@@ -186,7 +252,7 @@ const UpdateProfile = () => {
                                 )}
                             </div>
                             <div className="flex-1 text-center sm:text-left">
-                                <label className="block text-xs font-bold text-on-surface mb-1">Profile Photo</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1">Profile Avatar Photo</label>
                                 <p className="text-xs text-on-surface-variant mb-3">Upload your personal photo or logo (JPEG/PNG)</p>
                                 <input
                                     type="file"
@@ -200,7 +266,7 @@ const UpdateProfile = () => {
                                     className="inline-flex items-center gap-2 px-4 py-2 bg-surface-container border border-outline-variant text-on-surface text-xs font-bold rounded-xl cursor-pointer hover:bg-surface-container-high active:scale-95 transition-all"
                                 >
                                     <span className="material-symbols-outlined text-base">photo_camera</span>
-                                    Choose Photo
+                                    Choose Profile Photo
                                 </label>
                             </div>
                         </div>

@@ -50,6 +50,9 @@ const userSchema = new mongoose.Schema({
     profileimg: {
         type: String,
     },
+    coverimg: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now
