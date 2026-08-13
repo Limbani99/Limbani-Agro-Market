@@ -372,19 +372,22 @@ const Profile = () => {
 
             {/* MY LISTED PRODUCTS / EQUIPMENT SECTION */}
             <section className="max-w-container-max mx-auto px-3 sm:px-6 lg:px-8 mb-10">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex justify-between items-center mb-4 sm:mb-5 gap-2">
                     <div>
-                        <h2 className="font-display-md text-xl sm:text-2xl font-bold text-on-surface flex items-center gap-2">
-                            <span className="material-symbols-outlined text-primary text-2xl">inventory_2</span>
-                            My Listed Equipment ({userProducts.length})
+                        <h2 className="font-display-md text-base sm:text-lg font-bold text-on-surface flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-primary text-lg sm:text-xl">inventory_2</span>
+                            <span>My Listed Equipment</span>
+                            <span className="bg-primary/10 text-primary border border-primary/20 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-full ml-1">
+                                {userProducts.length}
+                            </span>
                         </h2>
-                        <p className="text-on-surface-variant text-xs sm:text-sm mt-0.5">Agricultural machinery listed under your account</p>
+                        <p className="text-on-surface-variant text-[11px] sm:text-xs mt-0.5">Agricultural machinery listed under your account</p>
                     </div>
                     <Link
                         to="/add-product"
-                        className="bg-primary text-on-primary font-bold text-xs sm:text-sm px-4 py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+                        className="bg-primary text-on-primary font-bold text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex items-center gap-1 shadow-sm shrink-0"
                     >
-                        <span className="material-symbols-outlined text-base">add</span>
+                        <span className="material-symbols-outlined text-sm sm:text-base">add</span>
                         <span>List Equipment</span>
                     </Link>
                 </div>
@@ -395,23 +398,82 @@ const Profile = () => {
                         <p className="text-on-surface-variant font-medium text-sm">Loading your equipment listings...</p>
                     </div>
                 ) : userProducts.length > 0 ? (
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-5">
                         {userProducts.map(item => (
-                            <div key={item.id} className="flex flex-col h-full bg-surface rounded-2xl overflow-hidden card-shadow border border-outline-variant/30">
-                                <EquipmentCard equipment={item} showContact={false} />
-                                <div className="p-2 sm:p-3 bg-surface-container/40 border-t border-outline-variant/20 flex gap-2">
-                                    <Link
-                                        to={`/edit-product/${item.id}`}
-                                        className="flex-1 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-on-primary text-primary font-bold text-xs py-2 rounded-xl text-center transition-all flex items-center justify-center gap-1"
-                                    >
-                                        <span className="material-symbols-outlined text-[15px]">edit</span> Edit
-                                    </Link>
-                                    <button
-                                        onClick={() => handleDeleteProduct(item.id)}
-                                        className="bg-error/10 border border-error/20 hover:bg-error hover:text-white text-error font-bold text-xs px-3 py-2 rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer"
-                                    >
-                                        <span className="material-symbols-outlined text-[15px]">delete</span> Delete
-                                    </button>
+                            <div key={item.id} className="flex flex-col h-full bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/40 transition-all duration-300 group">
+                                {/* Image Header */}
+                                <Link to={`/equipment/${item.id}`} className="relative h-28 sm:h-40 md:h-44 bg-surface-container overflow-hidden block">
+                                    <img
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        src={item.image}
+                                        alt={item.name}
+                                        onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80"; }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-70"></div>
+                                    
+                                    {/* Verified Badge */}
+                                    {item.isVerified && (
+                                        <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 z-10">
+                                            <span className="bg-primary/90 text-white text-[9px] sm:text-[11px] font-bold px-1.5 sm:px-2 py-0.5 rounded-md backdrop-blur-md flex items-center gap-0.5 shadow-sm">
+                                                <span className="material-symbols-outlined text-[11px] sm:text-[13px]">verified</span> Verified
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    {/* Price Overlay */}
+                                    <div className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 z-10">
+                                        <span className="bg-black/75 text-white font-extrabold text-[11px] sm:text-sm px-2 py-0.5 rounded-lg backdrop-blur-md border border-white/20 shadow-sm">
+                                            {item.price}
+                                        </span>
+                                    </div>
+                                </Link>
+
+                                {/* Card Content */}
+                                <div className="p-2.5 sm:p-3.5 flex flex-col flex-grow justify-between">
+                                    <div>
+                                        <Link to={`/equipment/${item.id}`} className="block">
+                                            <h3 className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors line-clamp-1 leading-snug mb-1">
+                                                {item.name}
+                                            </h3>
+                                        </Link>
+
+                                        {/* Location */}
+                                        <div className="flex items-center gap-0.5 text-[10px] sm:text-xs text-on-surface-variant mb-2 font-medium">
+                                            <span className="material-symbols-outlined text-[13px] sm:text-[15px] text-primary shrink-0">location_on</span>
+                                            <span className="truncate">{item.location}</span>
+                                        </div>
+
+                                        {/* Chips for Year & Specs */}
+                                        <div className="flex flex-wrap gap-1 mb-2.5">
+                                            {item.year && (
+                                                <span className="bg-surface-container border border-outline-variant/30 text-on-surface-variant font-semibold text-[10px] sm:text-[11px] px-1.5 py-0.5 rounded-md">
+                                                    {item.year}
+                                                </span>
+                                            )}
+                                            {item.hours && (
+                                                <span className="bg-surface-container border border-outline-variant/30 text-on-surface-variant font-semibold text-[10px] sm:text-[11px] px-1.5 py-0.5 rounded-md truncate max-w-[90px]">
+                                                    {item.hours}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Action Buttons (Edit & Delete) */}
+                                    <div className="pt-2 border-t border-outline-variant/20 flex gap-1.5">
+                                        <Link
+                                            to={`/edit-product/${item.id}`}
+                                            className="flex-1 bg-primary/10 hover:bg-primary text-primary hover:text-white font-bold text-[11px] sm:text-xs py-1.5 rounded-xl text-center transition-all flex items-center justify-center gap-1 active:scale-95"
+                                        >
+                                            <span className="material-symbols-outlined text-[14px] sm:text-[16px]">edit</span> Edit
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDeleteProduct(item.id)}
+                                            className="bg-error/10 hover:bg-error text-error hover:text-white font-bold text-[11px] sm:text-xs px-2.5 py-1.5 rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95"
+                                            title="Delete Equipment"
+                                        >
+                                            <span className="material-symbols-outlined text-[14px] sm:text-[16px]">delete</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))}
