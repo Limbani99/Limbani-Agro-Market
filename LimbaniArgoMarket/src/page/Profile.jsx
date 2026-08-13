@@ -5,13 +5,42 @@ import EquipmentCard from '../components/EquipmentCard';
 import axios from 'axios';
 
 const Profile = () => {
-    const { userData, logout, getAllProduct } = useData();
+    const { userData, logout, getAllProduct, fetchUserProfile, loadingUser: contextLoading } = useData();
     const [copiedContact, setCopiedContact] = useState(false);
     const [userProducts, setUserProducts] = useState([]);
     const [loadingProducts, setLoadingProducts] = useState(true);
+    const [loadingProfile, setLoadingProfile] = useState(true);
+    const [profileImgError, setProfileImgError] = useState(false);
+    const [coverImgError, setCoverImgError] = useState(false);
 
     const storedUser = userData || JSON.parse(localStorage.getItem('user') || 'null');
     const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
+
+    useEffect(() => {
+        const initProfile = async () => {
+            const currentObj = userData || JSON.parse(localStorage.getItem('user') || 'null');
+            if (!currentObj) {
+                setLoadingProfile(false);
+                setLoadingProducts(false);
+                return;
+            }
+
+            const userId = currentObj._id || currentObj.id;
+            if (fetchUserProfile && userId) {
+                try {
+                    await fetchUserProfile(userId);
+                } catch (err) {
+                    console.error("Error refreshing profile in Profile page:", err);
+                } finally {
+                    setLoadingProfile(false);
+                }
+            } else {
+                setLoadingProfile(false);
+            }
+        };
+
+        initProfile();
+    }, []);
 
     useEffect(() => {
         const fetchUserProducts = async () => {
@@ -29,7 +58,7 @@ const Profile = () => {
                             const sName = item.sellerName || item.seller;
                             
                             const matchesId = sId && userId && String(sId) === String(userId);
-                            const matchesName = sName && storedUser.name && String(sName).trim().toLowerCase() === String(storedUser.name).trim().toLowerCase();
+                            const matchesName = sName && storedUser?.name && String(sName).trim().toLowerCase() === String(storedUser.name).trim().toLowerCase();
 
                             return matchesId || matchesName;
                         });
@@ -77,6 +106,39 @@ const Profile = () => {
         }
     };
 
+    if (contextLoading || loadingProfile) {
+        return (
+            <main className="w-full pt-[76px] pb-16 bg-surface dark:bg-surface-dim min-h-screen">
+                {/* Breadcrumb Skeleton */}
+                <div className="bg-surface-container/50 border-b border-outline-variant/20 py-2.5 mb-6">
+                    <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="h-4 w-32 bg-surface-container-high rounded animate-pulse"></div>
+                    </div>
+                </div>
+
+                {/* Hero Skeleton */}
+                <section className="max-w-container-max mx-auto px-3 sm:px-6 lg:px-8 mb-8">
+                    <div className="rounded-3xl overflow-hidden border border-outline-variant/30 bg-surface-container-lowest animate-pulse">
+                        <div className="h-48 sm:h-64 bg-surface-container-high"></div>
+                        <div className="p-6 relative -mt-16 flex flex-col sm:flex-row items-start sm:items-end gap-4">
+                            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-surface-container border-4 border-surface shadow-lg"></div>
+                            <div className="space-y-2 flex-1">
+                                <div className="h-7 w-48 bg-surface-container-high rounded"></div>
+                                <div className="h-4 w-64 bg-surface-container rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Loading Spinner Indicator */}
+                <div className="text-center py-12">
+                    <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-primary border-t-transparent mb-3"></div>
+                    <p className="text-on-surface-variant font-medium text-sm">Loading user profile details...</p>
+                </div>
+            </main>
+        );
+    }
+
     if (!storedUser) {
         return (
             <main className="w-full pt-[76px] pb-20 min-h-screen bg-background flex flex-col items-center justify-center px-4">
@@ -96,6 +158,9 @@ const Profile = () => {
             </main>
         );
     }
+
+    const profileImgSrc = storedUser.profileimg || storedUser.profilePicture || storedUser.profile || null;
+    const coverImgSrc = storedUser.coverimg || storedUser.coverPicture || null;
 
     const skillsList = Array.isArray(storedUser.skills)
         ? storedUser.skills
@@ -119,11 +184,16 @@ const Profile = () => {
             <section className="max-w-container-max mx-auto px-3 sm:px-6 lg:px-8 mb-6 sm:mb-8">
                 <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden card-shadow border border-outline-variant/30 bg-surface-container-lowest">
 
-                    {/* Cover Background */}
+                    {/* Cover Background Banner */}
                     <div className="relative h-36 sm:h-52 md:h-64 overflow-hidden bg-gradient-to-r from-primary/80 via-primary to-primary/90">
-                        {storedUser.coverimg && (
-                            <img src={storedUser.coverimg} alt="Cover Banner" className="absolute inset-0 w-full h-full object-cover" />
-                        )}
+                        {coverImgSrc && !coverImgError ? (
+                            <img
+                                src={coverImgSrc}
+                                alt="Cover Banner"
+                                className="absolute inset-0 w-full h-full object-cover"
+                                onError={() => setCoverImgError(true)}
+                            />
+                        ) : null}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
                         {/* Top Badges */}
@@ -160,11 +230,12 @@ const Profile = () => {
                             {/* Photo & Basic Info */}
                             <div className="flex flex-col sm:flex-row items-start sm:items-end gap-3 sm:gap-4 w-full sm:w-auto">
                                 <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-surface p-1.5 sm:p-2 shadow-xl border-2 border-primary/30 shrink-0 overflow-hidden">
-                                    {storedUser.profileimg ? (
+                                    {profileImgSrc && !profileImgError ? (
                                         <img
-                                            src={storedUser.profileimg}
-                                            alt={storedUser.name}
+                                            src={profileImgSrc}
+                                            alt={storedUser.name || 'User'}
                                             className="w-full h-full object-cover rounded-xl"
+                                            onError={() => setProfileImgError(true)}
                                         />
                                     ) : (
                                         <div className="w-full h-full rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-2xl sm:text-3xl shadow-sm">
@@ -366,3 +437,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

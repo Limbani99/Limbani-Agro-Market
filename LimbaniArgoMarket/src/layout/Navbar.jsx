@@ -7,6 +7,8 @@ const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+    const navProfileImg = userData?.profileimg || userData?.profilePicture || userData?.profile;
+
     const toggleMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -48,8 +50,14 @@ const Navbar = () => {
                                 aria-expanded={isProfileOpen}
                                 aria-label="User Profile Menu"
                             >
-                                <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border border-primary/20">
-                                    {userData?.name ? userData.name.charAt(0).toUpperCase() : <span className="material-symbols-outlined text-[20px]">person</span>}
+                                <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border border-primary/20 overflow-hidden">
+                                    {navProfileImg ? (
+                                        <img src={navProfileImg} alt="Profile" className="w-full h-full object-cover" />
+                                    ) : userData?.name ? (
+                                        userData.name.charAt(0).toUpperCase()
+                                    ) : (
+                                        <span className="material-symbols-outlined text-[20px]">person</span>
+                                    )}
                                 </div>
                                 <span className="hidden sm:inline font-label-md text-sm font-semibold text-on-surface max-w-[120px] truncate">
                                     {userData?.name || 'Account'}
@@ -67,8 +75,14 @@ const Navbar = () => {
                                     <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
                                     <div className="absolute right-0 mt-2 w-64 bg-surface dark:bg-surface-dim border border-outline-variant/30 rounded-2xl shadow-xl py-2 z-50 animate-[slideDown_0.2s_ease-out]">
                                         <div className="px-4 py-3 border-b border-outline-variant/20 flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-base shadow-sm">
-                                                {userData?.name ? userData.name.charAt(0).toUpperCase() : <span className="material-symbols-outlined">person</span>}
+                                            <div className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-base shadow-sm overflow-hidden">
+                                                {navProfileImg ? (
+                                                    <img src={navProfileImg} alt="Profile" className="w-full h-full object-cover" />
+                                                ) : userData?.name ? (
+                                                    userData.name.charAt(0).toUpperCase()
+                                                ) : (
+                                                    <span className="material-symbols-outlined">person</span>
+                                                )}
                                             </div>
                                             <div className="min-w-0 flex-1">
                                                 <p className="font-bold text-sm text-on-surface truncate">
@@ -164,8 +178,14 @@ const Navbar = () => {
                     {isLoggedIn ? (
                         <div className="flex flex-col gap-2 mt-1 border-t border-outline-variant/30 pt-3">
                             <div className="flex items-center gap-3 px-2 py-1 mb-1">
-                                <div className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm">
-                                    {userData?.name ? userData.name.charAt(0).toUpperCase() : <span className="material-symbols-outlined">person</span>}
+                                <div className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm overflow-hidden">
+                                    {navProfileImg ? (
+                                        <img src={navProfileImg} alt="Profile" className="w-full h-full object-cover" />
+                                    ) : userData?.name ? (
+                                        userData.name.charAt(0).toUpperCase()
+                                    ) : (
+                                        <span className="material-symbols-outlined">person</span>
+                                    )}
                                 </div>
                                 <div className="min-w-0">
                                     <p className="font-bold text-sm text-on-surface truncate">{userData?.name || 'User'}</p>

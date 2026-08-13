@@ -31,11 +31,11 @@ const UpdateProfile = () => {
                 name: user.name || '',
                 email: user.email || '',
                 phone: user.phone || '',
-                address: user.address || '',
+                address: typeof user.address === 'string' ? user.address : [user.address?.street, user.address?.city, user.address?.state].filter(Boolean).join(', ') || '',
                 description: user.description || '',
                 skills: Array.isArray(user.skills) ? user.skills.join(', ') : (user.skills || ''),
-                profileimg: user.profileimg || '',
-                coverimg: user.coverimg || ''
+                profileimg: user.profileimg || user.profilePicture || user.profile || '',
+                coverimg: user.coverimg || user.coverPicture || ''
             });
         }
     }, [userData]);

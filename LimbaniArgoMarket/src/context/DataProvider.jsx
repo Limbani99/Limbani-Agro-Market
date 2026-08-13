@@ -11,14 +11,39 @@ export const DataProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
     const [role, setRole] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loadingUser, setLoadingUser] = useState(true);
+
+    const fetchUserProfile = async (userId) => {
+        if (!userId) return null;
+        try {
+            const res = await axios.post(`${API_URL}/api/user/get-profile`, { id: userId });
+            if (res.data) {
+                const mergedUser = {
+                    ...res.data,
+                    id: res.data._id || userId
+                };
+                setUserData(mergedUser);
+                localStorage.setItem("user", JSON.stringify(mergedUser));
+                return mergedUser;
+            }
+        } catch (error) {
+            console.error("Error fetching user profile:", error);
+        }
+        return null;
+    };
 
     const login = (user, authToken) => {
         localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", authToken);
+        if (authToken) localStorage.setItem("token", authToken);
         setUserData(user);
-        setToken(authToken);
+        if (authToken) setToken(authToken);
         setRole(user?.role || null);
         setIsLoggedIn(true);
+
+        const uId = user?._id || user?.id;
+        if (uId) {
+            fetchUserProfile(uId);
+        }
     };
 
     const logout = () => {
@@ -30,6 +55,7 @@ export const DataProvider = ({ children }) => {
         setIsLoggedIn(false);
         navigate("/");
     };
+
     //all equipment data
     const getAllEquipment = async () => {
         try {
@@ -40,6 +66,7 @@ export const DataProvider = ({ children }) => {
             return [];
         }
     };
+
     //all dealer data
     const getAllDealer = async () => {
         try {
@@ -50,6 +77,7 @@ export const DataProvider = ({ children }) => {
             return [];
         }
     };
+
     //all product data
     const getAllProduct = async () => {
         try {
@@ -60,6 +88,7 @@ export const DataProvider = ({ children }) => {
             return [];
         }
     };
+
     //get product by category data
     const getProductByCategory = async (category) => {
         try {
@@ -69,6 +98,7 @@ export const DataProvider = ({ children }) => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         const storedUser = localStorage.getItem("user");
@@ -79,15 +109,24 @@ export const DataProvider = ({ children }) => {
                 setUserData(parsedUser);
                 setRole(parsedUser.role || null);
                 setIsLoggedIn(true);
+
+                const uId = parsedUser._id || parsedUser.id;
+                if (uId) {
+                    fetchUserProfile(uId).finally(() => setLoadingUser(false));
+                } else {
+                    setLoadingUser(false);
+                }
             } catch (e) {
                 localStorage.removeItem("user");
                 localStorage.removeItem("token");
+                setLoadingUser(false);
             }
         } else {
             setToken(null);
             setUserData(null);
             setRole(null);
             setIsLoggedIn(false);
+            setLoadingUser(false);
         }
     }, []);
 
@@ -108,6 +147,8 @@ export const DataProvider = ({ children }) => {
         isLoggedIn,
         userData,
         token,
+        loadingUser,
+        fetchUserProfile,
         login,
         logout,
         getAllEquipment,
