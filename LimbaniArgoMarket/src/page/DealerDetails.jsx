@@ -82,6 +82,56 @@ const DealerDetails = () => {
         ? dealerInventory
         : dealerInventory.filter(item => item.category?.toLowerCase() === selectedCategory.toLowerCase());
 
+    // Filter inventory & fetch dealer products from database
+    const [dealerProducts, setDealerProducts] = useState([]);
+    const [loadingProducts, setLoadingProducts] = useState(true);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                setLoadingProducts(true);
+                const res = await axios.get(`${API_URL}/api/product/get-all-product`);
+                const allProds = res.data?.products || (Array.isArray(res.data) ? res.data : []);
+
+                // Filter products listed by this dealer
+                const matched = allProds.filter(p => {
+                    const sId = p.sellerId?._id || p.sellerId || p.seller?._id || p.seller;
+                    const dId = fetchedDealer?._id || fetchedDealer?.id || id;
+                    const dName = fetchedDealer?.name || fetchedDealer?.contactPerson;
+
+                    return (
+                        (dId && String(sId) === String(dId)) ||
+                        (dName && (p.seller === dName || p.sellerName === dName))
+                    );
+                });
+
+                // Normalize for EquipmentCard
+                const normalized = matched.map((p, idx) => ({
+                    ...p,
+                    id: p._id || p.id || idx + 1,
+                    name: p.title || p.productName || p.name || "Agricultural Equipment",
+                    price: p.price ? `₹${Number(p.price).toLocaleString('en-IN')}` : "₹ Contact Dealer",
+                    image: p.images?.[0] || p.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80",
+                    location: p.address || p.location || displayAddress,
+                    year: p.manufactureYear || p.year || "2022",
+                    condition: p.condition || "Used",
+                    seller: {
+                        phone: dealer.phone,
+                        whatsapp: dealer.whatsapp
+                    }
+                }));
+
+                setDealerProducts(normalized);
+            } catch (err) {
+                console.error("Dealer products error:", err);
+            } finally {
+                setLoadingProducts(false);
+            }
+        };
+
+        if (id) fetchProducts();
+    }, [id, fetchedDealer]);
+
     const handleCopyContact = () => {
         navigator.clipboard.writeText(`${dealer.name}\nPhone: ${dealer.phone}\nAddress: ${dealer.address}`);
         setCopiedContact(true);
@@ -164,10 +214,14 @@ const DealerDetails = () => {
                                         </h1>
                                     </div>
                                     <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-on-surface-variant font-medium">
-                                        <span className="flex items-center gap-1 font-bold text-on-surface bg-surface-container px-2 py-0.5 rounded">
-                                            <span className="material-symbols-outlined text-[16px] text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>star</span> {dealer.rating}
-                                        </span>
-                                        <span>•</span>
+                                        {dealer.rating && (
+                                            <>
+                                                <span className="flex items-center gap-1 font-bold text-on-surface bg-surface-container px-2 py-0.5 rounded">
+                                                    <span className="material-symbols-outlined text-[16px] text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>star</span> {dealer.rating}
+                                                </span>
+                                                <span>•</span>
+                                            </>
+                                        )}
                                         <span className="flex items-center gap-1">
                                             <span className="material-symbols-outlined text-[16px] text-primary">location_on</span> {dealer.address}
                                         </span>
@@ -204,7 +258,9 @@ const DealerDetails = () => {
                 </div>
             </section>
 
-            {/* SECTIONS 3 & 4: Overview + Contact Info */}
+
+
+            {/* SECTIONS 4 & 5: Overview + Contact Info */}
             <section className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop mb-14">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
@@ -295,6 +351,41 @@ const DealerDetails = () => {
                     </div>
 
                 </div>
+            </section>
+            {/* SECTION 3: Dealer's Listed Equipment / Products */}
+            <section className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop mb-10 sm:mb-14">
+                <div className="flex items-center justify-between gap-4 mb-6 border-b border-outline-variant/30 pb-4">
+                    <div>
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs mb-1 border border-primary/20">
+                            <span className="material-symbols-outlined text-sm">inventory_2</span> Dealer Inventory
+                        </div>
+                        <h2 className="font-display-md text-2xl sm:text-3xl font-extrabold text-on-surface flex items-center gap-2">
+                            <span>Listed Products / Equipment</span>
+                            <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs sm:text-sm font-bold">
+                                ({dealerProducts.length})
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+
+                {loadingProducts ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-5">
+                        {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="h-56 bg-surface-container rounded-2xl animate-pulse"></div>
+                        ))}
+                    </div>
+                ) : dealerProducts.length > 0 ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-5">
+                        {dealerProducts.map(item => (
+                            <EquipmentCard key={item.id} equipment={item} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-12 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 card-shadow">
+                        <span className="material-symbols-outlined text-5xl text-outline mb-2">agriculture</span>
+                        <p className="text-on-surface-variant font-bold text-base">No active equipment listings added by this dealer yet.</p>
+                    </div>
+                )}
             </section>
 
         </main>

@@ -40,10 +40,10 @@ const AddProduct = () => {
                     </div>
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-bold text-sm transition-all border border-outline-variant/40 self-start sm:self-auto active:scale-95"
+                        className="px-3 py-2 sm:px-4 sm:py-2.5 bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 rounded-xl text-xs sm:text-sm font-bold text-on-surface transition-all shrink-0 flex items-center gap-1.5 active:scale-95 shadow-sm whitespace-nowrap self-start sm:self-auto"
                     >
-                        <span className="material-symbols-outlined text-lg">arrow_back</span>
-                        Back to Home
+                        <span className="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
+                        <span>Go Back</span>
                     </Link>
                 </div>
 

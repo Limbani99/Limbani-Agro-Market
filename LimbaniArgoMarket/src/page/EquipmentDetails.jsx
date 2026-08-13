@@ -43,7 +43,9 @@ const EquipmentDetails = () => {
         isFeatured: true,
         image: (item?.images && item?.images.length > 0) ? item?.images[0] : (item?.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"),
         gallery: (item?.images && item?.images.length > 0) ? item?.images : (item?.gallery || [item?.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"]),
-        sellerName: item?.seller?.name || item?.sellerName || item?.seller || "Verified Farmer / Dealer",
+        sellerId: item?.sellerId?._id || item?.sellerId || item?.seller?._id || item?.userId || (typeof item?.seller === 'string' && item?.seller.length > 10 ? item?.seller : null),
+        sellerImg: item?.seller?.profileimg || item?.seller?.image || item?.sellerProfileimg || "",
+        sellerName: item?.seller?.name || item?.sellerName || (typeof item?.seller === 'string' && item?.seller.length <= 25 ? item?.seller : "Verified Farmer / Dealer"),
         sellerPhone: item?.seller?.phone || item?.sellerPhone || item?.phone || "+919023341592",
         sellerWhatsapp: item?.seller?.whatsapp || item?.sellerPhone || item?.phone || "919023341592"
     };
@@ -187,21 +189,58 @@ const EquipmentDetails = () => {
 
                         {/* Seller Card */}
                         <div className="bg-surface-container-lowest p-5 rounded-3xl border border-outline-variant/30 card-shadow">
-                            <h3 className="font-title-md font-bold text-on-surface mb-3 flex items-center gap-2 text-sm sm:text-base">
-                                <span className="material-symbols-outlined text-primary text-xl">person</span> Seller Details
-                            </h3>
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-full bg-primary/10 text-primary font-bold text-xl flex items-center justify-center shrink-0">
-                                    {(equipment.sellerName || 'V').charAt(0)}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-1.5">
-                                        <h4 className="font-title-md font-bold text-on-surface truncate text-base">{equipment.sellerName}</h4>
-                                        <span className="material-symbols-outlined text-primary text-[18px]">verified</span>
-                                    </div>
-                                    <p className="text-xs text-on-surface-variant">Verified Farmer / Dealer</p>
-                                </div>
+                            <div className="flex items-center justify-between gap-2 mb-3">
+                                <h3 className="font-title-md font-bold text-on-surface flex items-center gap-2 text-sm sm:text-base">
+                                    <span className="material-symbols-outlined text-primary text-xl">person</span> Seller Details
+                                </h3>
                             </div>
+                            
+                            <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-3.5 min-w-0">
+                                    {equipment.sellerImg ? (
+                                        <img
+                                            src={equipment.sellerImg}
+                                            alt={equipment.sellerName}
+                                            className="w-12 h-12 rounded-full object-cover border-2 border-primary/20 shrink-0"
+                                            onError={(e) => { e.target.style.display = 'none'; }}
+                                        />
+                                    ) : (
+                                        <div className="w-12 h-12 rounded-full bg-primary/10 text-primary font-extrabold text-xl flex items-center justify-center shrink-0 border border-primary/20">
+                                            {(equipment.sellerName || 'V').charAt(0).toUpperCase()}
+                                        </div>
+                                    )}
+                                    <div className="min-w-0">
+                                        <div className="flex items-center gap-1.5">
+                                            <h4 className="font-title-md font-bold text-on-surface truncate text-base">{equipment.sellerName}</h4>
+                                            <span className="material-symbols-outlined text-primary text-[18px]">verified</span>
+                                        </div>
+                                        <p className="text-xs text-on-surface-variant font-medium">Verified Farmer / Dealer</p>
+                                    </div>
+                                </div>
+
+                                {equipment.sellerId ? (
+                                    <Link
+                                        to={`/dealer/${equipment.sellerId}`}
+                                        className="hidden sm:flex px-3.5 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 rounded-xl text-xs font-bold transition-all items-center gap-1.5 shrink-0 active:scale-95 shadow-sm"
+                                    >
+                                        <span className="material-symbols-outlined text-base">storefront</span>
+                                        <span>View Profile</span>
+                                    </Link>
+                                ) : null}
+                            </div>
+
+                            {/* Mobile View Profile Button */}
+                            {equipment.sellerId ? (
+                                <div className="mt-4 pt-3 border-t border-outline-variant/20 sm:hidden">
+                                    <Link
+                                        to={`/dealer/${equipment.sellerId}`}
+                                        className="w-full bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 font-bold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm"
+                                    >
+                                        <span className="material-symbols-outlined text-base">storefront</span>
+                                        <span>View Seller Profile</span>
+                                    </Link>
+                                </div>
+                            ) : null}
                         </div>
 
                     </div>

@@ -186,14 +186,23 @@ const UpdateProfile = () => {
                 {/* Card Container */}
                 <div className="bg-surface-container-lowest p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
 
-                    <div className="flex items-center gap-3 mb-5 sm:mb-6 pb-3.5 sm:pb-4 border-b border-outline-variant/20">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0">
-                            <span className="material-symbols-outlined text-xl sm:text-2xl">manage_accounts</span>
+                    <div className="flex items-center justify-between gap-3 mb-5 sm:mb-6 pb-3.5 sm:pb-4 border-b border-outline-variant/20">
+                        <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0">
+                                <span className="material-symbols-outlined text-xl sm:text-2xl">manage_accounts</span>
+                            </div>
+                            <div className="min-w-0">
+                                <h1 className="font-display-md text-lg sm:text-2xl font-bold text-on-surface truncate">Update Your Profile</h1>
+                                <p className="text-[11px] sm:text-sm text-on-surface-variant truncate">Update your account details and profile images</p>
+                            </div>
                         </div>
-                        <div className="min-w-0">
-                            <h1 className="font-display-md text-lg sm:text-2xl font-bold text-on-surface truncate">Update Your Profile</h1>
-                            <p className="text-[11px] sm:text-sm text-on-surface-variant truncate">Update your account details and profile images</p>
-                        </div>
+                        <Link
+                            to="/profile"
+                            className="px-3 py-2 sm:px-4 sm:py-2.5 bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 rounded-xl text-xs sm:text-sm font-bold text-on-surface transition-all shrink-0 flex items-center gap-1.5 active:scale-95 shadow-sm whitespace-nowrap"
+                        >
+                            <span className="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
+                            <span>Go Back</span>
+                        </Link>
                     </div>
 
                     {message && (

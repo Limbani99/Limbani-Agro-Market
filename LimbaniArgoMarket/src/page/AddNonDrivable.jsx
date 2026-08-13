@@ -140,24 +140,22 @@ const AddNonDrivable = () => {
 
                 {/* Navigation & Header */}
                 <div className="flex items-center justify-between gap-3 mb-4 sm:mb-6 border-b border-outline-variant/30 pb-3.5 sm:pb-4">
-                    <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
-                        <Link
-                            to="/add-product"
-                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 shadow-sm flex items-center justify-center text-on-surface transition-all shrink-0 active:scale-95"
-                            aria-label="Back to categories"
-                        >
-                            <span className="material-symbols-outlined text-lg sm:text-xl">arrow_back</span>
-                        </Link>
-                        <div className="min-w-0">
-                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] sm:text-xs tracking-wide uppercase mb-1">
-                                <span className="material-symbols-outlined text-[12px] sm:text-[14px]">hardware</span>
-                                <span>Category: Non-Drivable Equipment</span>
-                            </div>
-                            <h1 className="font-display-lg text-base sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-snug truncate sm:whitespace-normal">
-                                List Non-Drivable Equipment / Implement
-                            </h1>
+                    <div className="min-w-0">
+                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] sm:text-xs tracking-wide uppercase mb-1">
+                            <span className="material-symbols-outlined text-[12px] sm:text-[14px]">hardware</span>
+                            <span>Category: Non-Drivable Equipment</span>
                         </div>
+                        <h1 className="font-display-lg text-xl sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight tracking-tight break-words">
+                            List Non-Drivable Equipment / Implement
+                        </h1>
                     </div>
+                    <Link
+                        to="/add-product"
+                        className="px-3 py-2 sm:px-4 sm:py-2.5 bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 rounded-xl text-xs sm:text-sm font-bold text-on-surface transition-all shrink-0 flex items-center gap-1.5 active:scale-95 shadow-sm whitespace-nowrap"
+                    >
+                        <span className="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
+                        <span>Go Back</span>
+                    </Link>
                 </div>
 
                 {/* Success Banner */}
@@ -169,20 +167,19 @@ const AddNonDrivable = () => {
                 )}
 
                 {/* Main Form */}
-                <form onSubmit={handleSubmit} className="bg-surface-container-lowest dark:bg-surface-container-low p-3.5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl card-shadow border border-outline-variant/40 space-y-4 sm:space-y-6">
+                <form onSubmit={handleSubmit} className="bg-surface-container-lowest dark:bg-surface-container-low p-6 sm:p-10 rounded-3xl card-shadow border border-outline-variant/40 space-y-6">
 
                     {/* Section 1: Seller & Company Info */}
-                    <div className="space-y-3 sm:space-y-4">
-                        <h2 className="text-sm sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
+                    <div className="space-y-4">
+                        <h2 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
                             <span className="material-symbols-outlined text-primary text-lg sm:text-xl">person</span>
                             Seller Information
                         </h2>
 
-                        {/* 2 Columns on Phone & Desktop */}
-                        <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {/* Seller Name * */}
                             <div>
-                                <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Seller Name *</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Seller Name *</label>
                                 <input
                                     type="text"
                                     name="sellerName"
@@ -190,35 +187,35 @@ const AddNonDrivable = () => {
                                     placeholder="e.g. Patel Man Nareshbhai"
                                     value={formData.sellerName}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2.5 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-on-surface outline-none transition-all"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
                                 />
                             </div>
 
                             {/* Company (Optional) */}
                             <div>
-                                <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Company / Dealership (Optional)</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Company / Dealership (Optional)</label>
                                 <input
                                     type="text"
                                     name="company"
                                     placeholder="e.g. Limbani Agro Implements"
                                     value={formData.company}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2.5 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-on-surface outline-none transition-all"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
                                 />
                             </div>
                         </div>
                     </div>
 
                     {/* Section 2: Equipment Details */}
-                    <div className="space-y-3 sm:space-y-4 pt-1 sm:pt-2">
-                        <h2 className="text-sm sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
+                    <div className="space-y-4 pt-2">
+                        <h2 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
                             <span className="material-symbols-outlined text-primary text-lg sm:text-xl">hardware</span>
                             Equipment Details
                         </h2>
 
                         {/* Product Name * */}
                         <div>
-                            <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Product / Equipment Name *</label>
+                            <label className="block text-xs font-bold text-on-surface mb-1.5">Product / Equipment Name *</label>
                             <input
                                 type="text"
                                 name="productName"
@@ -226,20 +223,20 @@ const AddNonDrivable = () => {
                                 placeholder="e.g. Shaktiman 6ft Heavy Duty Rotavator"
                                 value={formData.productName}
                                 onChange={handleChange}
-                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2.5 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-on-surface outline-none transition-all"
+                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
                             />
                         </div>
 
-                        {/* Category & Brand Grid - 2 Columns on Phone & Desktop */}
-                        <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                        {/* Category & Brand Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {/* Category * */}
                             <div>
-                                <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Implement Category *</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Implement Category *</label>
                                 <select
                                     name="category"
                                     value={formData.category}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-[11px] sm:text-sm text-on-surface outline-none transition-all cursor-pointer truncate"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all cursor-pointer"
                                 >
                                     <option value="Rotavator">Rotavator</option>
                                     <option value="Cultivator">Cultivator</option>
@@ -254,12 +251,12 @@ const AddNonDrivable = () => {
 
                             {/* Brand * */}
                             <div>
-                                <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Brand / Manufacturer *</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Brand / Manufacturer *</label>
                                 <select
                                     name="brand"
                                     value={formData.brand}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-[11px] sm:text-sm text-on-surface outline-none transition-all cursor-pointer truncate"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all cursor-pointer"
                                 >
                                     <option value="Shaktiman">Shaktiman</option>
                                     <option value="Fieldking">Fieldking</option>
@@ -274,11 +271,11 @@ const AddNonDrivable = () => {
                             </div>
                         </div>
 
-                        {/* Price, Condition, Manufacture Year Grid - 3 Columns on Phone & Desktop */}
-                        <div className="grid grid-cols-3 gap-1.5 sm:gap-4">
+                        {/* Price, Condition, Manufacture Year Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             {/* Price * */}
                             <div>
-                                <label className="block text-[10px] sm:text-xs font-bold text-on-surface mb-1 truncate">Asking Price (₹) *</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Asking Price (₹) *</label>
                                 <input
                                     type="number"
                                     name="price"
@@ -286,18 +283,18 @@ const AddNonDrivable = () => {
                                     placeholder="e.g. 95000"
                                     value={formData.price}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-1.5 sm:px-4 py-2 sm:py-3 text-[11px] sm:text-sm text-on-surface outline-none transition-all"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
                                 />
                             </div>
 
                             {/* Condition * */}
                             <div>
-                                <label className="block text-[10px] sm:text-xs font-bold text-on-surface mb-1 truncate">Condition *</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Condition *</label>
                                 <select
                                     name="condition"
                                     value={formData.condition}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-1 sm:px-4 py-2 sm:py-3 text-[10px] sm:text-sm text-on-surface outline-none transition-all cursor-pointer truncate"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all cursor-pointer"
                                 >
                                     <option value="Used">Used / Pre-owned</option>
                                     <option value="New">Brand New</option>
@@ -306,21 +303,21 @@ const AddNonDrivable = () => {
 
                             {/* Manufacture Year (Optional) */}
                             <div>
-                                <label className="block text-[10px] sm:text-xs font-bold text-on-surface mb-1 truncate">Manufacture Year</label>
+                                <label className="block text-xs font-bold text-on-surface mb-1.5">Manufacture Year (Optional)</label>
                                 <input
                                     type="number"
                                     name="manufactureYear"
                                     placeholder="e.g. 2023"
                                     value={formData.manufactureYear}
                                     onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-1.5 sm:px-4 py-2 sm:py-3 text-[11px] sm:text-sm text-on-surface outline-none transition-all"
+                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
                                 />
                             </div>
                         </div>
 
                         {/* Address / Location * */}
                         <div>
-                            <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Location / Address *</label>
+                            <label className="block text-xs font-bold text-on-surface mb-1.5">Location / Address *</label>
                             <input
                                 type="text"
                                 name="address"
@@ -328,51 +325,51 @@ const AddNonDrivable = () => {
                                 placeholder="e.g. Madasana Kampa, Medhasan, Dist Arvalli, Gujarat"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2.5 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-on-surface outline-none transition-all"
+                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
                             />
                         </div>
 
                         {/* Description (Optional) */}
                         <div>
-                            <label className="block text-[11px] sm:text-xs font-bold text-on-surface mb-1 truncate">Description & Details (Optional)</label>
+                            <label className="block text-xs font-bold text-on-surface mb-1.5">Description & Details (Optional)</label>
                             <textarea
                                 name="description"
                                 rows="3"
                                 placeholder="Blade condition, working width (ft), gearbox condition, usage history..."
                                 value={formData.description}
                                 onChange={handleChange}
-                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-2.5 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-on-surface outline-none transition-all resize-none"
+                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all resize-none"
                             ></textarea>
                         </div>
                     </div>
 
                     {/* Section 3: Image Upload */}
-                    <div className="space-y-3 sm:space-y-4 pt-1 sm:pt-2">
-                        <h2 className="text-sm sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
+                    <div className="space-y-4 pt-2">
+                        <h2 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
                             <span className="material-symbols-outlined text-primary text-lg sm:text-xl">add_a_photo</span>
                             Upload Photos (Max 4 Photos)
                         </h2>
 
-                        <div className="grid grid-cols-4 gap-2 sm:gap-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             {/* Uploaded Image Previews */}
                             {imagePreviews.map((preview, index) => (
-                                <div key={index} className="relative h-20 sm:h-28 rounded-xl sm:rounded-2xl overflow-hidden border border-outline-variant/40 group shadow-sm">
+                                <div key={index} className="relative h-28 rounded-2xl overflow-hidden border border-outline-variant/40 group shadow-sm">
                                     <img src={preview} alt={`Upload ${index + 1}`} className="w-full h-full object-cover" />
                                     <button
                                         type="button"
                                         onClick={() => handleRemoveImage(index)}
-                                        className="absolute top-1 right-1 w-6 h-6 sm:w-7 sm:h-7 bg-black/70 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                                        className="absolute top-1.5 right-1.5 w-7 h-7 bg-black/70 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
                                     >
-                                        <span className="material-symbols-outlined text-xs sm:text-sm">close</span>
+                                        <span className="material-symbols-outlined text-sm">close</span>
                                     </button>
                                 </div>
                             ))}
 
                             {/* Add Photo Button Slot */}
                             {images.length < 4 && (
-                                <label className="h-20 sm:h-28 rounded-xl sm:rounded-2xl border-2 border-dashed border-outline-variant/60 hover:border-primary bg-surface/50 hover:bg-primary/5 flex flex-col items-center justify-center cursor-pointer transition-all p-1 text-center">
-                                    <span className="material-symbols-outlined text-xl sm:text-2xl text-primary mb-0.5">add_photo_alternate</span>
-                                    <span className="text-[10px] sm:text-xs font-bold text-on-surface-variant leading-tight">Add Photo ({images.length}/4)</span>
+                                <label className="h-28 rounded-2xl border-2 border-dashed border-outline-variant/60 hover:border-primary bg-surface/50 hover:bg-primary/5 flex flex-col items-center justify-center cursor-pointer transition-all">
+                                    <span className="material-symbols-outlined text-2xl text-primary mb-1">add_photo_alternate</span>
+                                    <span className="text-xs font-bold text-on-surface-variant">Add Photo ({images.length}/4)</span>
                                     <input
                                         type="file"
                                         accept="image/*"

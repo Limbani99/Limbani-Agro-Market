@@ -174,16 +174,23 @@ const EditProduct = () => {
         <main className="min-h-screen bg-surface dark:bg-surface-dim pt-24 pb-16 px-4 sm:px-margin-mobile md:px-margin-desktop">
             <div className="max-w-3xl mx-auto">
 
-                {/* Header */}
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant/30">
-                    <div>
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs mb-1 border border-primary/20">
-                            <span className="material-symbols-outlined text-sm">edit</span> Edit Listing
+                {/* Navigation & Header */}
+                <div className="flex items-center justify-between gap-3 mb-4 sm:mb-6 border-b border-outline-variant/30 pb-3.5 sm:pb-4">
+                    <div className="min-w-0">
+                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] sm:text-xs tracking-wide uppercase mb-1">
+                            <span className="material-symbols-outlined text-[12px] sm:text-[14px]">edit</span>
+                            <span>Edit Listing</span>
                         </div>
-                        <h1 className="font-display-lg text-2xl sm:text-3xl font-extrabold text-on-surface">Update Equipment Details</h1>
+                        <h1 className="font-display-lg text-lg sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight tracking-tight break-words">
+                            Update Equipment Details
+                        </h1>
                     </div>
-                    <Link to="/profile" className="px-4 py-2 bg-surface-container border border-outline-variant rounded-xl text-xs sm:text-sm font-bold text-on-surface hover:bg-surface-container-high transition-all">
-                        Back to Profile
+                    <Link
+                        to="/profile"
+                        className="px-3 py-2 sm:px-4 sm:py-2.5 bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 rounded-xl text-xs sm:text-sm font-bold text-on-surface transition-all shrink-0 flex items-center gap-1.5 active:scale-95 shadow-sm whitespace-nowrap"
+                    >
+                        <span className="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
+                        <span>Go Back</span>
                     </Link>
                 </div>
 
