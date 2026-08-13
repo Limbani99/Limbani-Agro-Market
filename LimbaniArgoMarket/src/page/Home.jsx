@@ -21,11 +21,13 @@ const Home = () => {
             {/* 4. The Products */}
             <LatestEquipment />
 
+            {/* 6. Dealer Network */}
+            <FeaturedDealers />
+
             {/* 5. Educational / Trust */}
             <HowItWorks />
 
-            {/* 6. Dealer Network */}
-            <FeaturedDealers />
+
 
             {/* 7. Final Conversion */}
             <HomeCTA />

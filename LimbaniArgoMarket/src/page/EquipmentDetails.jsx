@@ -43,7 +43,7 @@ const EquipmentDetails = () => {
         isFeatured: true,
         image: (item?.images && item?.images.length > 0) ? item?.images[0] : (item?.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"),
         gallery: (item?.images && item?.images.length > 0) ? item?.images : (item?.gallery || [item?.image || "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"]),
-        sellerId: item?.sellerId?._id || item?.sellerId || item?.seller?._id || item?.userId || (typeof item?.seller === 'string' && item?.seller.length > 10 ? item?.seller : null),
+        sellerId: item?.sellerId?._id || item?.sellerId || item?.seller?._id || item?.userId || (typeof item?.seller === 'string' && item?.seller.length > 10 ? item?.seller : null) || '1',
         sellerImg: item?.seller?.profileimg || item?.seller?.image || item?.sellerProfileimg || "",
         sellerName: item?.seller?.name || item?.sellerName || (typeof item?.seller === 'string' && item?.seller.length <= 25 ? item?.seller : "Verified Farmer / Dealer"),
         sellerPhone: item?.seller?.phone || item?.sellerPhone || item?.phone || "+919023341592",
@@ -189,11 +189,9 @@ const EquipmentDetails = () => {
 
                         {/* Seller Card */}
                         <div className="bg-surface-container-lowest p-5 rounded-3xl border border-outline-variant/30 card-shadow">
-                            <div className="flex items-center justify-between gap-2 mb-3">
-                                <h3 className="font-title-md font-bold text-on-surface flex items-center gap-2 text-sm sm:text-base">
-                                    <span className="material-symbols-outlined text-primary text-xl">person</span> Seller Details
-                                </h3>
-                            </div>
+                            <h3 className="font-title-md font-bold text-on-surface mb-3 flex items-center gap-2 text-sm sm:text-base">
+                                <span className="material-symbols-outlined text-primary text-xl">person</span> Seller Details
+                            </h3>
                             
                             <div className="flex items-center justify-between gap-3">
                                 <div className="flex items-center gap-3.5 min-w-0">
@@ -218,29 +216,14 @@ const EquipmentDetails = () => {
                                     </div>
                                 </div>
 
-                                {equipment.sellerId ? (
-                                    <Link
-                                        to={`/dealer/${equipment.sellerId}`}
-                                        className="hidden sm:flex px-3.5 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 rounded-xl text-xs font-bold transition-all items-center gap-1.5 shrink-0 active:scale-95 shadow-sm"
-                                    >
-                                        <span className="material-symbols-outlined text-base">storefront</span>
-                                        <span>View Profile</span>
-                                    </Link>
-                                ) : null}
+                                <Link
+                                    to={`/dealer/${equipment.sellerId}`}
+                                    className="px-3.5 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 active:scale-95 shadow-sm"
+                                >
+                                    <span className="material-symbols-outlined text-base">storefront</span>
+                                    <span>View Profile</span>
+                                </Link>
                             </div>
-
-                            {/* Mobile View Profile Button */}
-                            {equipment.sellerId ? (
-                                <div className="mt-4 pt-3 border-t border-outline-variant/20 sm:hidden">
-                                    <Link
-                                        to={`/dealer/${equipment.sellerId}`}
-                                        className="w-full bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 font-bold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm"
-                                    >
-                                        <span className="material-symbols-outlined text-base">storefront</span>
-                                        <span>View Seller Profile</span>
-                                    </Link>
-                                </div>
-                            ) : null}
                         </div>
 
                     </div>

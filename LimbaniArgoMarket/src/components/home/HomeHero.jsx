@@ -5,15 +5,15 @@ const HomeHero = () => {
     return (
         <section className="relative w-full min-h-[480px] sm:min-h-[520px] lg:min-h-[580px] flex items-end lg:items-center justify-center pt-24 pb-8 sm:pb-12 lg:py-16 px-4 sm:px-margin-mobile md:px-margin-desktop overflow-hidden bg-[#15120D]">
 
-            {/* Background Image: Farmer & Family on Tractor */}
+            {/* Background Image: Farmer & Family on Tractor (Left Aligned) */}
             <div
-                className="absolute inset-0 bg-cover bg-[position:22%_center] lg:bg-[position:16%_center] w-full h-full z-0 motion-safe:scale-105 opacity-95 pointer-events-none"
+                className="absolute inset-0 bg-cover bg-[position:left_center] md:bg-[position:20%_center] w-full h-full z-0 opacity-95 pointer-events-none"
                 style={{ backgroundImage: "url('/farmer_family_tractor.png')" }}
             ></div>
 
-            {/* Gradient Overlays: Clear Left for Farmer Family, Rich Dark on Right for Text Readability */}
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#15120D]/85 via-[#15120D]/40 to-[#15120D]/30 z-10 pointer-events-none"></div>
+            {/* Gradient Overlays: Clear Left for Farmer Family, Dark on Right for High Contrast Text */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/60 to-black/90 hidden lg:block z-10 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 lg:hidden z-10 pointer-events-none"></div>
 
             {/* Main Container */}
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-end lg:items-center relative z-20 w-full">

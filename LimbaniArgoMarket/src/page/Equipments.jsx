@@ -12,85 +12,6 @@ const Equipments = () => {
     const [showAllDrivable, setShowAllDrivable] = useState(false);
     const [showAllNonDrivable, setShowAllNonDrivable] = useState(false);
 
-    // Sample fallbacks to guarantee Non-Drivable vehicles show if DB is empty
-    const sampleProducts = [
-        {
-            id: 'sample-1',
-            name: 'Mahindra 575 DI Tractor',
-            price: '₹5,80,000',
-            location: 'Rajkot, Gujarat',
-            year: 2021,
-            hours: '45 HP',
-            condition: 'Used',
-            category: 'Tractor',
-            vehicleType: 'Drivable',
-            isVerified: true,
-            isFeatured: true,
-            image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80',
-            seller: { phone: '+919023341592', whatsapp: '919023341592' }
-        },
-        {
-            id: 'sample-2',
-            name: 'Swaraj 744 FE Tractor',
-            price: '₹6,20,000',
-            location: 'Anand, Gujarat',
-            year: 2022,
-            hours: '48 HP',
-            condition: 'Used',
-            category: 'Tractor',
-            vehicleType: 'Drivable',
-            isVerified: true,
-            isFeatured: true,
-            image: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80',
-            seller: { phone: '+919023341592', whatsapp: '919023341592' }
-        },
-        {
-            id: 'sample-3',
-            name: 'Shaktiman Semi Champion Rotavator',
-            price: '₹1,15,000',
-            location: 'Junagadh, Gujarat',
-            year: 2023,
-            hours: '7 Feet Width',
-            condition: 'New',
-            category: 'Rotavator',
-            vehicleType: 'Non-Drivable',
-            isVerified: true,
-            isFeatured: true,
-            image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80',
-            seller: { phone: '+919023341592', whatsapp: '919023341592' }
-        },
-        {
-            id: 'sample-4',
-            name: 'Fieldking Heavy Duty Disc Harrow',
-            price: '₹85,000',
-            location: 'Mehsana, Gujarat',
-            year: 2022,
-            hours: '14 Discs',
-            condition: 'Used',
-            category: 'Cultivator',
-            vehicleType: 'Non-Drivable',
-            isVerified: true,
-            isFeatured: true,
-            image: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80',
-            seller: { phone: '+919023341592', whatsapp: '919023341592' }
-        },
-        {
-            id: 'sample-5',
-            name: 'Hydraulic Tipping Tractor Trolley (5 Ton)',
-            price: '₹1,45,000',
-            location: 'Bhavnagar, Gujarat',
-            year: 2023,
-            hours: 'Heavy Chassis',
-            condition: 'Used',
-            category: 'Trolley',
-            vehicleType: 'Non-Drivable',
-            isVerified: true,
-            isFeatured: true,
-            image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80',
-            seller: { phone: '+919023341592', whatsapp: '919023341592' }
-        }
-    ];
-
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -118,14 +39,14 @@ const Equipments = () => {
                         }));
                         setProducts(normalized);
                     } else {
-                        setProducts(sampleProducts);
+                        setProducts([]);
                     }
                 } else {
-                    setProducts(sampleProducts);
+                    setProducts([]);
                 }
             } catch (err) {
                 console.error("Error fetching products:", err);
-                setProducts(sampleProducts);
+                setProducts([]);
             } finally {
                 setLoading(false);
             }
@@ -161,39 +82,86 @@ const Equipments = () => {
 
     return (
         <main className="w-full pt-[72px] pb-20 min-h-screen bg-background">
-            {/* Header Title Section */}
-            <div className="bg-surface border-b border-outline-variant/30 py-8 sm:py-12 mb-8 sm:mb-12">
-                <div className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop text-center">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs mb-3 border border-primary/20">
-                        <span className="material-symbols-outlined text-sm">agriculture</span> Limbani Agro Marketplace
-                    </div>
-                    <h1 className="font-display-lg text-3xl sm:text-4xl md:text-5xl font-extrabold text-on-surface mb-3">
-                        Equipment Page
-                    </h1>
-                    <p className="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-6 text-sm sm:text-base font-medium">
-                        Browse verified drivable tractors, harvesters, non-drivable implements, and agricultural tools.
-                    </p>
+            {/* Hero Section matching HomeHero Layout, Size & Colors */}
+            <section className="relative w-full min-h-[480px] sm:min-h-[520px] lg:min-h-[580px] flex items-end lg:items-center justify-center pt-24 pb-8 sm:pb-12 lg:py-16 px-4 sm:px-margin-mobile md:px-margin-desktop overflow-hidden bg-[#15120D] mb-8 sm:mb-12 shadow-xl">
+                
+                {/* Background Image: Farmer & Family on Left */}
+                <div
+                    className="absolute inset-0 bg-cover bg-[position:left_center] md:bg-[position:20%_center] w-full h-full z-0 opacity-95 pointer-events-none"
+                    style={{ backgroundImage: "url('/equipment_hero_bg.png')" }}
+                ></div>
 
-                    {/* Search Bar */}
-                    <div className="max-w-2xl mx-auto">
-                        <div className="bg-surface-container rounded-2xl flex items-center px-4 border border-outline-variant/40 focus-within:border-primary shadow-sm transition-all">
-                            <span className="material-symbols-outlined text-primary text-xl">search</span>
-                            <input
-                                className="w-full bg-transparent border-none focus:ring-0 text-sm sm:text-base text-on-surface ml-2 py-3 sm:py-3.5 outline-none font-medium"
-                                placeholder="Search tractors, harvesters, plows, or machinery..."
-                                type="text"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                            {searchTerm && (
-                                <button onClick={() => setSearchTerm('')} className="text-on-surface-variant hover:text-on-surface text-xs font-bold px-2">
-                                    Clear
-                                </button>
-                            )}
+                {/* Gradient Overlays: Clear Left for Farmer Family, Dark on Right for High Contrast Text */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/60 to-black/90 hidden lg:block z-10 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 lg:hidden z-10 pointer-events-none"></div>
+
+                {/* Main Container */}
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-end lg:items-center relative z-20 w-full">
+
+                    {/* Left Space - Desktop */}
+                    <div className="hidden lg:block lg:col-span-5 min-h-[280px]"></div>
+
+                    {/* Content at Right Column */}
+                    <div className="lg:col-span-7 space-y-3 sm:space-y-4 text-center mt-auto lg:mt-0 pb-1 sm:pb-0">
+
+                        {/* Trust Tagline Badge */}
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D9A438]/20 text-[#E8C468] font-bold text-[10px] sm:text-xs border border-[#D9A438]/30 shadow-md backdrop-blur-md">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#D9A438]"></span>
+                            <span>India's #1 Agricultural Equipment Marketplace</span>
                         </div>
+
+                        {/* Main Headline */}
+                        <h1 className="font-display-lg text-center text-xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-[1.22] tracking-tight drop-shadow-lg">
+                            Discover & Buy{" "}
+                            <span className="bg-gradient-to-r from-[#E8C468] via-[#D9A438] to-[#C4872A] bg-clip-text text-transparent">
+                                Verified Farm Machinery
+                            </span>
+                        </h1>
+
+                        {/* Subtitle */}
+                        <p className="font-body-lg text-center text-[11px] sm:text-sm text-white/90 leading-relaxed font-normal max-w-xl mx-auto drop-shadow-md">
+                            Explore top-quality tractors, harvesters, rotavators, implements, and farm tools directly from verified dealers across India. 0% hidden commission.
+                        </p>
+
+                        {/* Search Bar */}
+                        <div className="max-w-xl mx-auto pt-1">
+                            <div className="bg-white/95 backdrop-blur-md rounded-xl flex items-center px-3.5 py-1 border border-white/30 shadow-2xl transition-all focus-within:ring-2 focus-within:ring-[#D9A438]">
+                                <span className="material-symbols-outlined text-[#D9A438] text-xl shrink-0">search</span>
+                                <input
+                                    className="w-full bg-transparent border-none focus:ring-0 text-xs sm:text-sm text-gray-900 ml-2 py-2 sm:py-2.5 outline-none font-medium placeholder-gray-500"
+                                    placeholder="Search tractors, harvesters, rotavators, plows..."
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                                {searchTerm && (
+                                    <button
+                                        onClick={() => setSearchTerm('')}
+                                        className="text-gray-500 hover:text-gray-900 text-xs font-bold px-2 py-0.5 rounded-lg bg-gray-100 transition-colors shrink-0"
+                                    >
+                                        Clear
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Quick Highlights */}
+                        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 pt-1 text-[10px] sm:text-xs font-bold text-white/90 drop-shadow-md">
+                            <div className="flex items-center gap-1">
+                                <span className="material-symbols-outlined text-sm text-[#E8C468]">verified</span> 100% Verified Sellers
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <span className="material-symbols-outlined text-sm text-[#E8C468]">storefront</span> Direct Dealer Contact
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <span className="material-symbols-outlined text-sm text-[#E8C468]">sell</span> Best Market Prices
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
-            </div>
+            </section>
 
             <div className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop space-y-12 sm:space-y-16">
 

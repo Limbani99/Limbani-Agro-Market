@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useData } from '../context/DataProvider';
 
 const AddProduct = () => {
     const navigate = useNavigate();
+    const { isLoggedIn, userData } = useData() || {};
     const [toastMessage, setToastMessage] = useState(null);
+
+    // Auth Guard: If user is not logged in, redirect to login page
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        const storedToken = localStorage.getItem("token");
+        const isAuth = isLoggedIn || !!storedUser || !!storedToken || !!userData;
+        if (!isAuth) {
+            alert("Please log in first to list your equipment.");
+            navigate('/login');
+        }
+    }, [isLoggedIn, userData, navigate]);
 
     const showComingSoonToast = (categoryName) => {
         setToastMessage(`${categoryName} section is Coming Soon! We are working hard to launch this feature.`);

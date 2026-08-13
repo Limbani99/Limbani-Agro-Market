@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useData } from '../context/DataProvider';
+
 const AddNonDrivable = () => {
     const navigate = useNavigate();
-    const { userData } = useData();
+    const { userData, isLoggedIn } = useData() || {};
     const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
     const storedUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+    const storedToken = localStorage.getItem("token");
     const sellerId = userData?._id || userData?.id || storedUser?._id || storedUser?.id || null;
+
     const [submitting, setSubmitting] = useState(false);
     const [successMsg, setSuccessMsg] = useState(false);
+
+    // Guard: Require login to access Add Non-Drivable page
+    useEffect(() => {
+        const isAuth = isLoggedIn || !!sellerId || !!storedToken;
+        if (!isAuth) {
+            alert("Please log in first to list your equipment.");
+            navigate('/login');
+        }
+    }, [isLoggedIn, sellerId, navigate]);
 
     // Form fields based on handwritten Image 1 & Image 2
     const [formData, setFormData] = useState({

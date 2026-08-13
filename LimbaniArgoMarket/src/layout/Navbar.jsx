@@ -139,12 +139,15 @@ const Navbar = () => {
                             <Link to="/login" className="hidden md:block font-label-md text-label-md bg-surface-container text-primary px-5 py-2.5 rounded-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer font-semibold">
                                 Login
                             </Link>
-                            <Link
-                                to="/add-product"
+                            <button
+                                onClick={() => {
+                                    alert("Please log in first to list your equipment.");
+                                    navigate('/login');
+                                }}
                                 className="hidden md:block font-label-md text-label-md bg-primary-container text-on-primary px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity active:scale-95 duration-200 cursor-pointer font-semibold"
                             >
                                 Sell Equipment
-                            </Link>
+                            </button>
                         </>
                     )}
 
@@ -214,13 +217,16 @@ const Navbar = () => {
                             <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="w-full font-label-md text-label-md bg-surface-container text-primary px-4 py-3 rounded-xl hover:bg-surface-container-high active:scale-98 transition-all font-bold flex items-center justify-center gap-2">
                                 <span className="material-symbols-outlined text-[18px]">login</span> Login
                             </Link>
-                            <Link
-                                to="/add-product"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="w-full font-label-md text-label-md bg-primary text-on-primary px-4 py-3 rounded-xl hover:bg-primary/90 active:scale-98 transition-all font-bold flex items-center justify-center gap-2 shadow-sm text-center"
+                            <button
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    alert("Please log in first to list your equipment.");
+                                    navigate('/login');
+                                }}
+                                className="w-full font-label-md text-label-md bg-primary text-on-primary px-4 py-3 rounded-xl hover:bg-primary/90 active:scale-98 transition-all font-bold flex items-center justify-center gap-2 shadow-sm text-center cursor-pointer"
                             >
                                 <span className="material-symbols-outlined text-[18px]">add_circle</span> Sell Equipment
-                            </Link>
+                            </button>
                         </div>
                     )}
                 </div>

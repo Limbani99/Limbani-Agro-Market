@@ -6,8 +6,21 @@ const AddDrivable = () => {
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
     const [successMsg, setSuccessMsg] = useState(false);
-    const { userData } = useData();
-    const Id = userData?._id;
+    const { userData, isLoggedIn } = useData() || {};
+
+    const storedUserStr = localStorage.getItem("user");
+    const storedUser = storedUserStr ? JSON.parse(storedUserStr) : null;
+    const storedToken = localStorage.getItem("token");
+    const sellerId = userData?._id || userData?.id || storedUser?._id || storedUser?.id || null;
+
+    // Guard: Require login to access Add Drivable page
+    useEffect(() => {
+        const isAuth = isLoggedIn || !!sellerId || !!storedToken;
+        if (!isAuth) {
+            alert("Please log in first to list your equipment.");
+            navigate('/login');
+        }
+    }, [isLoggedIn, sellerId, navigate]);
 
     const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
     // Form fields based on handwritten Image 1

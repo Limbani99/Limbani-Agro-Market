@@ -71,28 +71,6 @@ const Dealers = () => {
                 </div>
             </header>
 
-            {/* Stats Section */}
-            <section className="w-full bg-surface border-b border-surface-variant py-10">
-                <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-gutter">
-                    <div className="bg-surface-container rounded-xl p-6 text-center card-shadow">
-                        <h3 className="font-title-md text-2xl text-primary font-bold mb-1">2,500+</h3>
-                        <p className="font-body-md text-sm text-on-surface-variant">Verified Dealers</p>
-                    </div>
-                    <div className="bg-surface-container rounded-xl p-6 text-center card-shadow">
-                        <h3 className="font-title-md text-2xl text-primary font-bold mb-1">45,000+</h3>
-                        <p className="font-body-md text-sm text-on-surface-variant">Equipment Listings</p>
-                    </div>
-                    <div className="bg-surface-container rounded-xl p-6 text-center card-shadow">
-                        <h3 className="font-title-md text-2xl text-primary font-bold mb-1">28</h3>
-                        <p className="font-body-md text-sm text-on-surface-variant">States Covered</p>
-                    </div>
-                    <div className="bg-surface-container rounded-xl p-6 text-center card-shadow">
-                        <h3 className="font-title-md text-2xl text-primary font-bold mb-1">150,000+</h3>
-                        <p className="font-body-md text-sm text-on-surface-variant">Farmers Connected</p>
-                    </div>
-                </div>
-            </section>
-
             {/* Featured Dealers Grid */}
             <FeaturedDealers dealers={dealers} />
         </main>
