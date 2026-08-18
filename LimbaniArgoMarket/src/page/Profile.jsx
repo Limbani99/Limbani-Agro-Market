@@ -16,6 +16,25 @@ const Profile = () => {
     const storedUser = userData || JSON.parse(localStorage.getItem('user') || 'null');
     const API_URL = import.meta.env.VITE_API_URL || 'https://limbani-agro-market.onrender.com';
 
+    const formatAddress = (addr) => {
+        if (!addr) return null;
+        if (typeof addr === 'string') return addr.trim() || null;
+        if (typeof addr === 'object') {
+            const parts = [
+                addr.address,
+                addr.street,
+                addr.village,
+                addr.city,
+                addr.district,
+                addr.state
+            ].filter(Boolean);
+            return parts.join(', ') || null;
+        }
+        return String(addr);
+    };
+
+    const userAddress = formatAddress(storedUser?.address) || "Location not provided";
+
     useEffect(() => {
         const initProfile = async () => {
             const currentObj = userData || JSON.parse(localStorage.getItem('user') || 'null');
@@ -90,7 +109,7 @@ const Profile = () => {
 
     const handleCopyContact = () => {
         if (!storedUser) return;
-        navigator.clipboard.writeText(`Name: ${storedUser.name || 'N/A'}\nPhone: ${storedUser.phone || 'N/A'}\nEmail: ${storedUser.email || 'N/A'}\nAddress: ${storedUser.address || 'N/A'}`);
+        navigator.clipboard.writeText(`Name: ${storedUser.name || 'N/A'}\nPhone: ${storedUser.phone || 'N/A'}\nEmail: ${storedUser.email || 'N/A'}\nAddress: ${userAddress}`);
         setCopiedContact(true);
         setTimeout(() => setCopiedContact(false), 2000);
     };
@@ -250,7 +269,7 @@ const Profile = () => {
                                     <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-on-surface-variant font-medium">
                                         <span className="flex items-center gap-1 max-w-full truncate">
                                             <span className="material-symbols-outlined text-[15px] text-primary shrink-0">location_on</span>
-                                            <span className="truncate">{storedUser.address || "Location not provided"}</span>
+                                            <span className="truncate">{userAddress}</span>
                                         </span>
                                         <span className="hidden xs:inline">•</span>
                                         <span className="flex items-center gap-1 max-w-full truncate">
@@ -343,7 +362,7 @@ const Profile = () => {
                                     <div className="min-w-0">
                                         <span className="text-on-surface-variant text-[11px] sm:text-xs block">Location / Address</span>
                                         <span className="font-bold text-on-surface leading-snug block break-words">
-                                            {storedUser.address || "Not provided"}
+                                            {userAddress}
                                         </span>
                                     </div>
                                 </div>
