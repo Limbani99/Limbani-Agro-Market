@@ -5,12 +5,12 @@ import { useData } from '../context/DataProvider';
 const drivableCategories = [
     { name: "Tractor", icon: "agriculture", from: "₹2.5 Lakhs", img: "/cat_tractor.png" },
     { name: "Combine Harvester", icon: "eco", from: "₹15.0 Lakhs", img: "/cat_harvester.png" },
-    { name: "Mini Tractor", icon: "directions_car", from: "₹1.8 Lakhs", img: "https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=600&q=80" },
+    { name: "Mini Tractor", icon: "directions_car", from: "₹1.8 Lakhs", img: "/cat_minitractor.png" },
     { name: "JCB & Earth Movers", icon: "construction", from: "₹8.0 Lakhs", img: "/cat_jcb.png" },
-    { name: "Crop Sprayer Vehicle", icon: "water_drop", from: "₹3.2 Lakhs", img: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=600&q=80" },
-    { name: "Self Propelled Reaper", icon: "grass", from: "₹2.1 Lakhs", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" },
-    { name: "Paddy Transplanter", icon: "yard", from: "₹1.9 Lakhs", img: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=600&q=80" },
-    { name: "Sugarcane Loader", icon: "precision_manufacturing", from: "₹4.5 Lakhs", img: "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" }
+    { name: "Crop Sprayer Vehicle", icon: "water_drop", from: "₹3.2 Lakhs", img: "/cat_cropsprayer.png" },
+    { name: "Self Propelled Reaper", icon: "grass", from: "₹2.1 Lakhs", img: "/cat_reaper.png" },
+    { name: "Paddy Transplanter", icon: "yard", from: "₹1.9 Lakhs", img: "/cat_paddytransplanter.png" },
+    { name: "Sugarcane Loader", icon: "precision_manufacturing", from: "₹4.5 Lakhs", img: "/cat_sugarcaneloader.png" }
 ];
 
 const nonDrivableCategories = [
@@ -19,9 +19,9 @@ const nonDrivableCategories = [
     { name: "Plough & Subsoiler", icon: "hardware", from: "₹25,000", img: "/cat_plough.png" },
     { name: "Tractor Trolley & Trailer", icon: "local_shipping", from: "₹95,000", img: "/cat_trolley.png" },
     { name: "Thresher & Shredder", icon: "cyclone", from: "₹80,000", img: "/cat_thresher.png" },
-    { name: "Seed Drill & Planter", icon: "grain", from: "₹40,000", img: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=600&q=80" },
-    { name: "Tractor Sprayer Tank", icon: "opacity", from: "₹30,000", img: "https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=600&q=80" },
-    { name: "Laser Land Leveler", icon: "straighten", from: "₹1.5 Lakhs", img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" }
+    { name: "Seed Drill & Planter", icon: "grain", from: "₹40,000", img: "/cat_seeddrill.png" },
+    { name: "Tractor Sprayer Tank", icon: "opacity", from: "₹30,000", img: "/cat_sprayertank.png" },
+    { name: "Laser Land Leveler", icon: "straighten", from: "₹1.5 Lakhs", img: "/cat_laserleveler.png" }
 ];
 
 const Categories = () => {
