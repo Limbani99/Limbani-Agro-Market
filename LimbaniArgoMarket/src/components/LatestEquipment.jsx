@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import EquipmentCard from './EquipmentCard';
 import { useData } from '../context/DataProvider';
 
@@ -32,8 +33,8 @@ const LatestEquipment = () => {
                                 whatsapp: item.whatsapp || item.phone || '919023341592'
                             }
                         }));
-                        // Fetch & limit to top 5 latest equipment items
-                        setProducts(normalized.slice(-5).reverse());
+                        // Fetch & limit to top 4 latest equipment items
+                        setProducts(normalized.slice(-4).reverse());
                     }
                 }
             } catch (err) {
@@ -54,23 +55,39 @@ const LatestEquipment = () => {
                         <h2 className="font-display-lg text-2xl sm:text-3xl md:text-4xl font-extrabold text-on-surface">Latest Equipment</h2>
                         <p className="font-body-md text-sm sm:text-base text-on-surface-variant mt-1 font-medium">Recently added machinery from verified sellers.</p>
                     </div>
-                    <a href="/equipments" className="px-4 py-2 bg-surface hover:bg-surface-container border border-outline-variant rounded-xl font-bold text-xs sm:text-sm transition-all text-on-surface shadow-sm">
-                        View All
-                    </a>
+                    <Link
+                        to="/equipments"
+                        className="font-label-md text-xs sm:text-sm text-primary font-bold hover:bg-primary/10 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-primary/20 transition-all flex items-center justify-center gap-2 whitespace-nowrap shrink-0 active:scale-95 shadow-sm"
+                    >
+                        <span>View All Equipment</span>
+                        <span className="material-symbols-outlined text-base">arrow_forward</span>
+                    </Link>
                 </div>
 
                 {loading ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-6">
-                        {[1, 2, 3, 4, 5].map(i => (
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                        {[1, 2, 3, 4].map(i => (
                             <div key={i} className="h-64 bg-surface-container rounded-2xl animate-pulse"></div>
                         ))}
                     </div>
                 ) : products.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-6">
-                        {products.map(eq => (
-                            <EquipmentCard key={eq.id} equipment={eq} />
-                        ))}
-                    </div>
+                    <>
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                            {products.map(eq => (
+                                <EquipmentCard key={eq.id} equipment={eq} />
+                            ))}
+                        </div>
+
+                        <div className="mt-8 sm:mt-10 text-center">
+                            <Link
+                                to="/equipments"
+                                className="px-6 py-3 bg-primary text-on-primary hover:bg-primary/90 font-bold text-xs sm:text-sm md:text-base rounded-xl transition-all inline-flex items-center gap-2 shadow-md active:scale-95 cursor-pointer"
+                            >
+                                <span>View All Premium Equipment</span>
+                                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                            </Link>
+                        </div>
+                    </>
                 ) : (
                     <div className="text-center py-12 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 card-shadow">
                         <span className="material-symbols-outlined text-5xl text-outline mb-2">agriculture</span>
