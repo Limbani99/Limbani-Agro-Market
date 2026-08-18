@@ -110,8 +110,10 @@ const AddNonDrivable = () => {
         e.preventDefault();
         setSubmitting(true);
 
+        const validSellerId = (sellerId && typeof sellerId === 'string' && sellerId.length === 24) ? sellerId : null;
+
         const data = {
-            sellerId: sellerId,
+            sellerId: validSellerId,
             title: formData.productName,
             productName: formData.productName,
             sellerName: formData.sellerName,
@@ -123,6 +125,7 @@ const AddNonDrivable = () => {
             condition: formData.condition,
             manufactureYear: formData.manufactureYear,
             address: formData.address,
+            vehicleType: 'Non-Drivable',
             images: imagePreviews.length > 0 ? imagePreviews : ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"]
         };
 

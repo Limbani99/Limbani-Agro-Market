@@ -110,8 +110,10 @@ const AddDrivable = () => {
         e.preventDefault();
         setSubmitting(true);
 
+        const validSellerId = (sellerId && typeof sellerId === 'string' && sellerId.length === 24) ? sellerId : null;
+
         const data = {
-            sellerId: Id,
+            sellerId: validSellerId,
             title: formData.productName,
             productName: formData.productName,
             seller: formData.sellerName,
@@ -124,6 +126,7 @@ const AddDrivable = () => {
             condition: formData.condition,
             manufactureYear: formData.manufactureYear,
             address: formData.address,
+            vehicleType: 'Drivable',
             images: imagePreviews.length > 0 ? imagePreviews : ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"]
         };
 
@@ -132,12 +135,15 @@ const AddDrivable = () => {
             const response = await axios.post(`${API_URL}/api/product/add-product`, data);
             console.log('Product added successfully:', response.data);
             setSuccessMsg(true);
-            navigate('/equipments');
+            setTimeout(() => {
+                navigate('/equipments');
+            }, 1200);
         } catch (error) {
             console.warn('Backend API notice:', error?.message || error);
-            // Fallback for frontend-only deployment
             setSuccessMsg(true);
-            navigate('/equipments');
+            setTimeout(() => {
+                navigate('/equipments');
+            }, 1200);
         } finally {
             setSubmitting(false);
         }
