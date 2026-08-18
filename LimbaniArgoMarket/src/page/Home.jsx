@@ -22,7 +22,7 @@ const Home = () => {
             <LatestEquipment />
 
             {/* 6. Dealer Network */}
-            <FeaturedDealers />
+            <FeaturedDealers isHomePage={true} />
 
             {/* 5. Educational / Trust */}
             <HowItWorks />

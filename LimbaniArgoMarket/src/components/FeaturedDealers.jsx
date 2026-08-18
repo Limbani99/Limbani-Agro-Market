@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DealerCard from './DealerCard';
 import { useData } from '../context/DataProvider';
+import { Link } from 'react-router-dom';
 
-const FeaturedDealers = ({ dealers: apiDealers }) => {
+const FeaturedDealers = ({ dealers: apiDealers, isHomePage = false }) => {
     const dataCtx = useData() || {};
     const getAllDealer = dataCtx.getAllDealer;
     const getAllProduct = dataCtx.getAllProduct;
@@ -84,8 +85,11 @@ const FeaturedDealers = ({ dealers: apiDealers }) => {
         };
     });
 
+    // Limit to 4 dealers on Home Page, show all on Dealers Page
+    const visibleDealers = isHomePage ? normalizedDealers.slice(0, 4) : normalizedDealers;
+
     return (
-        <section className="py-8 sm:py-12 md:py-16 max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop">
+        <section className="py-8 sm:py-12 md:py-16 max-w-container-max mx-auto px-3 sm:px-margin-mobile md:px-margin-desktop">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8 border-b border-outline-variant/30 pb-4 sm:pb-6">
                 <div>
@@ -99,26 +103,50 @@ const FeaturedDealers = ({ dealers: apiDealers }) => {
                         Top-rated agricultural machinery sellers & official dealerships near you
                     </p>
                 </div>
+
+                {isHomePage && (
+                    <Link
+                        to="/dealers"
+                        className="font-label-md text-xs sm:text-sm text-primary font-bold hover:bg-primary/10 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-primary/20 transition-all flex items-center justify-center gap-2 whitespace-nowrap shrink-0 active:scale-95 shadow-sm self-start sm:self-auto"
+                    >
+                        <span>View More Dealers</span>
+                        <span className="material-symbols-outlined text-base">arrow_forward</span>
+                    </Link>
+                )}
             </div>
 
             {/* Skeleton Loading State */}
             {loading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {[1, 2, 3].map((_, i) => (
-                        <div key={i} className="bg-surface-container-lowest dark:bg-surface-container-low rounded-3xl p-5 border border-outline-variant/30 card-shadow space-y-4 animate-pulse">
-                            <div className="h-40 bg-surface-container rounded-2xl w-full"></div>
-                            <div className="h-6 bg-surface-container rounded-xl w-3/4"></div>
-                            <div className="h-4 bg-surface-container rounded-lg w-1/2"></div>
-                            <div className="h-10 bg-surface-container rounded-xl w-full mt-4"></div>
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                    {[1, 2, 3, 4].map((_, i) => (
+                        <div key={i} className="bg-surface-container-lowest dark:bg-surface-container-low rounded-3xl p-4 border border-outline-variant/30 card-shadow space-y-3 animate-pulse">
+                            <div className="h-32 sm:h-40 bg-surface-container rounded-2xl w-full"></div>
+                            <div className="h-5 bg-surface-container rounded-xl w-3/4"></div>
+                            <div className="h-3.5 bg-surface-container rounded-lg w-1/2"></div>
+                            <div className="h-9 bg-surface-container rounded-xl w-full mt-3"></div>
                         </div>
                     ))}
                 </div>
-            ) : normalizedDealers.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {normalizedDealers.map(dealer => (
-                        <DealerCard key={dealer.id} dealer={dealer} />
-                    ))}
-                </div>
+            ) : visibleDealers.length > 0 ? (
+                <>
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                        {visibleDealers.map(dealer => (
+                            <DealerCard key={dealer.id} dealer={dealer} />
+                        ))}
+                    </div>
+
+                    {isHomePage && (
+                        <div className="mt-8 sm:mt-10 text-center">
+                            <Link
+                                to="/dealers"
+                                className="px-6 py-3 bg-primary text-on-primary hover:bg-primary/90 font-bold text-xs sm:text-sm md:text-base rounded-xl transition-all inline-flex items-center gap-2 shadow-md active:scale-95 cursor-pointer"
+                            >
+                                <span>View All Premium Dealers</span>
+                                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                            </Link>
+                        </div>
+                    )}
+                </>
             ) : (
                 <div className="text-center py-12 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 card-shadow">
                     <span className="material-symbols-outlined text-5xl text-outline mb-2">storefront</span>
