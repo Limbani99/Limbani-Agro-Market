@@ -1,16 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useData } from '../context/DataProvider';
 
-const categories = [
-    { name: "Tractor", icon: "agriculture", listings: "12,450", from: "₹2.5 Lakhs", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDo57NPp63tAu5Ukzyr7td4V_xcH7-3oiEHnG_k-rhYmCQx_OYvwTcQPv6YEqwT7ohBq-l9Douqnx4t8EzMu-_B3VbSjQkuMr2z88THzfT43H5eQvxqkcikZ4M9feakYSg8dK7jT8mlxFSVBZjuFwjzPh5cilU_w2M3zenKYqE6fllW3PSAYPMyFKbRjZhEAFLcU8af6KvyE_9AOCCE6mreyUcoa2nGH5HTphzTO1e-vRxwuoVTH7INag" },
-    { name: "Mini Tractor", icon: "directions_car", listings: "3,200", from: "₹1.8 Lakhs", img: null },
-    { name: "Implements", icon: "settings", listings: "8,560", from: "₹20,000", img: null },
-    { name: "Harvester", icon: "eco", listings: "1,200", from: "₹15 Lakhs", img: null },
+const drivableCategories = [
+    { name: "Tractor", icon: "agriculture", from: "₹2.5 Lakhs", img: "/cat_tractor.png" },
+    { name: "Combine Harvester", icon: "eco", from: "₹15.0 Lakhs", img: "/cat_harvester.png" },
+    { name: "Mini Tractor", icon: "directions_car", from: "₹1.8 Lakhs", img: "https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=600&q=80" },
+    { name: "JCB & Earth Movers", icon: "construction", from: "₹8.0 Lakhs", img: "/cat_jcb.png" },
+    { name: "Crop Sprayer Vehicle", icon: "water_drop", from: "₹3.2 Lakhs", img: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=600&q=80" },
+    { name: "Self Propelled Reaper", icon: "grass", from: "₹2.1 Lakhs", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" },
+    { name: "Paddy Transplanter", icon: "yard", from: "₹1.9 Lakhs", img: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=600&q=80" },
+    { name: "Sugarcane Loader", icon: "precision_manufacturing", from: "₹4.5 Lakhs", img: "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" }
+];
+
+const nonDrivableCategories = [
+    { name: "Rotavator", icon: "settings", from: "₹45,000", img: "/cat_rotavator.png" },
+    { name: "Cultivator & Harrow", icon: "grid_view", from: "₹35,000", img: "/cat_cultivator.png" },
+    { name: "Plough & Subsoiler", icon: "hardware", from: "₹25,000", img: "/cat_plough.png" },
+    { name: "Tractor Trolley & Trailer", icon: "local_shipping", from: "₹95,000", img: "/cat_trolley.png" },
+    { name: "Thresher & Shredder", icon: "cyclone", from: "₹80,000", img: "/cat_thresher.png" },
+    { name: "Seed Drill & Planter", icon: "grain", from: "₹40,000", img: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=600&q=80" },
+    { name: "Tractor Sprayer Tank", icon: "opacity", from: "₹30,000", img: "https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=600&q=80" },
+    { name: "Laser Land Leveler", icon: "straighten", from: "₹1.5 Lakhs", img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" }
 ];
 
 const Categories = () => {
+    const { getAllProduct } = useData() || {};
+    const [allProducts, setAllProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [showAllDrivable, setShowAllDrivable] = useState(false);
+    const [showAllNonDrivable, setShowAllNonDrivable] = useState(false);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                if (getAllProduct) {
+                    const data = await getAllProduct();
+                    if (data && Array.isArray(data)) {
+                        setAllProducts(data);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching products for category counts:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, [getAllProduct]);
+
+    const getRealCount = (categoryName) => {
+        if (!allProducts || !Array.isArray(allProducts) || allProducts.length === 0) return 0;
+        const targetKey = categoryName.toLowerCase().trim();
+        const firstWord = targetKey.split(' ')[0];
+
+        return allProducts.filter(item => {
+            const cat = (item.category || item.vehicleType || item.title || item.productName || item.name || '').toLowerCase();
+            return cat.includes(targetKey) || cat.includes(firstWord);
+        }).length;
+    };
+
+    const visibleDrivable = showAllDrivable ? drivableCategories : drivableCategories.slice(0, 5);
+    const visibleNonDrivable = showAllNonDrivable ? nonDrivableCategories : nonDrivableCategories.slice(0, 5);
+
     return (
         <main className="w-full pt-[72px]">
-            {/* Hero Banner */}
+            {/* Hero Banner (UNCHANGED) */}
             <section className="relative w-full min-h-[350px] md:min-h-[500px] flex items-center justify-center overflow-hidden mb-10 md:mb-16">
                 <div className="absolute inset-0 z-0">
                     <img alt="Cinematic farming landscape with modern equipment" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAopxn5Zb3qW4oFfQDyGrdfmw6GTuWdsp-ycKBkw68SnL_CZrUncAkJetQHMmpOzNvFjWfGhnJMxfDWM0HuSPB5xRdTd2EhRXBQkGhJ3VFSP8Nhx627PZe3SMmLtEM2f1_g1RGd4fZ7dZa35Cgr-_4Ek4U9y759CDUP9Dj5M9p1JS8rj7g4dhb8lrCrB_n4PF2OYyqYj32qGprjTyryHIu4AFU66rK20cdvqsC5JzZ9FS20S6ca195UTA" />
@@ -18,7 +74,7 @@ const Categories = () => {
                 </div>
                 <div className="relative z-10 w-full max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop py-12 md:py-20 flex flex-col items-start text-white">
                     <nav className="flex items-center gap-2 text-sm text-white/80 mb-4 md:mb-6">
-                        <a className="hover:text-white transition-colors" href="#">Home</a>
+                        <Link className="hover:text-white transition-colors" to="/">Home</Link>
                         <span className="material-symbols-outlined text-[16px]">chevron_right</span>
                         <span className="font-medium text-secondary">Categories</span>
                     </nav>
@@ -54,42 +110,168 @@ const Categories = () => {
                 </div>
             </section>
 
-            <div className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop space-y-12 md:space-y-20 pb-16 md:pb-20">
-                {/* Premium Category Grid */}
-                <section>
-                    <div className="flex flex-wrap justify-between items-end mb-6 md:mb-8 gap-3">
+            <div className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop space-y-12 md:space-y-16 pb-16 md:pb-20">
+                
+                {/* 1. Drivable Vehicles Categories */}
+                <section className="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/30 card-shadow">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                         <div>
-                            <h2 className="font-headline-lg text-2xl md:text-3xl font-bold text-gray-900 mb-1 md:mb-2">Explore All Categories</h2>
-                            <p className="font-body-md text-sm md:text-base text-gray-600">Find exactly what you need for your farm</p>
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs mb-2 border border-primary/20">
+                                <span className="material-symbols-outlined text-sm">agriculture</span> Self-Propelled Machinery
+                            </div>
+                            <h2 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface">
+                                Drivable Vehicles Categories
+                            </h2>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-                        {categories.map((cat, idx) => (
-                            <a key={idx} className="group bg-white rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col" href="#">
-                                <div className="h-28 sm:h-36 md:h-40 overflow-hidden relative bg-surface-container">
-                                    {cat.img ? (
-                                        <img alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={cat.img} />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-gray-400 group-hover:scale-105 transition-transform duration-500">
-                                            <span className="material-symbols-outlined text-5xl md:text-6xl">{cat.icon}</span>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
+                        {visibleDrivable.map((cat, idx) => {
+                            const count = getRealCount(cat.name);
+                            return (
+                                <Link key={idx} to={`/category/${encodeURIComponent(cat.name)}`} className="group bg-surface hover:bg-surface-container-high rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                                    <div className="h-28 sm:h-36 md:h-40 overflow-hidden relative bg-surface-container">
+                                        {cat.img ? (
+                                            <img alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={cat.img} />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-primary/40 group-hover:scale-105 transition-transform duration-500">
+                                                <span className="material-symbols-outlined text-5xl md:text-6xl">{cat.icon}</span>
+                                            </div>
+                                        )}
+                                        <div className="absolute top-2 right-2 bg-surface/90 backdrop-blur text-primary text-[11px] font-extrabold px-2 py-0.5 rounded-lg shadow-sm border border-primary/20">
+                                            {loading ? '...' : `${count} ${count === 1 ? 'Item' : 'Items'}`}
                                         </div>
-                                    )}
-                                    <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-white/90 backdrop-blur text-primary text-xs font-bold px-2 py-0.5 md:py-1 rounded-lg">{cat.listings}</div>
-                                </div>
-                                <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <span className="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-sm md:text-base">{cat.icon}</span>
-                                        <h3 className="font-title-md text-sm sm:text-base md:text-lg font-bold text-gray-900">{cat.name}</h3>
                                     </div>
-                                    <p className="font-body-sm text-xs md:text-sm text-gray-500 mt-auto pt-3 border-t border-gray-100 flex justify-between">
-                                        <span>Starting from</span>
-                                        <span className="font-bold text-gray-900">{cat.from}</span>
-                                    </p>
-                                </div>
-                            </a>
-                        ))}
+                                    <div className="p-3 sm:p-4 flex flex-col flex-1">
+                                        <div className="flex items-center gap-2 mb-1.5">
+                                            <span className="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-sm">{cat.icon}</span>
+                                            <h3 className="font-title-md text-xs sm:text-sm md:text-base font-bold text-on-surface truncate">{cat.name}</h3>
+                                        </div>
+                                        <p className="font-body-sm text-[11px] sm:text-xs text-on-surface-variant mt-auto pt-2 border-t border-outline-variant/20 flex justify-between">
+                                            <span>From</span>
+                                            <span className="font-bold text-primary">{cat.from}</span>
+                                        </p>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {drivableCategories.length > 5 && (
+                        <div className="mt-8 text-center">
+                            <button
+                                onClick={() => setShowAllDrivable(!showAllDrivable)}
+                                className="px-6 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 rounded-xl font-bold text-xs sm:text-sm transition-all inline-flex items-center gap-2 active:scale-95 shadow-sm cursor-pointer"
+                            >
+                                <span>{showAllDrivable ? "Show Less" : "View More Drivable Categories"}</span>
+                                <span className={`material-symbols-outlined text-base transition-transform duration-300 ${showAllDrivable ? "rotate-180" : ""}`}>
+                                    expand_more
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </section>
+
+                {/* 2. Non - Drivable Vehicles Categories */}
+                <section className="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/30 card-shadow">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                        <div>
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs mb-2 border border-primary/20">
+                                <span className="material-symbols-outlined text-sm">construction</span> Implements & Attachments
+                            </div>
+                            <h2 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface">
+                                Non - Drivable Vehicles Categories
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
+                        {visibleNonDrivable.map((cat, idx) => {
+                            const count = getRealCount(cat.name);
+                            return (
+                                <Link key={idx} to={`/category/${encodeURIComponent(cat.name)}`} className="group bg-surface hover:bg-surface-container-high rounded-2xl overflow-hidden card-shadow border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                                    <div className="h-28 sm:h-36 md:h-40 overflow-hidden relative bg-surface-container">
+                                        {cat.img ? (
+                                            <img alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={cat.img} />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-primary/40 group-hover:scale-105 transition-transform duration-500">
+                                                <span className="material-symbols-outlined text-5xl md:text-6xl">{cat.icon}</span>
+                                            </div>
+                                        )}
+                                        <div className="absolute top-2 right-2 bg-surface/90 backdrop-blur text-primary text-[11px] font-extrabold px-2 py-0.5 rounded-lg shadow-sm border border-primary/20">
+                                            {loading ? '...' : `${count} ${count === 1 ? 'Item' : 'Items'}`}
+                                        </div>
+                                    </div>
+                                    <div className="p-3 sm:p-4 flex flex-col flex-1">
+                                        <div className="flex items-center gap-2 mb-1.5">
+                                            <span className="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-sm">{cat.icon}</span>
+                                            <h3 className="font-title-md text-xs sm:text-sm md:text-base font-bold text-on-surface truncate">{cat.name}</h3>
+                                        </div>
+                                        <p className="font-body-sm text-[11px] sm:text-xs text-on-surface-variant mt-auto pt-2 border-t border-outline-variant/20 flex justify-between">
+                                            <span>From</span>
+                                            <span className="font-bold text-primary">{cat.from}</span>
+                                        </p>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {nonDrivableCategories.length > 5 && (
+                        <div className="mt-8 text-center">
+                            <button
+                                onClick={() => setShowAllNonDrivable(!showAllNonDrivable)}
+                                className="px-6 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 rounded-xl font-bold text-xs sm:text-sm transition-all inline-flex items-center gap-2 active:scale-95 shadow-sm cursor-pointer"
+                            >
+                                <span>{showAllNonDrivable ? "Show Less" : "View More Non-Drivable Categories"}</span>
+                                <span className={`material-symbols-outlined text-base transition-transform duration-300 ${showAllNonDrivable ? "rotate-180" : ""}`}>
+                                    expand_more
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </section>
+
+                {/* 3. Fertilizer & Crop Care (Coming Soon) */}
+                <section className="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/30 card-shadow relative overflow-hidden">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                        <div>
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 font-bold text-xs mb-2 border border-amber-500/30">
+                                <span className="material-symbols-outlined text-sm">schedule</span> Coming Soon
+                            </div>
+                            <h2 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface">
+                                Fertilizer & Crop Care
+                            </h2>
+                            <p className="font-body-md text-xs sm:text-sm text-on-surface-variant mt-1">
+                                Organic fertilizers, soil enhancers, pesticides, and bio-nutrients for healthy crop yields.
+                            </p>
+                        </div>
+                        <div className="px-5 py-2.5 bg-amber-500/10 text-amber-800 dark:text-amber-300 font-bold text-xs sm:text-sm rounded-xl border border-amber-500/30 text-center shrink-0">
+                            Coming Soon
+                        </div>
                     </div>
                 </section>
+
+                {/* 4. Farming Tools & Hardware (Coming Soon) */}
+                <section className="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/30 card-shadow relative overflow-hidden">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                        <div>
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 font-bold text-xs mb-2 border border-amber-500/30">
+                                <span className="material-symbols-outlined text-sm">schedule</span> Coming Soon
+                            </div>
+                            <h2 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface">
+                                Farming Tools & Hardware
+                            </h2>
+                            <p className="font-body-md text-xs sm:text-sm text-on-surface-variant mt-1">
+                                Hand tools, irrigation pipes, spare parts, electric water pumps, and fencing gear.
+                            </p>
+                        </div>
+                        <div className="px-5 py-2.5 bg-amber-500/10 text-amber-800 dark:text-amber-300 font-bold text-xs sm:text-sm rounded-xl border border-amber-500/30 text-center shrink-0">
+                            Coming Soon
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </main>
     );

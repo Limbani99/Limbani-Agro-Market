@@ -15,6 +15,7 @@ import AddProduct from './page/AddProduct'
 import AddDrivable from './page/AddDrivable'
 import AddNonDrivable from './page/AddNonDrivable'
 import EditProduct from './page/EditProduct'
+import CategoryProducts from './page/CategoryProducts'
 import NotFound from './page/NotFound'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
           <Route path='/categories' element={<Categories />} />
+          <Route path='/category/:categoryName' element={<CategoryProducts />} />
           <Route path='/equipments' element={<Equipments />} />
           <Route path='/equipment/:id' element={<EquipmentDetails />} />
           <Route path='/dealers' element={<Dealers />} />

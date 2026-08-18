@@ -1,46 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useData } from '../../context/DataProvider';
 
 const HomeCategories = () => {
+    const dataCtx = useData() || {};
+    const getAllProduct = dataCtx.getAllProduct;
+
+    const [allProducts, setAllProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const categories = [
-        { name: "Tractors", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAkCU4wzOwIgJGePnIVCE7oS1JVLfqBQZelpjmcr_qoWw2X9w9szKQIuekUTRm0mNAXMIyAEdCyaCRC7_4PVgdPkoKjsHI3ar9IfGmocaOKMPQq1PcbeeCm3KvMRyEBSeHqFXeiBJjGCGnq1gYzfk7CE33HBQz-m0nHCwObeXtIfcR7voCi0EVlqNqtyHE1Z-QuCea61TeqT5ZP-RV3cQazkR3Zzv5ZtB35EM6MbzF7CBye0RNA4jgbtQ", count: "1,200+" },
-        { name: "Rotavator", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCv_w5beeF2WOzJBihQxE-XhWpFNkshBRmg9StWWc0toa7upE0pF0tygEG7yFeIRPS0YJfxWWX9cz2j9w2SNANE0vb1bl3zt_IiYEu2vulYwC5M3zeXSTMg-FKGbuz3edXvvF1dY89ZrjImIZbw9J7Kn2UPqHqZwAz4j67ipMdry_aRysYf4jXREgxLTAZwBjTA2Pc1JwiENkMa1tO0f-PWHMuroUDhhSGH1PyaYQbX8gm5-1zvi5i6cg", count: "850+" },
-        { name: "Cultivator", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAG-x2Iva2_JROLsbQD1Adn0uuEDLpnJzlBu_mPYwiN0pP56VYLK3K5vrDmDhEJt9nghJue-0XQvDpyUqRVyUifO7YHJAYPji3aEDUT1NJDGk0pusCHc3KOYJ9z55YJ_tIFIo-02t2k2InxxpINiKaGNK5vATMnNn6E6zRgHBX-x0jHEnzwR_gWsURRLUomOK8lbWh0FnstFpH61yZXWEy_rSCvDtmf0mS110i0yMS_mf6nbgA_HoS7Ug", count: "640+" },
-        { name: "Plough", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAzhvZGLIn5hxPR0Civ_P894fw6UURj5JiVnxkxWsx55EEvi1m-4DzDtUxWS67cW7cFw4Pr2nqa3gCu9yrmQGPOyZpCrO9e44qqV7iaoWa5oWptlADJNKuCzi6z6Qv8DydDiVFhCU74mY-9jGYo4O-NXgV0oW6f_m3_-ULnJNdPDSCvuasbbjpHjBkmCVBne-CgHwt52Yr_Cd07teNfFuIlvCRLYk_6Asyd45cT424HDTIz4r5P-6GyYQ", count: "420+" },
-        { name: "Harvester", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBA93teIHrSA3iIqq77X2nHOFQF8bDxQwD2y904cQZDwuEHCkGib-mI6T-tEAbh8151SyTXkGOFQUBGmyQKMfauUEET1np2kKgNX-nE_avYQSWO-QbbJCLU14B1PtyDDcWOyt0eNQ2DqkDDZoVSsG6bdN-mGOpkzbm94cbqZmY7YCH94Uope-T-t9VW9Dlii0sBxgvtjQsCpEvb_ma-kezYTeVZpW586nj7pGphZYujoyti5fhJ6obiAw", count: "150+" },
-        { name: "Trailer", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD8WhAcBIS71SV4hKXoeBwqJNB5DqqTvnZCW-GBbs8vmRHROFCuwEGNa8IzutyDDEVGRD6SZ5u1ebM3qtSgIjlNu4Ig4ew_INxCC4I39WFanzjF_ekrjS-58AG9iAJv1QEzV7fVTzRGyE-OGI4t4EGFKuZcY0L0J0RU51V4V6JReZLb5bek7x5XS6FydFGiIo9PMDPcdUxpgh0UNBsdCtv1Y9ckB5nhcRrC2nkdvrtcJQy2D9szBy2X3A", count: "380+" }
+        { name: "Tractor", searchKey: "Tractor", img: "/cat_tractor.png", icon: "agriculture" },
+        { name: "Rotavator", searchKey: "Rotavator", img: "/cat_rotavator.png", icon: "settings" },
+        { name: "Cultivator", searchKey: "Cultivator", img: "/cat_cultivator.png", icon: "grid_view" },
+        { name: "Plough", searchKey: "Plow", img: "/cat_plough.png", icon: "hardware" },
+        { name: "Harvester", searchKey: "Harvester", img: "/cat_harvester.png", icon: "eco" },
+        { name: "Trolley", searchKey: "Trolley", img: "/cat_trolley.png", icon: "local_shipping" }
     ];
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                if (getAllProduct) {
+                    const data = await getAllProduct();
+                    if (data && Array.isArray(data)) {
+                        setAllProducts(data);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching products for HomeCategories:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, [getAllProduct]);
+
+    const getRealCount = (catName, key) => {
+        if (!allProducts || !Array.isArray(allProducts) || allProducts.length === 0) return 0;
+        const target = catName.toLowerCase().trim();
+        const fallbackKey = (key || '').toLowerCase().trim();
+
+        return allProducts.filter(item => {
+            const categoryText = (item.category || item.vehicleType || item.title || item.productName || item.name || '').toLowerCase();
+            return categoryText.includes(target) || (fallbackKey && categoryText.includes(fallbackKey));
+        }).length;
+    };
+
     return (
-        <section className="py-24 bg-surface-container-lowest">
-            <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <section className="py-16 sm:py-20 md:py-24 bg-surface-container-lowest">
+            <div className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 md:mb-12 gap-4">
                     <div className="max-w-2xl">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm mb-3 md:mb-4 border border-secondary/20 font-bold">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 text-primary font-label-sm mb-3 md:mb-4 border border-primary/20 font-extrabold text-xs">
                             <span className="material-symbols-outlined text-[16px]">category</span>
-                            Categories
+                            <span>Categories</span>
                         </div>
-                        <h2 className="font-display-md text-2xl sm:text-3xl md:text-4xl font-bold text-on-surface mb-2 md:mb-4">Browse by Equipment Type</h2>
-                        <p className="font-body-lg text-sm sm:text-base text-on-surface-variant">Find the exact machinery you need for your farm quickly and easily. Browse thousands of verified listings.</p>
+                        <h2 className="font-display-md text-2xl sm:text-3xl md:text-4xl font-extrabold text-on-surface mb-2 md:mb-3">
+                            Browse by Equipment Type
+                        </h2>
+                        <p className="font-body-lg text-sm sm:text-base text-on-surface-variant font-medium">
+                            Find the exact machinery you need for your farm quickly and easily. Browse verified listings across India.
+                        </p>
                     </div>
-                    <Link to="/categories" className="font-label-md text-label-md text-primary font-bold hover:bg-primary/10 px-4 py-2 md:px-6 md:py-3 rounded-full transition-colors flex items-center gap-2 whitespace-nowrap shrink-0">
-                        Explore All <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    <Link to="/categories" className="font-label-md text-sm text-primary font-bold hover:bg-primary/10 px-5 py-2.5 rounded-xl border border-primary/20 transition-all flex items-center gap-2 whitespace-nowrap shrink-0 active:scale-95 shadow-sm">
+                        Explore All Categories <span className="material-symbols-outlined text-base">arrow_forward</span>
                     </Link>
                 </div>
                 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
-                    {categories.map((cat, idx) => (
-                        <Link to="/equipments" key={idx} className="bg-surface rounded-2xl md:rounded-3xl card-shadow overflow-hidden group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1 md:hover:-translate-y-2 hover:shadow-xl flex flex-col">
-                            <div className="h-28 sm:h-32 md:h-40 bg-gradient-to-br from-surface-container-low to-surface-container flex items-center justify-center p-2 sm:p-4 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <img className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500 drop-shadow-md" src={cat.img} alt={cat.name} />
-                            </div>
-                            <div className="p-3 sm:p-4 md:p-5 text-center bg-surface flex-1 flex flex-col justify-center">
-                                <h3 className="font-title-md text-sm sm:text-base font-bold text-on-surface group-hover:text-primary transition-colors">{cat.name}</h3>
-                                <p className="text-xs sm:text-sm text-on-surface-variant font-medium mt-1">{cat.count} listings</p>
-                            </div>
-                        </Link>
-                    ))}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-6">
+                    {categories.map((cat, idx) => {
+                        const count = getRealCount(cat.name, cat.searchKey);
+                        return (
+                            <Link
+                                to={`/category/${encodeURIComponent(cat.name)}`}
+                                key={idx}
+                                className="bg-surface rounded-2xl md:rounded-3xl card-shadow overflow-hidden group border border-outline-variant/30 hover:border-primary/50 transition-all hover:-translate-y-1.5 active:scale-95 flex flex-col"
+                            >
+                                <div className="h-28 sm:h-32 md:h-36 bg-surface-container flex items-center justify-center p-2 sm:p-3 relative overflow-hidden">
+                                    <img
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                                        src={cat.img}
+                                        alt={cat.name}
+                                    />
+                                    <div className="absolute top-2 right-2 bg-surface/90 backdrop-blur text-primary text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 rounded-lg border border-primary/20 shadow-sm">
+                                        {loading ? "..." : `${count} ${count === 1 ? 'Item' : 'Items'}`}
+                                    </div>
+                                </div>
+                                <div className="p-3 sm:p-4 text-center bg-surface flex-1 flex flex-col justify-center">
+                                    <div className="flex items-center justify-center gap-1.5 mb-1">
+                                        <span className="material-symbols-outlined text-primary text-base sm:text-lg">{cat.icon}</span>
+                                        <h3 className="font-title-md text-xs sm:text-sm md:text-base font-bold text-on-surface group-hover:text-primary transition-colors truncate">
+                                            {cat.name}
+                                        </h3>
+                                    </div>
+                                    <p className="text-[11px] sm:text-xs text-on-surface-variant font-medium">
+                                        {loading ? "Loading..." : `${count} Available`}
+                                    </p>
+                                </div>
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </section>
