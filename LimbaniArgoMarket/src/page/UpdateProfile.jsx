@@ -307,7 +307,7 @@ const UpdateProfile = () => {
                                             <label className="block text-xs font-bold text-on-surface mb-1">Cover Banner Photo</label>
                                             <p className="text-[11px] text-on-surface-variant">Recommended 800x400 banner image</p>
                                         </div>
-                                        <div className="relative h-24 rounded-xl overflow-hidden bg-surface border border-outline-variant/30 flex items-center justify-center">
+                                        <div className="relative h-40 overflow-hidden bg-surface border border-outline-variant/30 flex items-center justify-center">
                                             {formData.coverimg ? (
                                                 <img src={formData.coverimg} alt="Cover Banner" className="w-full h-full object-cover" />
                                             ) : (
@@ -336,12 +336,16 @@ const UpdateProfile = () => {
                                             <label className="block text-xs font-bold text-on-surface mb-1">Profile Avatar Photo</label>
                                             <p className="text-[11px] text-on-surface-variant">Personal picture or company logo</p>
                                         </div>
-                                        <div className="relative h-24 rounded-xl overflow-hidden bg-surface border border-outline-variant/30 flex items-center justify-center">
-                                            {formData.profileimg ? (
-                                                <img src={formData.profileimg} alt="Avatar" className="w-full h-full object-cover" />
-                                            ) : (
-                                                <span className="material-symbols-outlined text-2xl text-outline">account_circle</span>
-                                            )}
+                                        <div className="flex justify-center my-1">
+                                            <div className="relative w-40 h-40 overflow-hidden bg-surface border-2 border-primary/30 shadow-md flex items-center justify-center shrink-0">
+                                                {formData.profileimg ? (
+                                                    <img src={formData.profileimg} alt="Avatar" className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="w-full h-full bg-primary text-on-primary flex items-center justify-center font-bold text-2xl">
+                                                        {(formData.name || 'U').charAt(0).toUpperCase()}
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                         <input
                                             type="file"
