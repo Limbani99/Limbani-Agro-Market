@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useData } from '../context/DataProvider';
+import UpdatePasswordModal from '../components/UpdatePasswordModal';
 
 const UpdateProfile = () => {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const UpdateProfile = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -181,237 +183,332 @@ const UpdateProfile = () => {
                 </div>
             </div>
 
-            <div className="max-w-3xl mx-auto px-3 sm:px-margin-mobile md:px-margin-desktop">
+            <div className="max-w-6xl mx-auto px-3 sm:px-margin-mobile md:px-margin-desktop">
 
-                {/* Card Container */}
-                <div className="bg-surface-container-lowest p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
-
-                    <div className="flex items-center justify-between gap-3 mb-5 sm:mb-6 pb-3.5 sm:pb-4 border-b border-outline-variant/20">
-                        <div className="flex items-center gap-3 min-w-0">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0">
-                                <span className="material-symbols-outlined text-xl sm:text-2xl">manage_accounts</span>
-                            </div>
-                            <div className="min-w-0">
-                                <h1 className="font-display-md text-lg sm:text-2xl font-bold text-on-surface truncate">Update Your Profile</h1>
-                                <p className="text-[11px] sm:text-sm text-on-surface-variant truncate">Update your account details and profile images</p>
-                            </div>
+                {/* Header Action Bar */}
+                <div className="mb-4 sm:mb-6 p-3 sm:p-5 bg-surface-container-lowest rounded-xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
+                    <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                        <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0 shadow-sm">
+                            <span className="material-symbols-outlined text-lg sm:text-2xl">manage_accounts</span>
                         </div>
-                        <Link
-                            to="/profile"
-                            className="px-3 py-2 sm:px-4 sm:py-2.5 bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 rounded-xl text-xs sm:text-sm font-bold text-on-surface transition-all shrink-0 flex items-center gap-1.5 active:scale-95 shadow-sm whitespace-nowrap"
-                        >
-                            <span className="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
-                            <span>Go Back</span>
-                        </Link>
+                        <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2">
+                                <h1 className="font-display-md text-sm sm:text-xl font-extrabold text-on-surface truncate">Update Profile Settings</h1>
+                                <Link
+                                    to="/profile"
+                                    className="px-2 py-1 sm:px-3 sm:py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded-md sm:rounded-xl text-[10px] sm:text-xs font-bold text-on-surface transition-all shrink-0 flex items-center gap-1 active:scale-95 shadow-sm whitespace-nowrap"
+                                >
+                                    <span className="material-symbols-outlined text-[10px] sm:text-[12px]">arrow_back</span>
+                                    <span>Go Back</span>
+                                </Link>
+                            </div>
+                            <p className="text-[10px] sm:text-xs text-on-surface-variant truncate mt-0.5">Manage your personal information, profile photos, and account security</p>
+                        </div>
                     </div>
+                </div>
 
-                    {message && (
-                        <div className="mb-5 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-primary/10 border border-primary/20 text-primary font-semibold text-xs sm:text-sm flex items-center gap-2">
-                            <span className="material-symbols-outlined text-lg sm:text-xl">check_circle</span>
-                            {message}
-                        </div>
-                    )}
+                {message && (
+                    <div className="mb-6 p-4 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-bold text-sm flex items-center gap-2.5 shadow-sm">
+                        <span className="material-symbols-outlined text-xl">check_circle</span>
+                        {message}
+                    </div>
+                )}
 
-                    {errorMsg && (
-                        <div className="mb-5 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-error/10 border border-error/20 text-error font-semibold text-xs sm:text-sm flex items-center gap-2">
-                            <span className="material-symbols-outlined text-lg sm:text-xl">error</span>
-                            {errorMsg}
-                        </div>
-                    )}
+                {errorMsg && (
+                    <div className="mb-6 p-4 rounded-2xl bg-error/10 border border-error/20 text-error font-bold text-sm flex items-center gap-2.5 shadow-sm">
+                        <span className="material-symbols-outlined text-xl">error</span>
+                        {errorMsg}
+                    </div>
+                )}
 
-                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                {/* Laptop & Computer Dual Column Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
-                        {/* Cover Banner Image Section */}
-                        <div className="space-y-2 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-surface-container/50 border border-outline-variant/20">
-                            <label className="block text-xs font-bold text-on-surface mb-1">Cover / Background Banner</label>
-                            <div className="relative h-28 sm:h-40 rounded-xl overflow-hidden bg-surface border-2 border-primary/20 flex items-center justify-center">
+                    {/* Left Column: Live Preview & Account Quick Card (Laptop/Desktop Sidebar) */}
+                    <div className="lg:col-span-4 space-y-6">
+                        {/* Live Profile Card */}
+                        <div className="bg-surface-container-lowest rounded-3xl border border-outline-variant/30 card-shadow overflow-hidden">
+                            {/* Banner Image */}
+                            <div className="relative h-32 sm:h-36 bg-surface-container overflow-hidden">
                                 {formData.coverimg ? (
-                                    <img src={formData.coverimg} alt="Cover Banner" className="absolute inset-0 w-full h-full object-cover" />
+                                    <img src={formData.coverimg} alt="Banner" className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-r from-primary/80 via-primary to-primary/90 flex flex-col items-center justify-center text-white p-3 text-center">
-                                        <span className="material-symbols-outlined text-2xl sm:text-3xl mb-1">wallpaper</span>
-                                        <span className="text-[11px] sm:text-xs font-semibold">No custom cover banner uploaded</span>
+                                    <div className="w-full h-full bg-gradient-to-r from-primary/80 via-primary to-primary/90 flex items-center justify-center text-white">
+                                        <span className="material-symbols-outlined text-3xl opacity-80">wallpaper</span>
                                     </div>
                                 )}
                             </div>
-                            <div className="flex justify-end pt-1 sm:pt-2">
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="cover-img-upload"
-                                    className="hidden"
-                                    onChange={handleCoverChange}
-                                />
-                                <label
-                                    htmlFor="cover-img-upload"
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 bg-surface-container border border-outline-variant text-on-surface text-xs font-bold rounded-xl cursor-pointer hover:bg-surface-container-high active:scale-95 transition-all"
-                                >
-                                    <span className="material-symbols-outlined text-sm sm:text-base">wallpaper</span>
-                                    Upload Banner Photo
-                                </label>
-                            </div>
-                        </div>
 
-                        {/* Profile Avatar Image Section - Horizontal layout on mobile */}
-                        <div className="flex items-center gap-3 sm:gap-6 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-surface-container/50 border border-outline-variant/20">
-                            <div className="relative w-16 h-16 sm:w-24 sm:h-24 rounded-xl sm:rounded-2xl overflow-hidden bg-surface border-2 border-primary/30 shrink-0">
-                                {formData.profileimg ? (
-                                    <img src={formData.profileimg} alt="Profile" className="w-full h-full object-cover" />
-                                ) : (
-                                    <div className="w-full h-full bg-primary text-on-primary flex items-center justify-center font-bold text-xl sm:text-3xl">
-                                        {(formData.name || 'U').charAt(0).toUpperCase()}
+                            {/* Avatar & User Details */}
+                            <div className="px-6 pb-6 pt-0 relative text-center">
+                                <div className="w-24 h-24 rounded-2xl overflow-hidden bg-surface border-4 border-surface-container-lowest shadow-xl mx-auto -mt-12 mb-3 relative z-10">
+                                    {formData.profileimg ? (
+                                        <img src={formData.profileimg} alt="Avatar" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full bg-primary text-on-primary flex items-center justify-center font-bold text-3xl">
+                                            {(formData.name || 'U').charAt(0).toUpperCase()}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <h2 className="font-display-md text-lg font-extrabold text-on-surface truncate">
+                                    {formData.name || 'Your Name'}
+                                </h2>
+                                <p className="text-xs text-on-surface-variant font-medium truncate mb-3">
+                                    {formData.email || 'your.email@example.com'}
+                                </p>
+
+                                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs border border-primary/20 mb-4">
+                                    <span className="material-symbols-outlined text-sm">verified</span> Agro Market Partner
+                                </div>
+
+                                <div className="space-y-2 border-t border-outline-variant/20 pt-4 text-left text-xs font-semibold text-on-surface-variant">
+                                    <div className="flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-base text-primary">call</span>
+                                        <span className="truncate">{formData.phone || 'No phone added'}</span>
                                     </div>
-                                )}
-                            </div>
-                            <div className="flex-1 text-left min-w-0">
-                                <label className="block text-xs font-bold text-on-surface mb-0.5 truncate">Profile Avatar Photo</label>
-                                <p className="text-[11px] sm:text-xs text-on-surface-variant mb-2 truncate sm:whitespace-normal">Upload your personal photo or logo (JPEG/PNG)</p>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="profile-img-upload"
-                                    className="hidden"
-                                    onChange={handleImageChange}
-                                />
-                                <label
-                                    htmlFor="profile-img-upload"
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 bg-surface-container border border-outline-variant text-on-surface text-xs font-bold rounded-xl cursor-pointer hover:bg-surface-container-high active:scale-95 transition-all shrink-0"
-                                >
-                                    <span className="material-symbols-outlined text-sm sm:text-base">photo_camera</span>
-                                    Choose Profile Photo
-                                </label>
-                            </div>
-                        </div>
-
-                        {/* Name & Email Row */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1 sm:mb-2">Full Name *</label>
-                                <div className="flex items-center px-3.5 py-2.5 sm:px-4 sm:py-3 bg-surface-container/50 rounded-xl sm:rounded-2xl border border-outline-variant/40 focus-within:border-primary transition-colors">
-                                    <span className="material-symbols-outlined text-outline text-lg sm:text-xl mr-2 shrink-0">person</span>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        required
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="e.g. Ramesh Patel"
-                                        className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0"
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1 sm:mb-2">Email Address *</label>
-                                <div className="flex items-center px-3.5 py-2.5 sm:px-4 sm:py-3 bg-surface-container/50 rounded-xl sm:rounded-2xl border border-outline-variant/40 focus-within:border-primary transition-colors">
-                                    <span className="material-symbols-outlined text-outline text-lg sm:text-xl mr-2 shrink-0">mail</span>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        required
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        placeholder="e.g. ramesh@gmail.com"
-                                        className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0"
-                                    />
+                                    <div className="flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-base text-primary">location_on</span>
+                                        <span className="truncate">{formData.address || 'Gujarat, India'}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Phone & Address Row */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1 sm:mb-2">Phone Number *</label>
-                                <div className="flex items-center px-3.5 py-2.5 sm:px-4 sm:py-3 bg-surface-container/50 rounded-xl sm:rounded-2xl border border-outline-variant/40 focus-within:border-primary transition-colors">
-                                    <span className="material-symbols-outlined text-outline text-lg sm:text-xl mr-2 shrink-0">call</span>
-                                    <input
-                                        type="text"
-                                        name="phone"
-                                        required
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        placeholder="e.g. +91 90233 41592"
-                                        className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0"
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1 sm:mb-2">Location / Address</label>
-                                <div className="flex items-center px-3.5 py-2.5 sm:px-4 sm:py-3 bg-surface-container/50 rounded-xl sm:rounded-2xl border border-outline-variant/40 focus-within:border-primary transition-colors">
-                                    <span className="material-symbols-outlined text-outline text-lg sm:text-xl mr-2 shrink-0">location_on</span>
-                                    <input
-                                        type="text"
-                                        name="address"
-                                        value={formData.address}
-                                        onChange={handleChange}
-                                        placeholder="e.g. Rajkot, Gujarat"
-                                        className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Skills / Services */}
-                        <div>
-                            <label className="block text-xs font-bold text-on-surface mb-1 sm:mb-2">Skills & Services (Comma Separated)</label>
-                            <div className="flex items-center px-3.5 py-2.5 sm:px-4 sm:py-3 bg-surface-container/50 rounded-xl sm:rounded-2xl border border-outline-variant/40 focus-within:border-primary transition-colors">
-                                <span className="material-symbols-outlined text-outline text-lg sm:text-xl mr-2 shrink-0">build</span>
-                                <input
-                                    type="text"
-                                    name="skills"
-                                    value={formData.skills}
-                                    onChange={handleChange}
-                                    placeholder="e.g. Tractor Repair, Rotavator Service, Harvester Dealer"
-                                    className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Description / About */}
-                        <div>
-                            <label className="block text-xs font-bold text-on-surface mb-1 sm:mb-2">About / Description</label>
-                            <textarea
-                                name="description"
-                                rows={3}
-                                value={formData.description}
-                                onChange={handleChange}
-                                placeholder="Describe your farming operations or dealership background..."
-                                className="w-full p-3 sm:p-4 bg-surface-container/50 rounded-xl sm:rounded-2xl border border-outline-variant/40 text-xs sm:text-sm text-on-surface outline-none focus:border-primary transition-colors resize-none"
-                            ></textarea>
-                        </div>
-
-                        {/* Submit Button */}
-                        <div className="flex items-center justify-end gap-2.5 sm:gap-3 pt-3 sm:pt-4 border-t border-outline-variant/20">
-                            <Link
-                                to="/profile"
-                                className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-surface-container border border-outline-variant text-on-surface font-bold text-xs sm:text-sm hover:bg-surface-container-high active:scale-95 transition-all"
-                            >
-                                Cancel
-                            </Link>
-
+                        {/* Security Quick Card */}
+                        <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline-variant/30 card-shadow space-y-3">
+                            <h3 className="font-title-md text-sm font-extrabold text-on-surface flex items-center gap-2">
+                                <span className="material-symbols-outlined text-base text-primary">shield</span> Account Security
+                            </h3>
+                            <p className="text-xs text-on-surface-variant">Update your password regularly to keep your seller account safe.</p>
                             <button
-                                type="submit"
-                                disabled={loading}
-                                className="px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-primary text-on-primary font-bold text-xs sm:text-sm hover:bg-primary/90 active:scale-95 transition-all shadow-md flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                                type="button"
+                                onClick={() => setIsPasswordModalOpen(true)}
+                                className="w-full py-3 px-4 rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 font-bold text-xs transition-all active:scale-95 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                             >
-                                {loading ? (
-                                    <>
-                                        <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Updating...
-                                    </>
-                                ) : (
-                                    <>
-                                        <span className="material-symbols-outlined text-base sm:text-lg">save</span>
-                                        Save Changes
-                                    </>
-                                )}
+                                <span className="material-symbols-outlined text-base">lock_reset</span>
+                                <span>Change Password</span>
                             </button>
                         </div>
+                    </div>
 
-                    </form>
+                    {/* Right Column: Update Form (Main Area) */}
+                    <div className="lg:col-span-8">
+                        <div className="bg-surface-container-lowest p-5 sm:p-8 rounded-3xl border border-outline-variant/30 card-shadow">
+
+                            <form onSubmit={handleSubmit} className="space-y-6">
+
+                                {/* Photo Uploads Grid (Laptop 2 Columns) */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                    {/* Cover Banner Upload */}
+                                    <div className="p-4 rounded-2xl bg-surface-container/40 border border-outline-variant/20 flex flex-col justify-between space-y-3">
+                                        <div>
+                                            <label className="block text-xs font-bold text-on-surface mb-1">Cover Banner Photo</label>
+                                            <p className="text-[11px] text-on-surface-variant">Recommended 800x400 banner image</p>
+                                        </div>
+                                        <div className="relative h-24 rounded-xl overflow-hidden bg-surface border border-outline-variant/30 flex items-center justify-center">
+                                            {formData.coverimg ? (
+                                                <img src={formData.coverimg} alt="Cover Banner" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="material-symbols-outlined text-2xl text-outline">wallpaper</span>
+                                            )}
+                                        </div>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            id="cover-img-upload"
+                                            className="hidden"
+                                            onChange={handleCoverChange}
+                                        />
+                                        <label
+                                            htmlFor="cover-img-upload"
+                                            className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-surface-container border border-outline-variant text-on-surface text-xs font-bold rounded-xl cursor-pointer hover:bg-surface-container-high active:scale-95 transition-all text-center"
+                                        >
+                                            <span className="material-symbols-outlined text-base">wallpaper</span>
+                                            Upload Banner
+                                        </label>
+                                    </div>
+
+                                    {/* Profile Avatar Upload */}
+                                    <div className="p-4 rounded-2xl bg-surface-container/40 border border-outline-variant/20 flex flex-col justify-between space-y-3">
+                                        <div>
+                                            <label className="block text-xs font-bold text-on-surface mb-1">Profile Avatar Photo</label>
+                                            <p className="text-[11px] text-on-surface-variant">Personal picture or company logo</p>
+                                        </div>
+                                        <div className="relative h-24 rounded-xl overflow-hidden bg-surface border border-outline-variant/30 flex items-center justify-center">
+                                            {formData.profileimg ? (
+                                                <img src={formData.profileimg} alt="Avatar" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="material-symbols-outlined text-2xl text-outline">account_circle</span>
+                                            )}
+                                        </div>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            id="profile-img-upload"
+                                            className="hidden"
+                                            onChange={handleImageChange}
+                                        />
+                                        <label
+                                            htmlFor="profile-img-upload"
+                                            className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-surface-container border border-outline-variant text-on-surface text-xs font-bold rounded-xl cursor-pointer hover:bg-surface-container-high active:scale-95 transition-all text-center"
+                                        >
+                                            <span className="material-symbols-outlined text-base">photo_camera</span>
+                                            Choose Photo
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {/* Personal Information Section */}
+                                <div className="space-y-4 pt-2">
+                                    <h3 className="font-title-md text-sm font-extrabold text-on-surface pb-2 border-b border-outline-variant/20 flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-base text-primary">person</span> Personal & Contact Details
+                                    </h3>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-on-surface mb-1.5">Full Name *</label>
+                                            <div className="flex items-center px-4 py-3 bg-surface-container/40 rounded-xl border border-outline-variant/40 focus-within:border-primary transition-colors">
+                                                <span className="material-symbols-outlined text-outline text-lg mr-2 shrink-0">person</span>
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    required
+                                                    value={formData.name}
+                                                    onChange={handleChange}
+                                                    placeholder="e.g. Ramesh Patel"
+                                                    className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0 font-medium"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-on-surface mb-1.5">Email Address *</label>
+                                            <div className="flex items-center px-4 py-3 bg-surface-container/40 rounded-xl border border-outline-variant/40 focus-within:border-primary transition-colors">
+                                                <span className="material-symbols-outlined text-outline text-lg mr-2 shrink-0">mail</span>
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    required
+                                                    value={formData.email}
+                                                    onChange={handleChange}
+                                                    placeholder="e.g. ramesh@gmail.com"
+                                                    className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0 font-medium"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-on-surface mb-1.5">Phone Number *</label>
+                                            <div className="flex items-center px-4 py-3 bg-surface-container/40 rounded-xl border border-outline-variant/40 focus-within:border-primary transition-colors">
+                                                <span className="material-symbols-outlined text-outline text-lg mr-2 shrink-0">call</span>
+                                                <input
+                                                    type="text"
+                                                    name="phone"
+                                                    required
+                                                    value={formData.phone}
+                                                    onChange={handleChange}
+                                                    placeholder="e.g. +91 90233 41592"
+                                                    className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0 font-medium"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-on-surface mb-1.5">Location / Address</label>
+                                            <div className="flex items-center px-4 py-3 bg-surface-container/40 rounded-xl border border-outline-variant/40 focus-within:border-primary transition-colors">
+                                                <span className="material-symbols-outlined text-outline text-lg mr-2 shrink-0">location_on</span>
+                                                <input
+                                                    type="text"
+                                                    name="address"
+                                                    value={formData.address}
+                                                    onChange={handleChange}
+                                                    placeholder="e.g. Rajkot, Gujarat"
+                                                    className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0 font-medium"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Skills & Description Section */}
+                                <div className="space-y-4 pt-2">
+                                    <h3 className="font-title-md text-sm font-extrabold text-on-surface pb-2 border-b border-outline-variant/20 flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-base text-primary">storefront</span> Agro Business & Services
+                                    </h3>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Skills & Services (Comma Separated)</label>
+                                        <div className="flex items-center px-4 py-3 bg-surface-container/40 rounded-xl border border-outline-variant/40 focus-within:border-primary transition-colors">
+                                            <span className="material-symbols-outlined text-outline text-lg mr-2 shrink-0">build</span>
+                                            <input
+                                                type="text"
+                                                name="skills"
+                                                value={formData.skills}
+                                                onChange={handleChange}
+                                                placeholder="e.g. Tractor Sales, Harvester Rental, Rotavator Service"
+                                                className="w-full bg-transparent border-none text-xs sm:text-sm text-on-surface outline-none focus:ring-0 font-medium"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">About / Dealership Description</label>
+                                        <textarea
+                                            name="description"
+                                            rows={4}
+                                            value={formData.description}
+                                            onChange={handleChange}
+                                            placeholder="Describe your agricultural business background, machinery stock, or dealership experience..."
+                                            className="w-full p-4 bg-surface-container/40 rounded-xl border border-outline-variant/40 text-xs sm:text-sm text-on-surface outline-none focus:border-primary transition-colors resize-none font-medium"
+                                        ></textarea>
+                                    </div>
+                                </div>
+
+                                {/* Submit & Cancel Action Buttons */}
+                                <div className="flex items-center justify-end gap-3 pt-4 border-t border-outline-variant/20">
+                                    <Link
+                                        to="/profile"
+                                        className="px-6 py-3 rounded-xl bg-surface-container border border-outline-variant text-on-surface font-bold text-xs sm:text-sm hover:bg-surface-container-high active:scale-95 transition-all"
+                                    >
+                                        Cancel
+                                    </Link>
+
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="px-8 py-3 rounded-xl bg-primary text-on-primary font-bold text-xs sm:text-sm hover:bg-primary/90 active:scale-95 transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                                    >
+                                        {loading ? (
+                                            <>
+                                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                                Saving Changes...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span className="material-symbols-outlined text-lg">save</span>
+                                                Save Profile Changes
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+            {/* Update Password Modal */}
+            <UpdatePasswordModal
+                isOpen={isPasswordModalOpen}
+                onClose={() => setIsPasswordModalOpen(false)}
+                userId={userData?._id || userData?.id}
+            />
         </main>
     );
 };
