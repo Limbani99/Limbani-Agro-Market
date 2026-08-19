@@ -175,28 +175,29 @@ const EditProduct = () => {
             <div className="max-w-6xl mx-auto">
 
                 {/* Header Action Bar */}
-                <div className="flex items-center justify-between gap-3 mb-6 p-4 sm:p-6 bg-surface-container-lowest rounded-2xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
-                    <div className="flex items-center gap-3.5 min-w-0">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0 shadow-sm">
-                            <span className="material-symbols-outlined text-xl sm:text-2xl">edit</span>
+                <div className="mb-4 sm:mb-6 p-3 sm:p-5 bg-surface-container-lowest rounded-xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
+                    <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                        <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0 shadow-sm">
+                            <span className="material-symbols-outlined text-lg sm:text-2xl">edit</span>
                         </div>
-                        <div className="min-w-0">
-                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] sm:text-xs tracking-wide uppercase mb-1">
-                                <span>Edit Listing</span>
+                        <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2">
+                                <h1 className="font-display-md text-xs sm:text-lg md:text-xl font-extrabold text-on-surface leading-tight">
+                                    Update Equipment Details
+                                </h1>
+                                <Link
+                                    to="/profile"
+                                    className="px-2 py-1 sm:px-3 sm:py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded-md sm:rounded-xl text-[10px] sm:text-xs font-bold text-on-surface transition-all shrink-0 flex items-center gap-1 active:scale-95 shadow-sm whitespace-nowrap"
+                                >
+                                    <span className="material-symbols-outlined text-[10px] sm:text-[12px]">arrow_back</span>
+                                    <span>Go Back</span>
+                                </Link>
                             </div>
-                            <h1 className="font-display-lg text-lg sm:text-2xl font-extrabold text-on-surface truncate">
-                                Update Equipment Details
-                            </h1>
+                            <p className="text-[10px] sm:text-xs text-on-surface-variant truncate mt-0.5 font-medium">
+                                Edit listing specifications, price, location, and photos
+                            </p>
                         </div>
                     </div>
-
-                    <Link
-                        to="/profile"
-                        className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold text-on-surface transition-all shrink-0 flex items-center gap-1 active:scale-95 shadow-sm whitespace-nowrap"
-                    >
-                        <span className="material-symbols-outlined text-[10px] sm:text-[12px]">arrow_back</span>
-                        <span>Go Back</span>
-                    </Link>
                 </div>
 
                 {successMsg && (
