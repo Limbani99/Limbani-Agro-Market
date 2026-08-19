@@ -178,22 +178,24 @@ const Equipments = () => {
                                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold text-[10px] sm:text-xs border border-primary/20">
                                             <span className="material-symbols-outlined text-xs sm:text-sm">minor_crash</span> Tractors & Harvesters
                                         </span>
-                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px] sm:text-[11px] border border-outline-variant/30">
-                                            {drivableProducts.length} Available
-                                        </span>
                                     </div>
                                     <h2 className="font-display-lg text-base sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight truncate">
                                         Drivable Vehicles
                                     </h2>
                                 </div>
 
-                                <Link
-                                    to="/drivable-vehicles"
-                                    className="inline-flex items-center justify-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 hover:border-primary font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm active:scale-95 shrink-0"
-                                >
-                                    <span>View More</span>
-                                    <span className="material-symbols-outlined text-sm sm:text-base">arrow_forward</span>
-                                </Link>
+                                <div className="flex flex-col items-end gap-1 shrink-0">
+                                    <Link
+                                        to="/drivable-vehicles"
+                                        className="inline-flex items-center justify-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 hover:border-primary font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm active:scale-95 shrink-0"
+                                    >
+                                        <span>View More</span>
+                                        <span className="material-symbols-outlined text-sm sm:text-base">arrow_forward</span>
+                                    </Link>
+                                    <span className="text-[10px] sm:text-[11px] font-bold text-on-surface-variant">
+                                        {drivableProducts.length} Vehicles Available
+                                    </span>
+                                </div>
                             </div>
 
                             {drivableProducts.length > 0 ? (
@@ -233,22 +235,24 @@ const Equipments = () => {
                                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-bold text-[10px] sm:text-xs border border-secondary/20">
                                             <span className="material-symbols-outlined text-xs sm:text-sm">handyman</span> Implements & Attachments
                                         </span>
-                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px] sm:text-[11px] border border-outline-variant/30">
-                                            {nonDrivableProducts.length} Available
-                                        </span>
                                     </div>
                                     <h2 className="font-display-lg text-base sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight truncate">
                                         Non - Drivable Vehicles
                                     </h2>
                                 </div>
 
-                                <Link
-                                    to="/nondrivable-vehicles"
-                                    className="inline-flex items-center justify-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary border border-secondary/20 hover:border-secondary font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm active:scale-95 shrink-0"
-                                >
-                                    <span>View More</span>
-                                    <span className="material-symbols-outlined text-sm sm:text-base">arrow_forward</span>
-                                </Link>
+                                <div className="flex flex-col items-end gap-1 shrink-0">
+                                    <Link
+                                        to="/nondrivable-vehicles"
+                                        className="inline-flex items-center justify-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary border border-secondary/20 hover:border-secondary font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm active:scale-95 shrink-0"
+                                    >
+                                        <span>View More</span>
+                                        <span className="material-symbols-outlined text-sm sm:text-base">arrow_forward</span>
+                                    </Link>
+                                    <span className="text-[10px] sm:text-[11px] font-bold text-on-surface-variant">
+                                        {nonDrivableProducts.length} Implements Available
+                                    </span>
+                                </div>
                             </div>
 
                             {nonDrivableProducts.length > 0 ? (
