@@ -250,7 +250,7 @@ const EditProduct = () => {
                                 </div>
 
                                 <p className="font-extrabold text-xl text-primary mb-2">
-                                    {formData.price ? `₹${formData.price}` : '₹0'}
+                                    {formData.price ? `₹${formData.price}` : 'Price'}
                                 </p>
 
                                 <div className="flex items-center gap-1 text-xs text-on-surface-variant font-medium mb-3 truncate">
