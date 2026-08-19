@@ -150,25 +150,30 @@ const AddNonDrivable = () => {
     };
 
     return (
-        <main className="min-h-screen bg-surface dark:bg-surface-dim pt-24 pb-16 px-4 sm:px-margin-mobile md:px-margin-desktop transition-colors">
-            <div className="max-w-[900px] mx-auto">
+        <main className="min-h-screen bg-surface dark:bg-surface-dim pt-24 pb-16 px-3 sm:px-margin-mobile md:px-margin-desktop transition-colors">
+            <div className="max-w-6xl mx-auto">
 
-                {/* Navigation & Header */}
-                <div className="flex items-center justify-between gap-3 mb-4 sm:mb-6 border-b border-outline-variant/30 pb-3.5 sm:pb-4">
-                    <div className="min-w-0">
-                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] sm:text-xs tracking-wide uppercase mb-1">
-                            <span className="material-symbols-outlined text-[12px] sm:text-[14px]">hardware</span>
-                            <span>Category: Non-Drivable Equipment</span>
+                {/* Header Action Bar */}
+                <div className="flex items-center justify-between gap-3 mb-6 p-4 sm:p-6 bg-surface-container-lowest rounded-2xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
+                    <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold shrink-0 shadow-sm">
+                            <span className="material-symbols-outlined text-xl sm:text-2xl">hardware</span>
                         </div>
-                        <h1 className="font-display-lg text-xl sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight tracking-tight break-words">
-                            List Non-Drivable Equipment / Implement
-                        </h1>
+                        <div className="min-w-0">
+                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] sm:text-xs tracking-wide uppercase mb-1">
+                                <span>Category: Non-Drivable Equipment</span>
+                            </div>
+                            <h1 className="font-display-lg text-lg sm:text-2xl font-extrabold text-on-surface truncate">
+                                List Non-Drivable Equipment / Implement
+                            </h1>
+                        </div>
                     </div>
+
                     <Link
                         to="/add-product"
-                        className="px-3 py-2 sm:px-4 sm:py-2.5 bg-surface-container-high hover:bg-primary/10 hover:text-primary border border-outline-variant/40 rounded-xl text-xs sm:text-sm font-bold text-on-surface transition-all shrink-0 flex items-center gap-1.5 active:scale-95 shadow-sm whitespace-nowrap"
+                        className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold text-on-surface transition-all shrink-0 flex items-center gap-1 active:scale-95 shadow-sm whitespace-nowrap"
                     >
-                        <span className="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
+                        <span className="material-symbols-outlined text-[10px] sm:text-[12px]">arrow_back</span>
                         <span>Go Back</span>
                     </Link>
                 </div>
@@ -181,235 +186,315 @@ const AddNonDrivable = () => {
                     </div>
                 )}
 
-                {/* Main Form */}
-                <form onSubmit={handleSubmit} className="bg-surface-container-lowest dark:bg-surface-container-low p-6 sm:p-10 rounded-3xl card-shadow border border-outline-variant/40 space-y-6">
+                {/* Laptop & Computer Dual Column Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
-                    {/* Section 1: Seller & Company Info */}
-                    <div className="space-y-4">
-                        <h2 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
-                            <span className="material-symbols-outlined text-primary text-lg sm:text-xl">person</span>
-                            Seller Information
-                        </h2>
+                    {/* Left Column: Live Equipment Preview & Photo Sidebar */}
+                    <div className="lg:col-span-4 space-y-6">
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {/* Seller Name * */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Seller Name *</label>
-                                <input
-                                    type="text"
-                                    name="sellerName"
-                                    required
-                                    placeholder="e.g. Patel Man Nareshbhai"
-                                    value={formData.sellerName}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
-                                />
-                            </div>
-
-                            {/* Company (Optional) */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Company / Dealership (Optional)</label>
-                                <input
-                                    type="text"
-                                    name="company"
-                                    placeholder="e.g. Limbani Agro Implements"
-                                    value={formData.company}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Section 2: Equipment Details */}
-                    <div className="space-y-4 pt-2">
-                        <h2 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
-                            <span className="material-symbols-outlined text-primary text-lg sm:text-xl">hardware</span>
-                            Equipment Details
-                        </h2>
-
-                        {/* Product Name * */}
-                        <div>
-                            <label className="block text-xs font-bold text-on-surface mb-1.5">Product / Equipment Name *</label>
-                            <input
-                                type="text"
-                                name="productName"
-                                required
-                                placeholder="e.g. Shaktiman 6ft Heavy Duty Rotavator"
-                                value={formData.productName}
-                                onChange={handleChange}
-                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
-                            />
-                        </div>
-
-                        {/* Category & Brand Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {/* Category * */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Implement Category *</label>
-                                <select
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all cursor-pointer"
-                                >
-                                    <option value="Rotavator">Rotavator</option>
-                                    <option value="Cultivator">Cultivator</option>
-                                    <option value="Plough">Plough / Disc Plough</option>
-                                    <option value="Harrow">Harrow / Disc Harrow</option>
-                                    <option value="Seed Drill">Seed Drill / Planter</option>
-                                    <option value="Thresher">Thresher</option>
-                                    <option value="Trailer">Tractor Trailer / Trolley</option>
-                                    <option value="Baler">Baler / Straw Reaper</option>
-                                </select>
-                            </div>
-
-                            {/* Brand * */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Brand / Manufacturer *</label>
-                                <select
-                                    name="brand"
-                                    value={formData.brand}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all cursor-pointer"
-                                >
-                                    <option value="Shaktiman">Shaktiman</option>
-                                    <option value="Fieldking">Fieldking</option>
-                                    <option value="Lemken">Lemken</option>
-                                    <option value="Khedut">Khedut</option>
-                                    <option value="Mahindra">Mahindra Implements</option>
-                                    <option value="Soil Master">Soil Master</option>
-                                    <option value="Garud">Garud</option>
-                                    <option value="Universal">Universal</option>
-                                    <option value="Custom / Local">Custom / Local Workshop</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        {/* Price, Condition, Manufacture Year Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            {/* Price * */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Asking Price (₹) *</label>
-                                <input
-                                    type="number"
-                                    name="price"
-                                    required
-                                    placeholder="e.g. 95000"
-                                    value={formData.price}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
-                                />
-                            </div>
-
-                            {/* Condition * */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Condition *</label>
-                                <select
-                                    name="condition"
-                                    value={formData.condition}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all cursor-pointer"
-                                >
-                                    <option value="Used">Used / Pre-owned</option>
-                                    <option value="New">Brand New</option>
-                                </select>
-                            </div>
-
-                            {/* Manufacture Year (Optional) */}
-                            <div>
-                                <label className="block text-xs font-bold text-on-surface mb-1.5">Manufacture Year (Optional)</label>
-                                <input
-                                    type="number"
-                                    name="manufactureYear"
-                                    placeholder="e.g. 2023"
-                                    value={formData.manufactureYear}
-                                    onChange={handleChange}
-                                    className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Address / Location * */}
-                        <div>
-                            <label className="block text-xs font-bold text-on-surface mb-1.5">Location / Address *</label>
-                            <input
-                                type="text"
-                                name="address"
-                                required
-                                placeholder="e.g. Madasana Kampa, Medhasan, Dist Arvalli, Gujarat"
-                                value={formData.address}
-                                onChange={handleChange}
-                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all"
-                            />
-                        </div>
-
-                        {/* Description (Optional) */}
-                        <div>
-                            <label className="block text-xs font-bold text-on-surface mb-1.5">Description & Details (Optional)</label>
-                            <textarea
-                                name="description"
-                                rows="3"
-                                placeholder="Blade condition, working width (ft), gearbox condition, usage history..."
-                                value={formData.description}
-                                onChange={handleChange}
-                                className="w-full bg-surface border border-outline-variant/50 focus:border-primary rounded-xl px-4 py-3 text-sm text-on-surface outline-none transition-all resize-none"
-                            ></textarea>
-                        </div>
-                    </div>
-
-                    {/* Section 3: Image Upload */}
-                    <div className="space-y-4 pt-2">
-                        <h2 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
-                            <span className="material-symbols-outlined text-primary text-lg sm:text-xl">add_a_photo</span>
-                            Upload Photos (Max 4 Photos)
-                        </h2>
-
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            {/* Uploaded Image Previews */}
-                            {imagePreviews.map((preview, index) => (
-                                <div key={index} className="relative h-28 rounded-2xl overflow-hidden border border-outline-variant/40 group shadow-sm">
-                                    <img src={preview} alt={`Upload ${index + 1}`} className="w-full h-full object-cover" />
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemoveImage(index)}
-                                        className="absolute top-1.5 right-1.5 w-7 h-7 bg-black/70 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-                                    >
-                                        <span className="material-symbols-outlined text-sm">close</span>
-                                    </button>
-                                </div>
-                            ))}
-
-                            {/* Add Photo Button Slot */}
-                            {images.length < 4 && (
-                                <label className="h-28 rounded-2xl border-2 border-dashed border-outline-variant/60 hover:border-primary bg-surface/50 hover:bg-primary/5 flex flex-col items-center justify-center cursor-pointer transition-all">
-                                    <span className="material-symbols-outlined text-2xl text-primary mb-1">add_photo_alternate</span>
-                                    <span className="text-xs font-bold text-on-surface-variant">Add Photo ({images.length}/4)</span>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        multiple
-                                        onChange={handleImageChange}
-                                        className="hidden"
+                        {/* Live Vehicle Card Preview */}
+                        <div className="bg-surface-container-lowest rounded-3xl border border-outline-variant/30 card-shadow overflow-hidden group">
+                            <div className="relative h-48 sm:h-56 bg-surface-container overflow-hidden block">
+                                {imagePreviews.length > 0 ? (
+                                    <img
+                                        src={imagePreviews[0]}
+                                        alt={formData.productName}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
-                                </label>
-                            )}
+                                ) : (
+                                    <div className="w-full h-full flex flex-col items-center justify-center text-outline bg-surface-container/60">
+                                        <span className="material-symbols-outlined text-4xl mb-1 text-primary">hardware</span>
+                                        <span className="text-xs font-bold text-on-surface-variant">Live Card Preview</span>
+                                    </div>
+                                )}
+                                <div className="absolute top-3 left-3 bg-secondary-container text-on-secondary-container font-bold text-xs px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
+                                    <span className="material-symbols-outlined text-sm">visibility</span> Preview
+                                </div>
+                            </div>
+
+                            <div className="p-5">
+                                <div className="flex justify-between items-start gap-2 mb-2">
+                                    <h3 className="font-title-md text-base font-extrabold text-on-surface line-clamp-2 leading-snug">
+                                        {formData.productName || 'Product Name'}
+                                    </h3>
+                                    <span className="bg-primary/10 text-primary font-bold px-2 py-0.5 rounded text-xs shrink-0 border border-primary/20">
+                                        {formData.condition || 'Used'}
+                                    </span>
+                                </div>
+
+                                <p className="font-extrabold text-xl text-primary mb-2">
+                                    {formData.price ? `₹${Number(formData.price).toLocaleString('en-IN')}` : 'Price'}
+                                </p>
+
+                                <div className="flex items-center gap-1 text-xs text-on-surface-variant font-medium mb-3 truncate">
+                                    <span className="material-symbols-outlined text-sm text-primary shrink-0">location_on</span>
+                                    <span className="truncate">{formData.address || 'Seller Location'}</span>
+                                </div>
+
+                                <div className="flex items-center gap-1.5 text-xs text-on-surface-variant font-semibold flex-wrap pt-2.5 border-t border-outline-variant/20">
+                                    {formData.category && (
+                                        <span className="bg-surface-container px-2.5 py-1 rounded-md border border-outline-variant/30">
+                                            {formData.category}
+                                        </span>
+                                    )}
+                                    {formData.brand && (
+                                        <span className="bg-surface-container px-2.5 py-1 rounded-md border border-outline-variant/30">
+                                            {formData.brand}
+                                        </span>
+                                    )}
+                                    {formData.manufactureYear && (
+                                        <span className="bg-surface-container px-2.5 py-1 rounded-md border border-outline-variant/30">
+                                            {formData.manufactureYear}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {formData.sellerName && (
+                                    <div className="mt-3 pt-2.5 border-t border-outline-variant/20 flex items-center gap-2 text-xs text-on-surface-variant font-medium">
+                                        <span className="material-symbols-outlined text-sm text-primary">person</span>
+                                        <span className="truncate">{formData.sellerName} {formData.company ? `(${formData.company})` : ''}</span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
+
+                        {/* Image Upload Gallery Card */}
+                        <div className="bg-surface-container-lowest p-5 sm:p-6 rounded-3xl border border-outline-variant/30 card-shadow space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h3 className="font-title-md text-sm font-extrabold text-on-surface flex items-center gap-2">
+                                    <span className="material-symbols-outlined text-base text-primary">add_a_photo</span> Equipment Photos ({imagePreviews.length}/4)
+                                </h3>
+                            </div>
+
+                            {/* Gallery Previews Grid */}
+                            <div className="grid grid-cols-2 gap-2.5">
+                                {imagePreviews.map((preview, index) => (
+                                    <div key={index} className="relative h-24 rounded-xl overflow-hidden border border-outline-variant/40 group shadow-sm">
+                                        <img src={preview} alt={`Upload ${index + 1}`} className="w-full h-full object-cover" />
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveImage(index)}
+                                            className="absolute top-1.5 right-1.5 w-6 h-6 bg-black/70 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
+                                        >
+                                            <span className="material-symbols-outlined text-xs">close</span>
+                                        </button>
+                                    </div>
+                                ))}
+
+                                {images.length < 4 && (
+                                    <label className="h-24 rounded-xl border-2 border-dashed border-primary/30 hover:border-primary bg-primary/5 hover:bg-primary/10 flex flex-col items-center justify-center cursor-pointer transition-all text-center p-2">
+                                        <span className="material-symbols-outlined text-xl text-primary mb-0.5">add_photo_alternate</span>
+                                        <span className="text-[10px] font-bold text-primary">Add Photo</span>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            multiple
+                                            onChange={handleImageChange}
+                                            className="hidden"
+                                        />
+                                    </label>
+                                )}
+                            </div>
+                        </div>
+
                     </div>
 
-                    {/* Submit Button */}
-                    <div className="pt-3 sm:pt-4 border-t border-outline-variant/30">
-                        <button
-                            type="submit"
-                            disabled={submitting}
-                            className="w-full bg-primary text-on-primary font-bold text-xs sm:text-base py-3 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-primary/90 active:scale-98 transition-all shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer disabled:opacity-50"
-                        >
-                            <span className="material-symbols-outlined text-base sm:text-xl">publish</span>
-                            <span>{submitting ? 'Publishing Equipment...' : 'Publish Equipment Listing'}</span>
-                        </button>
+                    {/* Right Column: Form Fields Main Area */}
+                    <div className="lg:col-span-8">
+                        <form onSubmit={handleSubmit} className="bg-surface-container-lowest dark:bg-surface-container-low p-5 sm:p-8 rounded-3xl card-shadow border border-outline-variant/30 space-y-6">
+
+                            {/* Section 1: Seller & Company Info */}
+                            <div className="space-y-4">
+                                <h2 className="text-sm font-extrabold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
+                                    <span className="material-symbols-outlined text-primary text-base">person</span>
+                                    Seller Details
+                                </h2>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Seller Name *</label>
+                                        <input
+                                            type="text"
+                                            name="sellerName"
+                                            required
+                                            placeholder="e.g. Patel Man Nareshbhai"
+                                            value={formData.sellerName}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Company / Dealership (Optional)</label>
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            placeholder="e.g. Limbani Agro Implements"
+                                            value={formData.company}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Section 2: Equipment Details */}
+                            <div className="space-y-4 pt-2">
+                                <h2 className="text-sm font-extrabold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
+                                    <span className="material-symbols-outlined text-primary text-base">hardware</span>
+                                    Equipment Specifications
+                                </h2>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-on-surface mb-1.5">Product / Equipment Name *</label>
+                                    <input
+                                        type="text"
+                                        name="productName"
+                                        required
+                                        placeholder="e.g. Shaktiman 6ft Heavy Duty Rotavator"
+                                        value={formData.productName}
+                                        onChange={handleChange}
+                                        className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Implement Category *</label>
+                                        <select
+                                            name="category"
+                                            value={formData.category}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors cursor-pointer"
+                                        >
+                                            <option value="Rotavator">Rotavator</option>
+                                            <option value="Cultivator">Cultivator</option>
+                                            <option value="Plough">Plough / Disc Plough</option>
+                                            <option value="Harrow">Harrow / Disc Harrow</option>
+                                            <option value="Seed Drill">Seed Drill / Planter</option>
+                                            <option value="Thresher">Thresher</option>
+                                            <option value="Trailer">Tractor Trailer / Trolley</option>
+                                            <option value="Baler">Baler / Straw Reaper</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Brand / Manufacturer *</label>
+                                        <select
+                                            name="brand"
+                                            value={formData.brand}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors cursor-pointer"
+                                        >
+                                            <option value="Shaktiman">Shaktiman</option>
+                                            <option value="Fieldking">Fieldking</option>
+                                            <option value="Lemken">Lemken</option>
+                                            <option value="Khedut">Khedut</option>
+                                            <option value="Mahindra">Mahindra Implements</option>
+                                            <option value="Soil Master">Soil Master</option>
+                                            <option value="Garud">Garud</option>
+                                            <option value="Universal">Universal</option>
+                                            <option value="Custom / Local">Custom / Local Workshop</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Asking Price (₹) *</label>
+                                        <input
+                                            type="number"
+                                            name="price"
+                                            required
+                                            placeholder="e.g. 95000"
+                                            value={formData.price}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Condition *</label>
+                                        <select
+                                            name="condition"
+                                            value={formData.condition}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors cursor-pointer"
+                                        >
+                                            <option value="Used">Used / Pre-owned</option>
+                                            <option value="New">Brand New</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-on-surface mb-1.5">Manufacture Year</label>
+                                        <input
+                                            type="number"
+                                            name="manufactureYear"
+                                            placeholder="e.g. 2023"
+                                            value={formData.manufactureYear}
+                                            onChange={handleChange}
+                                            className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Section 3: Location & Description */}
+                            <div className="space-y-4 pt-2">
+                                <h2 className="text-sm font-extrabold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-2">
+                                    <span className="material-symbols-outlined text-primary text-base">location_on</span>
+                                    Location & Details
+                                </h2>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-on-surface mb-1.5">Location / Address *</label>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        required
+                                        placeholder="e.g. Madasana Kampa, Medhasan, Dist Arvalli, Gujarat"
+                                        value={formData.address}
+                                        onChange={handleChange}
+                                        className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-on-surface mb-1.5">Description & Condition Notes</label>
+                                    <textarea
+                                        name="description"
+                                        rows="3"
+                                        placeholder="Blade condition, working width (ft), gearbox condition, usage history..."
+                                        value={formData.description}
+                                        onChange={handleChange}
+                                        className="w-full bg-surface-container/40 border border-outline-variant/40 focus:border-primary rounded-xl px-4 py-3 text-xs sm:text-sm text-on-surface outline-none transition-colors resize-none"
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            {/* Submit Actions */}
+                            <div className="pt-4 border-t border-outline-variant/20 flex items-center justify-end gap-3">
+                                <Link
+                                    to="/add-product"
+                                    className="px-6 py-3 rounded-xl bg-surface-container border border-outline-variant text-on-surface font-bold text-xs sm:text-sm hover:bg-surface-container-high active:scale-95 transition-all"
+                                >
+                                    Cancel
+                                </Link>
+                                <button
+                                    type="submit"
+                                    disabled={submitting}
+                                    className="px-8 py-3 rounded-xl bg-primary text-on-primary font-bold text-xs sm:text-sm hover:bg-primary/90 active:scale-95 transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                                >
+                                    <span className="material-symbols-outlined text-lg">publish</span>
+                                    <span>{submitting ? 'Publishing Equipment...' : 'Publish Equipment Listing'}</span>
+                                </button>
+                            </div>
+
+                        </form>
                     </div>
 
-                </form>
+                </div>
 
             </div>
         </main>
