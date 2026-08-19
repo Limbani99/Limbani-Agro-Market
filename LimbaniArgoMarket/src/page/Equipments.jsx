@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import EquipmentCard from '../components/EquipmentCard';
 import { useData } from '../context/DataProvider';
 
@@ -7,10 +8,6 @@ const Equipments = () => {
     const { getAllProduct } = useData();
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
-
-    // View More toggles for sections
-    const [showAllDrivable, setShowAllDrivable] = useState(false);
-    const [showAllNonDrivable, setShowAllNonDrivable] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -77,8 +74,9 @@ const Equipments = () => {
     const drivableProducts = filteredEquipments.filter(item => !isItemNonDrivable(item));
     const nonDrivableProducts = filteredEquipments.filter(item => isItemNonDrivable(item));
 
-    const visibleDrivable = showAllDrivable ? drivableProducts : drivableProducts.slice(0, 6);
-    const visibleNonDrivable = showAllNonDrivable ? nonDrivableProducts : nonDrivableProducts.slice(0, 6);
+    // Display top 8 on Equipments page
+    const visibleDrivable = drivableProducts.slice(0, 8);
+    const visibleNonDrivable = nonDrivableProducts.slice(0, 8);
 
     return (
         <main className="w-full pt-[72px] pb-20 min-h-screen bg-background">
@@ -173,19 +171,29 @@ const Equipments = () => {
                 ) : (
                     <>
                         {/* 1. Drivable Vehicles Section */}
-                        <section className="bg-surface-container-lowest p-4 sm:p-6 md:p-8 rounded-3xl border border-outline-variant/30 card-shadow">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-outline-variant/20">
-                                <div>
-                                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary mb-1">
-                                        <span className="material-symbols-outlined text-base">minor_crash</span> Tractors & Harvesters
+                        <section className="bg-surface-container-lowest p-3.5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
+                            <div className="flex flex-row items-center justify-between gap-2 mb-4 pb-3 border-b border-outline-variant/20">
+                                <div className="space-y-1 min-w-0 flex-1">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold text-[10px] sm:text-xs border border-primary/20">
+                                            <span className="material-symbols-outlined text-xs sm:text-sm">minor_crash</span> Tractors & Harvesters
+                                        </span>
+                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px] sm:text-[11px] border border-outline-variant/30">
+                                            {drivableProducts.length} Available
+                                        </span>
                                     </div>
-                                    <h2 className="font-display-lg text-xl sm:text-2xl md:text-3xl font-extrabold text-on-surface">
+                                    <h2 className="font-display-lg text-base sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight truncate">
                                         Drivable Vehicles
                                     </h2>
                                 </div>
-                                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold text-xs self-start sm:self-auto">
-                                    {drivableProducts.length} Vehicles Available
-                                </span>
+
+                                <Link
+                                    to="/drivable-vehicles"
+                                    className="inline-flex items-center justify-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 hover:border-primary font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm active:scale-95 shrink-0"
+                                >
+                                    <span>View More</span>
+                                    <span className="material-symbols-outlined text-sm sm:text-base">arrow_forward</span>
+                                </Link>
                             </div>
 
                             {drivableProducts.length > 0 ? (
@@ -197,15 +205,15 @@ const Equipments = () => {
                                     </div>
 
                                     {/* View More Button */}
-                                    {drivableProducts.length > 6 && (
-                                        <div className="text-center mt-8 pt-4 border-t border-outline-variant/20">
-                                            <button
-                                                onClick={() => setShowAllDrivable(!showAllDrivable)}
-                                                className="px-6 py-2.5 rounded-xl bg-surface-container hover:bg-primary/10 border border-outline-variant/40 hover:border-primary/50 text-on-surface hover:text-primary font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-sm inline-flex items-center gap-2 cursor-pointer"
+                                    {drivableProducts.length > 8 && (
+                                        <div className="text-center mt-6 sm:mt-8 pt-3 sm:pt-4 border-t border-outline-variant/20">
+                                            <Link
+                                                to="/drivable-vehicles"
+                                                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-primary text-on-primary hover:bg-primary/90 font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-md inline-flex items-center gap-2 cursor-pointer"
                                             >
-                                                <span>{showAllDrivable ? 'Show Less' : `View More Drivable Vehicles (${drivableProducts.length - 6}+)`}</span>
-                                                <span className="material-symbols-outlined text-lg">{showAllDrivable ? 'expand_less' : 'expand_more'}</span>
-                                            </button>
+                                                <span>View All Drivable Vehicles ({drivableProducts.length})</span>
+                                                <span className="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
+                                            </Link>
                                         </div>
                                     )}
                                 </>
@@ -218,19 +226,29 @@ const Equipments = () => {
                         </section>
 
                         {/* 2. Non-Drivable Vehicles Section */}
-                        <section className="bg-surface-container-lowest p-4 sm:p-6 md:p-8 rounded-3xl border border-outline-variant/30 card-shadow">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-outline-variant/20">
-                                <div>
-                                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-secondary mb-1">
-                                        <span className="material-symbols-outlined text-base">handyman</span> Implements & Attachments
+                        <section className="bg-surface-container-lowest p-3.5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-outline-variant/30 card-shadow">
+                            <div className="flex flex-row items-center justify-between gap-2 mb-4 pb-3 border-b border-outline-variant/20">
+                                <div className="space-y-1 min-w-0 flex-1">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-bold text-[10px] sm:text-xs border border-secondary/20">
+                                            <span className="material-symbols-outlined text-xs sm:text-sm">handyman</span> Implements & Attachments
+                                        </span>
+                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px] sm:text-[11px] border border-outline-variant/30">
+                                            {nonDrivableProducts.length} Available
+                                        </span>
                                     </div>
-                                    <h2 className="font-display-lg text-xl sm:text-2xl md:text-3xl font-extrabold text-on-surface">
+                                    <h2 className="font-display-lg text-base sm:text-2xl md:text-3xl font-extrabold text-on-surface leading-tight truncate">
                                         Non - Drivable Vehicles
                                     </h2>
                                 </div>
-                                <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 font-bold text-xs self-start sm:self-auto">
-                                    {nonDrivableProducts.length} Implements Available
-                                </span>
+
+                                <Link
+                                    to="/nondrivable-vehicles"
+                                    className="inline-flex items-center justify-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary border border-secondary/20 hover:border-secondary font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm active:scale-95 shrink-0"
+                                >
+                                    <span>View More</span>
+                                    <span className="material-symbols-outlined text-sm sm:text-base">arrow_forward</span>
+                                </Link>
                             </div>
 
                             {nonDrivableProducts.length > 0 ? (
@@ -242,15 +260,15 @@ const Equipments = () => {
                                     </div>
 
                                     {/* View More Button */}
-                                    {nonDrivableProducts.length > 6 && (
+                                    {nonDrivableProducts.length > 8 && (
                                         <div className="text-center mt-8 pt-4 border-t border-outline-variant/20">
-                                            <button
-                                                onClick={() => setShowAllNonDrivable(!showAllNonDrivable)}
-                                                className="px-6 py-2.5 rounded-xl bg-surface-container hover:bg-secondary/10 border border-outline-variant/40 hover:border-secondary/50 text-on-surface hover:text-secondary font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-sm inline-flex items-center gap-2 cursor-pointer"
+                                            <Link
+                                                to="/nondrivable-vehicles"
+                                                className="px-6 py-3 rounded-xl bg-secondary text-on-secondary hover:bg-secondary/90 font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-md inline-flex items-center gap-2 cursor-pointer"
                                             >
-                                                <span>{showAllNonDrivable ? 'Show Less' : `View More Non-Drivable Vehicles (${nonDrivableProducts.length - 6}+)`}</span>
-                                                <span className="material-symbols-outlined text-lg">{showAllNonDrivable ? 'expand_less' : 'expand_more'}</span>
-                                            </button>
+                                                <span>View All Non - Drivable Vehicles ({nonDrivableProducts.length})</span>
+                                                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                                            </Link>
                                         </div>
                                     )}
                                 </>

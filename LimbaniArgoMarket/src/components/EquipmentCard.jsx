@@ -31,45 +31,46 @@ const EquipmentCard = ({ equipment, showContact = true }) => {
             <div className="p-2.5 sm:p-4 flex flex-col flex-grow">
                 <Link to={`/equipment/${equipment.id}`} className="block group-hover:text-primary transition-colors">
                     <div className="flex justify-between items-start gap-1 mb-1">
-                        <h3 className="font-title-md text-xs sm:text-base font-bold text-on-surface group-hover:text-primary line-clamp-1 sm:line-clamp-2 leading-snug">{equipment.name}</h3>
+                        <h3 className="font-title-md text-xs sm:text-base font-extrabold text-on-surface group-hover:text-primary line-clamp-1 sm:line-clamp-2 leading-snug">{equipment.name}</h3>
                         {equipment.isVerified && (
-                            <span className="bg-primary/10 text-primary font-label-sm px-1.5 py-0.5 rounded text-[10px] sm:text-xs shrink-0 font-semibold border border-primary/20">Verified</span>
+                            <span className="bg-primary/10 text-primary font-label-sm px-1.5 py-0.5 rounded text-[9px] sm:text-xs shrink-0 font-bold border border-primary/20">Verified</span>
                         )}
                     </div>
                     
-                    <p className="font-bold text-sm sm:text-lg text-primary mb-1 sm:mb-2">{equipment.price}</p>
+                    <p className="font-extrabold text-sm sm:text-lg text-primary mb-1">{equipment.price}</p>
                 </Link>
                 
-                {/* Location - Visible on Mobile & Desktop */}
-                <div className="flex items-center gap-0.5 text-[11px] sm:text-sm text-on-surface-variant mb-2 sm:mb-4">
-                    <span className="material-symbols-outlined text-[14px] sm:text-[16px] text-primary/80 shrink-0">location_on</span>
+                {/* Location */}
+                <div className="flex items-center gap-0.5 text-[11px] sm:text-xs text-on-surface-variant font-medium mb-1.5 truncate">
+                    <span className="material-symbols-outlined text-[13px] sm:text-[15px] text-primary shrink-0">location_on</span>
                     <span className="truncate">{equipment.location}</span>
                 </div>
 
-                {/* Specs - Hidden on tiny mobile grid, visible on sm and up */}
-                <div className="hidden sm:flex gap-3 md:gap-4 mb-4 border-t border-b border-outline-variant/20 py-2.5">
-                    <div className="flex flex-col">
-                        <span className="text-[11px] text-on-surface-variant">Year</span>
-                        <span className="text-xs sm:text-sm text-on-surface font-semibold">{equipment.year}</span>
-                    </div>
-                    <div className="w-px bg-outline-variant/30"></div>
-                    <div className="flex flex-col">
-                        <span className="text-[11px] text-on-surface-variant">{equipment.hours ? 'Hours' : 'Width'}</span>
-                        <span className="text-xs sm:text-sm text-on-surface font-semibold">{equipment.hours || equipment.width}</span>
-                    </div>
-                    <div className="w-px bg-outline-variant/30"></div>
-                    <div className="flex flex-col">
-                        <span className="text-[11px] text-on-surface-variant">Condition</span>
-                        <span className="text-xs sm:text-sm text-on-surface font-semibold">{equipment.condition}</span>
-                    </div>
+                {/* Specs Pills - Visible on Mobile & Desktop */}
+                <div className="flex items-center gap-1 mb-3 text-[9px] sm:text-xs text-on-surface-variant font-semibold flex-wrap">
+                    {equipment.year && (
+                        <span className="bg-surface-container px-1.5 py-0.5 rounded-md border border-outline-variant/30">
+                            {equipment.year}
+                        </span>
+                    )}
+                    {equipment.hours && (
+                        <span className="bg-surface-container px-1.5 py-0.5 rounded-md border border-outline-variant/30">
+                            {equipment.hours}
+                        </span>
+                    )}
+                    {equipment.condition && (
+                        <span className="bg-surface-container px-1.5 py-0.5 rounded-md border border-outline-variant/30">
+                            {equipment.condition}
+                        </span>
+                    )}
                 </div>
 
                 {showContact && (
                     <div className="mt-auto flex gap-1.5 sm:gap-2 pt-1">
-                        <a href={`tel:${equipment.seller?.phone || '+919023341592'}`} className="flex-1 bg-primary text-on-primary font-bold text-xs sm:text-sm py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex justify-center items-center gap-1 sm:gap-2 shadow-sm">
+                        <a href={`tel:${equipment.seller?.phone || '+919023341592'}`} className="flex-1 bg-primary text-on-primary font-bold text-xs sm:text-sm py-2 rounded-xl hover:bg-primary/90 active:scale-95 transition-all flex justify-center items-center gap-1 shadow-sm">
                             <span className="material-symbols-outlined text-[16px] sm:text-[18px]">call</span> Call
                         </a>
-                        <a href={`https://wa.me/${equipment.seller?.whatsapp || '919023341592'}`} target="_blank" rel="noreferrer" className="bg-[#25D366]/10 text-[#128C7E] font-bold text-xs sm:text-sm px-2.5 sm:px-4 py-2 rounded-xl hover:bg-[#25D366]/20 active:scale-95 transition-all flex justify-center items-center border border-[#25D366]/30">
+                        <a href={`https://wa.me/${equipment.seller?.whatsapp || '919023341592'}`} target="_blank" rel="noreferrer" className="bg-[#25D366]/10 text-[#25D366] font-bold text-xs sm:text-sm px-2.5 sm:px-4 py-2 rounded-xl hover:bg-[#25D366]/20 active:scale-95 transition-all flex justify-center items-center border border-[#25D366]/30 shadow-sm">
                             <span className="material-symbols-outlined text-[16px] sm:text-[18px]">chat</span>
                         </a>
                     </div>

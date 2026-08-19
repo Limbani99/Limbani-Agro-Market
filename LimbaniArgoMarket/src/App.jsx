@@ -16,6 +16,8 @@ import AddDrivable from './page/AddDrivable'
 import AddNonDrivable from './page/AddNonDrivable'
 import EditProduct from './page/EditProduct'
 import CategoryProducts from './page/CategoryProducts'
+import DrivableVehicles from './page/DrivableVehicles'
+import NonDrivableVehicles from './page/NonDrivableVehicles'
 import NotFound from './page/NotFound'
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
           <Route path='/categories' element={<Categories />} />
           <Route path='/category/:categoryName' element={<CategoryProducts />} />
           <Route path='/equipments' element={<Equipments />} />
+          <Route path='/drivable-vehicles' element={<DrivableVehicles />} />
+          <Route path='/nondrivable-vehicles' element={<NonDrivableVehicles />} />
           <Route path='/equipment/:id' element={<EquipmentDetails />} />
           <Route path='/dealers' element={<Dealers />} />
           <Route path='/dealer/:id' element={<DealerDetails />} />
