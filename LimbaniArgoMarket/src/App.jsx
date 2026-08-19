@@ -19,10 +19,12 @@ import CategoryProducts from './page/CategoryProducts'
 import DrivableVehicles from './page/DrivableVehicles'
 import NonDrivableVehicles from './page/NonDrivableVehicles'
 import NotFound from './page/NotFound'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
