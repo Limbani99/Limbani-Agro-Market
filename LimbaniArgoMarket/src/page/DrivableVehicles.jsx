@@ -81,9 +81,10 @@ const DrivableVehicles = () => {
 
                     <Link
                         to="/equipments"
-                        className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline"
+                        className="inline-flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-on-primary border border-primary/20 hover:border-primary font-bold text-[10px] sm:text-xs transition-all duration-200 shadow-sm active:scale-95 shrink-0"
                     >
-                        <span className="material-symbols-outlined text-sm">arrow_back</span> Back to Equipment
+                        <span className="material-symbols-outlined text-xs sm:text-sm">arrow_back</span>
+                        <span>Back to Equipment</span>
                     </Link>
                 </div>
             </div>
